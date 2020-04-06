@@ -1,22 +1,12 @@
-# def man():
-    #read file
-file = open("yesno.txt", "r")
-lines = file.readlines()
-file.close()
+import os
 
-#look for patterns
-countYes = 0
-countNo = 0
-for line in lines:
-    line = line.strip().upper()
-    #print(line)
-    if line.find("YES") != -1:
-        countYes = countYes + 1
-    if line.find("NO") != -1:
-        countNo = countNo +1
+os.chdir(r'P:\2019\19042\PAP 04') #получает список файлов в папке
 
-    #display result
-print("Yes: ", countYes)
-print("No: ", countNo)
+for f in os.listdir():
+    file_name, file_ext = os.path.splitext(f)
+    f_job, f_release, f_num = file_name.split('-')
 
-# man()
+    f_job = f_job.strip()
+    f_release = f_release.strip()
+    f_num = f_num.strip()[1:].zfill(2)
+    print('{}-{}-{}{}'.format(f_num, f_release, f_job, file_ext))

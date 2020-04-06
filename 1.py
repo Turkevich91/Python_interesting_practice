@@ -1,9 +1,15 @@
-import requests
+from requests_html import HTMLSession
 from bs4 import BeautifulSoup as BS
 
-r = requests.get('https://3dnews.ru/')
-html = BS(r.content, 'html.parser')
+session = HTMLSession()
+result = session.get("https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6")
+result.html.render()
+#r = requests.get('https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6')
+html = BS(result.content, 'html.parser')
 
-for el in html.select('.content-block-data'):
-    title = el.select('.content-block-data h1')
-    print(title[0].text)
+#print(html)
+
+for el in html.select('div'):
+    title = el.select('div')
+    for x in range(len(title)):
+        print(title[x])

@@ -1,0 +1,756 @@
+
+
+ 	 ***********************************************
+ 	      KIT Information --- Subjob 1 of 1
+
+ 	 Kit Name:    19042_alltogather
+ 	 Material:    Aluminum
+ 	 Thickness:   0.125000
+ 	 Machine:     
+ 	 ***********************************************
+
+
+
+	*********************************************************************
+	***  STOCK SELECTION LAYOUT SUMMARY  ***
+
+	Nest System Filename   : C:\Users\Public\Documents\Striker Systems\FabCAD\SSNest\jobs061\NJ00033.nop
+	Total Scrap            : 101167.92
+	Material Utilization   : 73.03%
+	Total Nest Scrap       : 97943.32
+	Nest Utilization       : 73.89%
+	Total Blanks           : 56
+
+	Qty	Width	Length	Patterns
+
+	21	48.07	120.07	18
+	5	48.07	144.07	5
+	28	60.07	120.07	28
+	2	60.07	144.07	2
+
+	*********************************************************************
+	*** PART SUMMARY ***
+	Num/Desc					Width	Length	Qty
+	KW-11                                         	15.85	86.97	1
+	KW-14                                         	15.85	96.97	2
+	KW-14X                                        	15.85	96.97	1
+	KW-14Y                                        	15.85	96.97	1
+	KW-15                                         	15.85	113.61	1
+	KW-20                                         	15.85	94.82	1
+	KW-22                                         	15.85	80.23	1
+	KW-24                                         	15.85	96.97	4
+	KW-24-X                                       	15.85	84.97	3
+	KW-24Y                                        	15.85	96.97	1
+	KW-24Z                                        	15.85	96.97	1
+	KW-25                                         	15.85	69.33	1
+	KW-26                                         	15.85	85.70	1
+	KW-27                                         	15.85	96.97	1
+	KW-30                                         	15.85	86.97	1
+	KW-33                                         	34.70	119.47	1
+	KW-35                                         	34.70	109.47	1
+	KW-37                                         	34.70	112.17	1
+	KW-38                                         	34.70	112.17	1
+	KW-39                                         	34.78	112.24	1
+	KW-40                                         	34.70	109.47	1
+	KW-42                                         	34.70	119.47	1
+	PH-10                                         	36.71	96.97	1
+	PH-11                                         	36.71	96.97	2
+	PH-12                                         	36.71	96.97	1
+	PH-13                                         	36.71	79.10	1
+	PH-14                                         	28.24	96.97	1
+	PH-15                                         	28.24	96.97	3
+	PH-16                                         	28.24	95.75	1
+	PH-17                                         	31.22	98.06	1
+	PH-18                                         	31.44	96.39	1
+	PH-19                                         	31.44	97.23	1
+	PH-19A                                        	2.50	5.23	1
+	PH-20                                         	36.71	98.58	1
+	PH-21                                         	36.71	98.58	1
+	PH-22                                         	28.24	98.58	2
+	PH-23                                         	31.22	90.47	1
+	PH-23A                                        	2.50	5.02	1
+	PH-24                                         	31.22	90.47	1
+	PH-25                                         	31.22	29.14	1
+	PH-26                                         	31.22	96.29	1
+	PH-27                                         	31.22	96.29	1
+	PH-28                                         	31.22	29.14	1
+	PH-29                                         	31.22	108.97	1
+	PH-30                                         	31.22	23.42	1
+	PH-31                                         	31.22	91.89	1
+	PH-32                                         	31.22	119.47	4
+	PH-33                                         	31.22	91.85	1
+	PH-34                                         	31.22	23.42	1
+	PH-35                                         	31.22	114.86	1
+	PH-36                                         	31.22	23.64	1
+	PH-37                                         	31.22	116.91	1
+	PH-38                                         	31.22	116.91	1
+	PH-39                                         	31.81	23.64	1
+	PH-40                                         	31.81	91.74	2
+	PH-41                                         	31.81	91.74	1
+	PH-41A                                        	2.50	5.61	1
+	PH-42                                         	36.71	108.71	1
+	PH-43                                         	36.71	108.71	1
+	PH-44                                         	28.24	108.71	2
+	PH-45                                         	31.70	123.07	1
+	PH-45A                                        	2.50	5.50	1
+	PH-46                                         	31.70	123.07	4
+	PH-47                                         	31.70	123.07	1
+	PH-47A                                        	2.50	5.50	1
+	PH-48                                         	36.71	117.25	1
+	PH-49                                         	28.24	117.25	1
+	PH-50                                         	28.24	28.55	1
+	PH-51                                         	36.71	128.15	1
+	PH-52                                         	36.71	100.08	1
+	PH-53                                         	28.24	98.89	1
+	PH-54                                         	28.24	100.08	1
+	PH-55                                         	30.97	33.22	1
+	PH-55A                                        	2.50	4.77	1
+	PH-56                                         	30.97	27.53	1
+	PH-57                                         	30.97	89.47	1
+	PH-58                                         	30.97	44.34	1
+	PH-59                                         	30.97	108.94	1
+	PH-60                                         	30.97	92.97	1
+	PH-61                                         	30.97	92.97	1
+	PH-61A                                        	2.50	4.77	1
+	PH-62                                         	36.71	111.95	1
+	PH-63                                         	36.71	111.95	1
+	PH-64                                         	36.71	103.00	2
+	PH-65                                         	36.71	115.76	1
+	PH-66                                         	28.24	111.95	2
+	PH-67                                         	28.24	103.00	2
+	PH-68                                         	28.24	28.78	1
+	PH-69                                         	28.24	86.24	1
+
+	*********************************************************************
+	*** Layout Number 1 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :75.94
+	Nest Utilization :76.84
+	Different Parts  :8
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-19A             	5.23 X 2.50		1		1
+	PH-23A             	5.02 X 2.50		1		1
+	PH-41A             	5.61 X 2.50		1		1
+	PH-45A             	5.50 X 2.50		1		1
+	PH-47A             	5.50 X 2.50		1		1
+	PH-48              	117.25 X 36.71		1		1
+	PH-55A             	4.77 X 2.50		1		1
+	PH-61A             	4.77 X 2.50		1		1
+
+	*********************************************************************
+	*** Layout Number 2 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :73.55
+	Nest Utilization :74.21
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-65              	115.76 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 3 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :71.15
+	Nest Utilization :71.80
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-63              	111.95 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 4 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :71.15
+	Nest Utilization :71.80
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-62              	111.95 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 5 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :69.09
+	Nest Utilization :69.72
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-43              	108.71 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 6 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :69.09
+	Nest Utilization :69.72
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-42              	108.71 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 7 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :65.46
+	Nest Utilization :66.06
+	Different Parts  :1
+	Number of Blanks :2
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-64              	103.00 X 36.71		1		2
+
+	*********************************************************************
+	*** Layout Number 8 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :95.46
+	Nest Utilization :96.68
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-15              	113.61 X 15.85		1		1
+	PH-32              	119.47 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 9 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :90.91
+	Nest Utilization :92.06
+	Different Parts  :2
+	Number of Blanks :3
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24              	96.97 X 15.85		1		3
+	PH-32              	119.47 X 31.22		1		3
+
+	*********************************************************************
+	*** Layout Number 10 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :71.68
+	Nest Utilization :72.50
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-39              	23.64 X 31.81		1		1
+	PH-52              	100.08 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 11 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :62.64
+	Nest Utilization :63.23
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-20              	98.58 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 12 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :59.61
+	Nest Utilization :60.33
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-21              	98.58 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 13 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :88.42
+	Nest Utilization :89.54
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24              	96.97 X 15.85		1		1
+	PH-35              	114.86 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 14 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :71.63
+	Nest Utilization :72.44
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-11              	96.97 X 36.71		1		1
+	PH-56              	27.53 X 30.97		1		1
+
+	*********************************************************************
+	*** Layout Number 15 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :61.62
+	Nest Utilization :62.20
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-11              	96.97 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 16 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :58.59
+	Nest Utilization :59.31
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-12              	96.97 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 17 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :58.59
+	Nest Utilization :59.31
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-10              	96.97 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 18 ***
+	Blank size       :120.07L X 48.07W.
+	Mat. Utilization :85.23
+	Nest Utilization :86.34
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-14              	96.97 X 15.85		1		1
+	PH-29              	108.97 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 19 ***
+	Blank size       :144.07L X 48.07W.
+	Mat. Utilization :67.86
+	Nest Utilization :68.46
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-51              	128.15 X 36.71		1		1
+
+	*********************************************************************
+	*** Layout Number 20 ***
+	Blank size       :144.07L X 48.07W.
+	Mat. Utilization :87.26
+	Nest Utilization :88.43
+	Different Parts  :3
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-14              	96.97 X 15.85		1		1
+	PH-28              	29.14 X 31.22		1		1
+	PH-45              	123.07 X 31.70		1		1
+
+	*********************************************************************
+	*** Layout Number 21 ***
+	Blank size       :144.07L X 48.07W.
+	Mat. Utilization :78.23
+	Nest Utilization :79.20
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-14X             	96.97 X 15.85		1		1
+	PH-46              	123.07 X 31.70		1		1
+
+	*********************************************************************
+	*** Layout Number 22 ***
+	Blank size       :144.07L X 48.07W.
+	Mat. Utilization :78.23
+	Nest Utilization :79.20
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-14Y             	96.97 X 15.85		1		1
+	PH-46              	123.07 X 31.70		1		1
+
+	*********************************************************************
+	*** Layout Number 23 ***
+	Blank size       :144.07L X 48.07W.
+	Mat. Utilization :78.23
+	Nest Utilization :79.20
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24Y             	96.97 X 15.85		1		1
+	PH-46              	123.07 X 31.70		1		1
+
+	*********************************************************************
+	*** Layout Number 24 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :92.40
+	Nest Utilization :93.41
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-37              	116.91 X 31.22		1		1
+	PH-49              	117.25 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 25 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :90.13
+	Nest Utilization :91.12
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-38              	116.91 X 31.22		1		1
+	PH-66              	111.95 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 26 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :86.85
+	Nest Utilization :87.81
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-59              	108.94 X 30.97		1		1
+	PH-66              	111.95 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 27 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :84.79
+	Nest Utilization :85.75
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-44              	108.71 X 28.24		2		2
+
+	*********************************************************************
+	*** Layout Number 28 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :82.30
+	Nest Utilization :83.21
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-19              	97.23 X 31.44		1		1
+	PH-67              	103.00 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 29 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :80.81
+	Nest Utilization :82.08
+	Different Parts  :5
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-25              	69.33 X 15.85		1		1
+	PH-13              	79.10 X 36.71		1		1
+	PH-34              	23.42 X 31.22		1		1
+	PH-55              	33.22 X 30.97		1		1
+	PH-68              	28.78 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 30 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :67.69
+	Nest Utilization :68.66
+	Different Parts  :3
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-11              	86.97 X 15.85		1		1
+	PH-40              	91.74 X 31.81		1		1
+	PH-50              	28.55 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 31 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :65.74
+	Nest Utilization :66.71
+	Different Parts  :3
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-30              	86.97 X 15.85		1		1
+	PH-30              	23.42 X 31.22		1		1
+	PH-40              	91.74 X 31.81		1		1
+
+	*********************************************************************
+	*** Layout Number 32 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :65.27
+	Nest Utilization :66.24
+	Different Parts  :3
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-26              	85.70 X 15.85		1		1
+	PH-36              	23.64 X 31.22		1		1
+	PH-41              	91.74 X 31.81		1		1
+
+	*********************************************************************
+	*** Layout Number 33 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :79.86
+	Nest Utilization :80.75
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-60              	92.97 X 30.97		1		1
+	PH-67              	103.00 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 34 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :78.72
+	Nest Utilization :79.60
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-54              	100.08 X 28.24		1		1
+	PH-61              	92.97 X 30.97		1		1
+
+	*********************************************************************
+	*** Layout Number 35 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :77.36
+	Nest Utilization :78.23
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-22              	98.58 X 28.24		1		1
+	PH-23              	90.47 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 36 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :77.36
+	Nest Utilization :78.23
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-22              	98.58 X 28.24		1		1
+	PH-24              	90.47 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 37 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :76.00
+	Nest Utilization :76.86
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-15              	96.97 X 28.24		1		1
+	PH-57              	89.47 X 30.97		1		1
+
+	*********************************************************************
+	*** Layout Number 38 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :75.80
+	Nest Utilization :76.67
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-15              	96.97 X 28.24		1		1
+	PH-18              	96.39 X 31.44		1		1
+
+	*********************************************************************
+	*** Layout Number 39 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :75.60
+	Nest Utilization :76.48
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-14              	96.97 X 28.24		1		1
+	PH-15              	96.97 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 40 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :73.68
+	Nest Utilization :74.54
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-27              	96.29 X 31.22		1		1
+	PH-53              	98.89 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 41 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :72.19
+	Nest Utilization :73.04
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-16              	95.75 X 28.24		1		1
+	PH-26              	96.29 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 42 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :67.09
+	Nest Utilization :67.89
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-31              	91.89 X 31.22		1		1
+	PH-69              	86.24 X 28.24		1		1
+
+	*********************************************************************
+	*** Layout Number 43 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :51.54
+	Nest Utilization :52.20
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-33              	91.85 X 31.22		1		1
+	PH-58              	44.34 X 30.97		1		1
+
+	*********************************************************************
+	*** Layout Number 44 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :64.73
+	Nest Utilization :65.73
+	Different Parts  :3
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-20              	94.82 X 15.85		1		1
+	PH-17              	98.06 X 31.22		1		1
+	PH-25              	29.14 X 31.22		1		1
+
+	*********************************************************************
+	*** Layout Number 45 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :77.31
+	Nest Utilization :78.31
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24Z             	96.97 X 15.85		1		1
+	KW-33              	119.47 X 34.70		1		1
+
+	*********************************************************************
+	*** Layout Number 46 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :77.31
+	Nest Utilization :78.31
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-27              	96.97 X 15.85		1		1
+	KW-42              	119.47 X 34.70		1		1
+
+	*********************************************************************
+	*** Layout Number 47 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :72.66
+	Nest Utilization :73.52
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24-X            	84.97 X 15.85		1		1
+	KW-39              	112.24 X 34.78		1		1
+
+	*********************************************************************
+	*** Layout Number 48 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :72.51
+	Nest Utilization :73.38
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24-X            	84.97 X 15.85		1		1
+	KW-37              	112.17 X 34.70		1		1
+
+	*********************************************************************
+	*** Layout Number 49 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :72.51
+	Nest Utilization :73.38
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-24-X            	84.97 X 15.85		1		1
+	KW-38              	112.17 X 34.70		1		1
+
+	*********************************************************************
+	*** Layout Number 50 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :68.64
+	Nest Utilization :69.55
+	Different Parts  :2
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-22              	80.23 X 15.85		1		1
+	KW-35              	109.47 X 34.70		1		1
+
+	*********************************************************************
+	*** Layout Number 51 ***
+	Blank size       :120.07L X 60.07W.
+	Mat. Utilization :51.06
+	Nest Utilization :51.63
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	KW-40              	109.47 X 34.70		1		1
+
+	*********************************************************************
+	*** Layout Number 52 ***   SKIP IT, I HAVE ALREADY MADE IT
+	Blank size       :144.07L X 60.07W.
+	Mat. Utilization :44.88
+	Nest Utilization :45.33
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-46              	123.07 X 31.70		1		1
+
+	*********************************************************************
+	*** Layout Number 53 ***
+	Blank size       :144.07L X 60.07W.
+	Mat. Utilization :44.88
+	Nest Utilization :45.33
+	Different Parts  :1
+	Number of Blanks :1
+
+	PartNo.			Width x Length	    Blank/Qty	    Total/Qty
+	PH-47              	123.07 X 31.70		1		1

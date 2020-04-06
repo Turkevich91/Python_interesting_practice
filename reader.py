@@ -1,0 +1,6 @@
+file = open('19042p04.sum')
+#file.seek(0)
+data = file.read()
+print(data)
+file.close()
+print('File closed:', file.closed)

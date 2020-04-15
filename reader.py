@@ -11,9 +11,12 @@ while line:
         line = f.readline()
         while line != '\n':
             S = line.replace(':', "").split()
-            print(S[0[0]])
+            # print(S[0][0])
+            # parts.append(S)
+            S[1] = float(S[1])
+            S[2] = float(S[2])
+            S[3] = int(S[3])
             parts.append(S)
-            # parts.append(S[0], float(S[1]), float(S[2]), int(S[3]))
             # parts[1,2]= float(parts[1]), float(parts)
             line = f.readline()
 

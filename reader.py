@@ -5,30 +5,20 @@ f = open("19042p04.sum", "r")
 line = f.readline()
 while line:
     S = line.replace(':', "").split()
-    print(S)
+    # print(S)
     if line == '\t*** PART SUMMARY ***\n':
-        line = f.readline()
-        line = f.readline()
+        print('@'*50 + '\n' + '\t'*5 + 'Part list\n' + '@'*50)
+        f.readline()    # Просто пропускает одну строку бесполезных данных
+        line = f.readline()     # начиная с этой строки и дальше данные проверяются и записываются
         while line != '\n':
             S = line.replace(':', "").split()
-            # print(S[0][0])
-            # parts.append(S)
-            S[1] = float(S[1])
-            S[2] = float(S[2])
-            S[3] = int(S[3])
+            S[1], S[2], S[3] = float(S[1]), float(S[2]), int(S[3])
             parts.append(S)
-            # parts[1,2]= float(parts[1]), float(parts)
+            print(S)
             line = f.readline()
+
+    if line == '\t*** Layout Number 1 ***\n':
+        pass
 
     line = f.readline()
 f.close()
-# print(line)
-for x in len(parts):
-    print(parts[x])
-
-
-# intab = ':Xx'
-# outtab = '   '
-# res = line.translate(line.maketrans(intab, outtab))
-# print(res)
-

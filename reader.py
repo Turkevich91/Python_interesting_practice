@@ -1,7 +1,8 @@
 #import re
 parts = []
-
-f = open("19042p04.sum", "r")
+nest = []
+layout = []
+f = open(r"19042p04.sum", "r")
 line = f.readline()
 while line:
     S = line.replace(':', "").split()
@@ -11,14 +12,22 @@ while line:
         f.readline()    # Просто пропускает одну строку бесполезных данных
         line = f.readline()     # начиная с этой строки и дальше данные проверяются и записываются
         while line != '\n':
-            S = line.replace(':', "").split()
+            S = line.replace(':', "").split(':')
             S[1], S[2], S[3] = float(S[1]), float(S[2]), int(S[3])
             parts.append(S)
             print(S)
             line = f.readline()
 
-    if line == '\t*** Layout Number 1 ***\n':
-        pass
+    if line.startswith('\t*** Layout Number ') & line.endswith(' ***\n'):
+        line = f.readline()
+        while line != '\n':
+            pass
+
+        line = f.readline()
+        while line != '\n':
+            pass
+
+
 
     line = f.readline()
 f.close()

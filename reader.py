@@ -1,4 +1,4 @@
-#import re
+# import re
 parts = []
 nest = []
 layout = []
@@ -12,7 +12,7 @@ while line:
         f.readline()    # Просто пропускает одну строку бесполезных данных
         line = f.readline()     # начиная с этой строки и дальше данные проверяются и записываются
         while line != '\n':
-            S = line.replace(':', "").split(':')
+            S = line.replace(':', "").split()
             S[1], S[2], S[3] = float(S[1]), float(S[2]), int(S[3])
             parts.append(S)
             print(S)
@@ -26,8 +26,6 @@ while line:
         line = f.readline()
         while line != '\n':
             pass
-
-
 
     line = f.readline()
 f.close()

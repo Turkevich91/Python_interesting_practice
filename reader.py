@@ -1,7 +1,5 @@
 # import re
-parts = []
-nest = []
-layout = []
+parts, nest, layout = [], [], []
 f = open(r"19042p04.sum", "r")
 line = f.readline()
 while line:
@@ -15,7 +13,7 @@ while line:
             S = line.replace(':', "").split()
             S[1], S[2], S[3] = float(S[1]), float(S[2]), int(S[3])
             parts.append(S)
-            print(S)
+            print(S[0], '\t\t', S[1], '\t\t', S[2], '\t', S[3])
             line = f.readline()
 
     if line.startswith('\t*** Layout Number ') & line.endswith(' ***\n'):
@@ -28,4 +26,6 @@ while line:
             pass
 
     line = f.readline()
+
 f.close()
+

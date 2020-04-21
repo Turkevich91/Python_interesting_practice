@@ -13,7 +13,7 @@ while line:
             S = line.replace(':', "").split()
             S[1], S[2], S[3] = float(S[1]), float(S[2]), int(S[3])
             parts.append(S)
-            print(S[0], '\t\t', S[1], '\t\t', S[2], '\t', S[3])
+            print(S[0], '\t\t', str(S[1]).ljust(5), '\t\t', str(S[2]).ljust(6), '\t', S[3])
             line = f.readline()
 
     if line.startswith('\t*** Layout Number ') & line.endswith(' ***\n'):

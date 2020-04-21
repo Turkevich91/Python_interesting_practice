@@ -1,21 +1,26 @@
 import os
 
-projectsRoot = r"\\mcp-fsvs2\Engineering\01 Projects"
+projectRoot = r"\\mcp-fsvs2\Engineering\01 Projects"
+workRoot = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"
 
 print('write work and release number using through space separator:')
-jobN, releaseN = '1873 PAP14'.split()  # w = input().split()
+# jobN, releaseN = '1873 PAP14'.split()  #
+jobN, releaseN = input().split()
 print('Job# ', jobN, 'Release: ', releaseN)
 year = '20' + jobN[:2]  # 2018  (first 2 digits represent year)
 print('Year: ', year)
-srcProjectRootPath = projectsRoot + '\\' + year   # this action requires domain permission
+projectYear = os.path.join(projectRoot, year)    # this action requires domain permission
 # on windows level
-folders = os.listdir(srcProjectRootPath)
+folders = os.listdir(projectYear)
 for i in folders:
     print(i)
     if i.startswith(jobN):
-        projectFolder = srcProjectRootPath + '\\' + i
+        projectFolder = os.path.join(projectYear, i)
         print('FOUND \n', projectFolder)
         for j in os.listdir(projectFolder):
             print('--- ', j)
+
+print(projectFolder)
+print(os.listdir(os.path.join(workRoot, year)))
 
 

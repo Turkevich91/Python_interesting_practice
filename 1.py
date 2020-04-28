@@ -1,15 +1,24 @@
-from requests_html import HTMLSession
-from bs4 import BeautifulSoup as BS
+# from requests_html import HTMLSession
+# from bs4 import BeautifulSoup as BS
+#
+# session = HTMLSession()
+# result = session.get("https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6")
+# result.html.render()
+# #r = requests.get('https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6')
+# html = BS(result.content, 'html.parser')
+#
+# #print(html)
+#
+# for el in html.select('div'):
+#     title = el.select('div')
+#     for x in range(len(title)):
+#         print(title[x])
+import re
 
-session = HTMLSession()
-result = session.get("https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6")
-result.html.render()
-#r = requests.get('https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6')
-html = BS(result.content, 'html.parser')
+# S = "PAP02"
+# pattern = re.compile(r'\d+$')
+# matches = re.compile(r'\d+$').finditer(S)
+# print(re.compile(r'[^\d]\d').match("PAP02", 0))
+for match in re.compile(r'\w+.' + '02').finditer("PAP 02 PAP 12"):
+    print(match)
 
-#print(html)
-
-for el in html.select('div'):
-    title = el.select('div')
-    for x in range(len(title)):
-        print(title[x])

@@ -22,25 +22,26 @@ os.chdir(year)
 for i in os.listdir():  # Siking
     print(i)
     if i.startswith(job) and os.path.isdir(i):
+        os.chdir(i)
         jobSrcFolder = os.path.join(i)
         jobFolderName = i
         print('FOUND \n', jobSrcFolder)
-        for j in os.listdir(jobSrcFolder):
+        for j in os.listdir():
             print('---| ', j)
-            if j == "ID":  # при нахождении этой папки скопировать путь файла
-                for k in os.listdir(os.path.join(jobSrcFolder, j)):
+            if j == "ID":
+                for k in os.listdir(os.path.join(j)):
                     print('\t---| ', k)
                     if k.find(relType) != -1 and k.endswith(relNum):
-                        for l in os.listdir(os.path.join(jobSrcFolder, j, k)):
+                        for l in os.listdir(os.path.join(j, k)):
                             print('\t\t---| ', l)
             if j == "PD":
-                for k in os.listdir(os.path.join(jobSrcFolder, j)):
+                for k in os.listdir(os.path.join(j)):
                     print('\t---| ', k)
                     if k.find(relType) != -1 and k.endswith(relNum):
-                        dwgFolder = os.path.join(jobSrcFolder, j, k)
-                        for l in os.listdir(os.path.join(jobSrcFolder, j, k)):
+                        dwgFolder = os.path.join(j, k)
+                        for l in os.listdir(os.path.join(j, k)):
                             print('\t\t---| ', l + " >", file_rename(l))
 
-print(os.path.abspath(jobSrcFolder))
-print("dwg source folder:", os.path.join(projectsRoot, year, dwgFolder))
+print("\n" + os.path.abspath(jobSrcFolder))
+print("dwg source folder:", os.path.join(projectsRoot, year, jobFolderName, dwgFolder))
 print(jobFolderName)

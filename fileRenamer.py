@@ -5,21 +5,25 @@ print('укажите путь к папке:')
 Path = input()
 
 
-def file_rename(path):
+def file_rename(file_name):
+    if len(file_name.split('-')) == 3 and os.path.isfile(file_name):
+        file_name, file_ext = os.path.splitext(file_name)  # Делим файл на имя и расширение
+        f_job, f_release, f_num = file_name.split('-')  # Делим имя файла по метке "-" на 3 части
+        new_name = ('{}-{}{}'.format(f_release, f_num, file_ext))
+        # print(newName)
+        print(file_name, ' > ', new_name)
+        # os.rename(f, newName) # Раскоментировать перед применением
+    else:
+        print('--== change is not necessary ==--')
+
+
+def files_rename(path):
     print(os.listdir(path))
     os.chdir(path)  # Смена текущей директории
 
     for f in [f for f in os.listdir(path) if f.lower().endswith('.dwg')]:
         print(f)
-        if len(f.split('-')) == 3 and os.path.isfile(f):
-            file_name, file_ext = os.path.splitext(f)  # Делим файл на имя и расширение
-            f_job, f_release, f_num = file_name.split('-')  # Делим имя файла по метке "-" на 3 части
-            new_name = ('{}-{}{}'.format(f_release, f_num, file_ext))
-            # print(newName)
-            print(f, ' > ', new_name)
-            # os.rename(f, newName) # Раскоментировать перед применением
-        else:
-            print('--== change is not necessary ==--')
+        file_rename(f)
 
 
-file_rename(Path)
+files_rename(Path)

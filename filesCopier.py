@@ -3,11 +3,10 @@ import os, re
 projectsRoot = r"\\mcp-fsvs2\Engineering\01 Projects"
 workRoot = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"
 
-print('write work and release number using through space separator: \nexample: 1873 PAP14')
-job, release = '1873 PAP14'.split()  #
-# job, release = input().split()
+print('Write work and release number separated with space bar: \nexample: 1873 PAP14')
+job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input())
 year = '20' + job[:2]  # 2018  (first 2 digits represent year)
-print('Job# ', job, 'Release: ', release, "\n" 'Year: ', year)
+print('Job#', job, 'Release:', relType, relNum, "\n" 'Year:', year)
 os.chdir(projectsRoot)
 os.chdir(year)
 for i in os.listdir():   # Siking

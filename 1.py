@@ -15,10 +15,11 @@
 #         print(title[x])
 import re
 
-# S = "PAP02"
+S = "1873 PAP 14"
 # pattern = re.compile(r'\d+$')
 # matches = re.compile(r'\d+$').finditer(S)
 # print(re.compile(r'[^\d]\d').match("PAP02", 0))
-for match in re.compile(r'\w+.' + '02').finditer("PAP 02 PAP 12"):
-    print(match)
+# for match in re.compile(r'\w+.' + '02').finditer("PAP 02 PAP 12"):
+#     print(match)
+print(re.findall(r'([a-zA-Z]+|\d+)', S))
 

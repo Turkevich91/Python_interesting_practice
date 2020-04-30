@@ -13,7 +13,7 @@
 #     title = el.select('div')
 #     for x in range(len(title)):
 #         print(title[x])
-import re
+import os, re
 
 S = "1873 PAP 14"
 # pattern = re.compile(r'\d+$')
@@ -23,3 +23,6 @@ S = "1873 PAP 14"
 #     print(match)
 print(re.findall(r'([a-zA-Z]+|\d+)', S))
 
+# os.mkdir(S, mode=0o777, dir_fd=None)
+# os.makedirs(S, mode=0o777, exist_ok=False)
+# os.rename(src, dst, src_dir_fd=None, dst_dir_fd=None)

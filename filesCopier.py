@@ -1,4 +1,4 @@
-import os, shutil ,re
+import os, re   # , shutil
 
 def file_rename(file_name):
     if len(file_name.split('-')) == 3:  #  and os.path.isfile(file_name)
@@ -43,3 +43,5 @@ print("\n" + os.path.abspath(jobSrcFolder))
 print("dwg source folder:", os.path.join(projectsRoot, year, jobFolderName, dwgFolder))
 print(jobFolderName)
 print(os.path.join(workRoot, year, jobFolderName, (relType +' '+ relNum)))
+
+print()

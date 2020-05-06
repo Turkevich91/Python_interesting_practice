@@ -25,19 +25,14 @@ for i in os.listdir():  # Siking
         print(jobSrcFolder, '\t -->  !!!  FOUND  !!!')
         for j in os.listdir():
             print('---| ', j)
-            if j == "ID":
+            if j == "ID" or j == "PD":
                 for k in os.listdir(os.path.join(j)):
                     print('\t---| ', k)
                     if k.find(relType) != -1 and k.endswith(relNum):
                         for l in os.listdir(os.path.join(j, k)):
                             print('\t\t---| ', l)
-            if j == "PD":
-                for k in os.listdir(os.path.join(j)):
-                    print('\t---| ', k)
-                    if k.find(relType) != -1 and k.endswith(relNum):
-                        dwgFolder = os.path.join(j, k)
-                        for l in os.listdir(os.path.join(j, k)):
-                            print('\t\t---| ', l + " >", file_rename(l))
+                        if j == "PD":
+                            dwgFolder = os.path.join(j, k)
 
 print("\n" + os.path.abspath(jobSrcFolder))
 print("dwg source folder:", os.path.join(projectsRoot, year, jobFolderName, dwgFolder))

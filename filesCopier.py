@@ -13,7 +13,7 @@ projectsRoot = r"\\mcp-fsvs2\Engineering\01 Projects"
 workRoot = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
-job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', "1873 PAP 14A".upper())  # replace with input()
+job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # replace with input()
 year = '20' + job[:2]  # 2018  (first 2 digits represent year)
 print('Year:', year, '\nJob#', job, 'Release:', relType, relNum, "\n" )
 
@@ -26,7 +26,7 @@ for i in os.listdir():  # Siking
         jobFolderName = i
         print(jobSrcFolder, '\t -->  !!!  FOUND  !!!')
         for j in os.listdir():
-            if j == "ID" or j == "PD":
+            if (j == "ID" or j == "PD") and os.path.isdir(j):
                 print('- ', j)
                 for k in os.listdir(os.path.join(j)):
                     if k.find(relType) != -1 and k.endswith(relNum):

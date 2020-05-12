@@ -2,7 +2,7 @@ from pyautocad import Autocad, APoint
 import math
 
 
-def limit_Of_Borders(num, flag):
+def limit_of_borders(num, flag):
     step = 1
     if flag and flag < diameter:
         num += step
@@ -33,5 +33,5 @@ for i in range(diameter * 2):
     acad.model.AddLine(p1, p2)
     acad.model.AddCircle(p1, 10)
 
-    p1.y, flagY = limit_Of_Borders(p1.y, flagY)
-    p1.x, flagX = limit_Of_Borders(p1.x, flagX)
+    p1.y, flagY = limit_of_borders(p1.y, flagY)
+    p1.x, flagX = limit_of_borders(p1.x, flagX)

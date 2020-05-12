@@ -54,16 +54,16 @@ for i in os.listdir():  # Siking
         jobFolderName = i
         print(jobSrcFolder, '\t -->  !!!  FOUND  !!!')
         for j in os.listdir():
-            if (j == "ID" or j == "PD") and os.path.isdir(j):
+            if j in ['ID', 'IDs', 'PD', 'PDs'] and os.path.isdir(j):
                 print('- ', j)
                 for k in os.listdir(os.path.join(j)):
                     if k.find(relType) != -1 and k.endswith(relNum):
                         print('\t- ', k)
                         for l in os.listdir(os.path.join(j, k)):
-                            print('\t\t- ', file_rename(l), 'rmd')
+                            print('\t\t- ', file_rename(l))
                             if l.startswith('Spreadsheet'):
                                 excelPath = os.path.join(os.getcwd(), j, k, l)
-                        if j == "PD":
+                        if j in ['PD', 'PDs']:
                             dwgFolderApPath = os.path.join(os.getcwd(), j, k)
 
 print("Project fullname:", jobFolderName)
@@ -77,12 +77,9 @@ except:
 workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
 # print("Work path:", workFolderApPath)
 
-for i in range(1):
-    print(f'\n??? Copy files to work directory ???\t({workFolderApPath})')
-    choice_request(file_transfer)   # Надо сделать нормальное условие которое бы исключало второй
-    # вопрос при отказе копирования файлов.
-    if choice_request:
-        print('\nDo you want to simplify names of these files?')
-        choice_request(files_rename)
+print(f'\n??? Copy files to work directory ???\t({workFolderApPath})')
+if choice_request(file_transfer):   # Рокировочка =) Оператор "если" запускает функцию.
+    print('\nDo you want to simplify names of these files?')
+    choice_request(files_rename)
 
 print('\nWell done!')

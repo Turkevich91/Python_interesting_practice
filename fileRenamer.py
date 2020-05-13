@@ -60,16 +60,16 @@ dictionary = dict()
 def get_result(path, nested_count, in_folders, result=None):
     # Если первое вхождение создаём для заполнения
     if not result:
-        result = {'files': dict(), 'rel': dict()}
+        result = {'files': set(), 'rel': set()}
 
     # Если последняя вложенность заполняем
     if nested_count == 0:
         for rel in os.listdir(path):
             rel_path = os.path.join(path, rel)
             if os.path.isfile(rel_path):
-                result['files'].update({'file': rel, 'path': rel_path})
+                result['files'].add(rel)
             else:
-                result['rel'].update({'folder': rel, 'path': rel_path})
+                result['rel'].add(rel)
         return None
 
     # Если не последняя вложенность бежим по папкам

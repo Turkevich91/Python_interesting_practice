@@ -32,14 +32,20 @@ dictionary = dict()
 def rel_dictionary():  # collect all names of release folders
     path = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"
     rel_dict = set()
-    for year in [x for x in os.listdir(path) if os.path.isdir(path)]:
-        for job in [x for x in os.listdir(os.path.join(path, year)) if os.path.isdir(os.path.join(path, year))]:
-            for folder in [x for x in os.listdir(os.path.join(path, year, job)) if os.path.isdir(os.path.join(path, year, job))]:
-                if folder in ['ID', 'IDs', 'PD', 'PDs']:
-                    for rel in os.listdir(os.path.join(path, year, job, folder)):
-                        rel_dict.add(rel)
+    for year in os.listdir(path):
+        if os.path.isdir(os.path.join(path, year)):
+            for job in os.listdir(os.path.join(path, year)):
+                if os.path.isdir(os.path.join(path, year, job)):
+                    for folder in os.listdir(os.path.join(path, year, job)):
+                        if os.path.isdir(os.path.join(path, year, job, folder)) and folder in ['ID', 'IDs', 'PD', 'PDs']:
+                            for rel in os.listdir(os.path.join(path, year, job, folder)):
+                                if rel.count('.'):
+                                    continue
+                                else:
+                                    rel_dict.add(rel.upper())
     for i in rel_dict:
         print(i)
+    print(len(rel_dict))
 
 
 rel_dictionary()

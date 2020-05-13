@@ -55,3 +55,38 @@ rel_dictionary()
 
 
 # files_rename(Path)
+def get_result(path, nested_count, in_folders, result=None):
+    # Если первое вхождение создаём для заполнения
+    if not result:
+        result = {'files': dict(), 'rel': dict()}
+
+    # Если последняя вложенность заполняем
+    if nested_count == 0:
+        for rel in os.listdir(path):
+            rel_path = os.path.join(path, rel);
+            if os.path.isfile(rel_path):
+                result['files'].add([rel, rel_path])
+            else:
+                result['rel'].add([rel, rel_path])
+        return None
+
+    # Если не последняя вложенность бежим по папкам
+    if not os.path.isdir(path):
+        return None
+    for folder in os.listdir(path):
+        target_path = os.path.join(path, folder)
+        if os.path.isdir(target_path):
+            # Если не предпоследняя вложенность бежим дальше
+            # В ином случае проверяем вхождение папок
+            if nested_count != 1 or (folder in in_folders):
+                get_result(target_path, nested_count - 1, in_folders, result)
+
+    return result
+
+
+path = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"
+result = get_result(path, 5, ['ID', 'IDs', 'PD', 'PDs'])
+if result:
+    print('files:', result['files'])
+    print('rel:', result['rel'])
+    print('files count:', len(result['files']), 'rel count:', len(result['rel']))

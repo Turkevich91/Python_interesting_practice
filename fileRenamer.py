@@ -29,29 +29,69 @@ def files_rename(path):
 dictionary = dict()
 
 
-def rel_dictionary():  # collect all names of release folders
-    path = r"D:\Users\Public\Downloads\01ProjectEmptyFiles".upper()
-    rel_dict = set()
-    files_dict = set()
-    for year in os.listdir(path):
-        if os.path.isdir(os.path.join(path, year)):
-            for job in os.listdir(os.path.join(path, year)):
-                if os.path.isdir(os.path.join(path, year, job)):
-                    for folder in os.listdir(os.path.join(path, year, job)):
-                        if os.path.isdir(os.path.join(path, year, job, folder)) and folder in ['ID', 'IDs', 'PD', 'PDs']:
-                            for rel in os.listdir(os.path.join(path, year, job, folder)):
-                                if rel.count('.'):
-                                    files_dict.add(rel.upper())
-                                else:
-                                    rel_dict.add(rel.upper())
-    for i in rel_dict:
-        print(i)
-    for i in files_dict:
-        print(i)
-    print(len(rel_dict), len(files_dict))
-
-
-rel_dictionary()
+# def rel_dictionary():  # collect all names of release folders
+#     path = r"D:\Users\Public\Downloads\01ProjectEmptyFiles".upper()
+#     rel_dict = set()
+#     files_dict = set()
+#     for year in os.listdir(path):
+#         if os.path.isdir(os.path.join(path, year)):
+#             for job in os.listdir(os.path.join(path, year)):
+#                 if os.path.isdir(os.path.join(path, year, job)):
+#                     for folder in os.listdir(os.path.join(path, year, job)):
+#                         if os.path.isdir(os.path.join(path, year, job, folder)) and folder in ['ID', 'IDs', 'PD', 'PDs']:
+#                             for rel in os.listdir(os.path.join(path, year, job, folder)):
+#                                 if rel.count('.'):
+#                                     files_dict.add(rel.upper())
+#                                 else:
+#                                     rel_dict.add(rel.upper())
+#     for i in rel_dict:
+#         print(i)
+#     for i in files_dict:
+#         print(i)
+#     print(len(rel_dict), len(files_dict))
+#
+#
+# rel_dictionary()
 
 
 # files_rename(Path)
+
+
+def get_result(path, nested_count, in_folders, result=None):
+    # Если первое вхождение создаём для заполнения
+    if not result:
+        result = {'files': dict(), 'rel': dict()}
+
+    # Если последняя вложенность заполняем
+    if nested_count == 0:
+        for rel in os.listdir(path):
+            rel_path = os.path.join(path, rel)
+            if os.path.isfile(rel_path):
+                result['files'].update({'file': rel, 'path': rel_path})
+            else:
+                result['rel'].update({'folder': rel, 'path': rel_path})
+        return None
+
+    # Если не последняя вложенность бежим по папкам
+    if not os.path.isdir(path):
+        return None
+    for folder in os.listdir(path):
+        target_path = os.path.join(path, folder)
+        if os.path.isdir(target_path):
+            # Если не предпоследняя вложенность бежим дальше
+            # В ином случае проверяем вхождение папок
+            if nested_count != 1 or (folder in in_folders):
+                get_result(target_path, nested_count - 1, in_folders, result)
+
+    return result
+
+
+path = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"
+SeekInFolders = ['ID', 'IDs', 'PD', 'PDs']
+result = get_result(path, 3, SeekInFolders)
+if result:
+    print('files:', result['files'])
+    print('rel:', result['rel'])
+    print('files count:', len(result['files']), 'rel count:', len(result['rel']))
+else:
+    print('None to print')

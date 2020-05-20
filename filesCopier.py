@@ -1,9 +1,14 @@
-import os  # , shutil
+import os
+from shutil import copytree
 import re
 
 
-def file_transfer():
-    pass
+def files_transfer(src=None, dest=None):
+    if not src:
+        src = dwgFolderApPath
+    if not dest:
+        dest = workFolderApPath
+    copytree(src, dest, dirs_exist_ok=True)
 
 
 def file_rename(file_name):
@@ -16,8 +21,11 @@ def file_rename(file_name):
         return file_name
 
 
-def files_rename():
-    path = dwgFolderApPath
+def files_rename(path=None):
+
+    if not path:
+        path = dwgFolderApPath
+
     print(os.listdir(path))
     os.chdir(path)  # Смена текущей директории
 
@@ -37,8 +45,8 @@ def choice_request(func):
         return True
 
 
-projectsRoot = r"\\mcp-fsvs2\Engineering\01 Projects"
-workRoot = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"
+projectsRoot = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"   # \\mcp-fsvs2\Engineering\01 Projects
+workRoot = r"D:\Users\Public\Downloads\Dest folder"   # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
 job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # replace with input()
@@ -78,7 +86,7 @@ workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relTyp
 # print("Work path:", workFolderApPath)
 
 print(f'\n??? Copy files to work directory ???\t({workFolderApPath})')
-if choice_request(file_transfer):   # Рокировочка =) Оператор "если" запускает функцию.
+if choice_request(files_transfer):   # Рокировочка =) Оператор "если" запускает функцию.
     print('\nDo you want to simplify names of these files?')
     choice_request(files_rename)
 

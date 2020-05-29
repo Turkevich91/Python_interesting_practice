@@ -12,7 +12,7 @@ def files_transfer(src=None, dest=None, excel_src=None, **kwargs):
     if not excel_src:
         excel_src = excelPath
     try:
-        copytree(src, dest, **kwargs)  # arg dirs_exist_ok=True to overwrite
+        copytree(src, dest, **kwargs)
         copyfile(excel_src, join(dest, 'PDF', basename(excel_src)))
     except FileExistsError:
         print('\nFiles exist overwrite them?')

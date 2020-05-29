@@ -11,25 +11,29 @@ def files_transfer(src=None, dest=None):
     copytree(src, dest, dirs_exist_ok=True)
 
 
-def file_rename(file_name):
-    if len(file_name.split('-')) == 3:  # and os.path.isfile(file_name)
-        file_name, file_ext = os.path.splitext(file_name)  # Делим файл на имя и расширение
+def file_rename(original_name, write=True):
+
+    if len(original_name.split('-')) == 3:  # and os.path.isfile(file_name)
+        file_name, file_ext = os.path.splitext(original_name)  # Делим файл на имя и расширение
         f_job, f_release, f_num = file_name.split('-')  # Делим имя файла по метке "-" на 3 части
         new_name = ('{}-{}{}'.format(f_release, f_num, file_ext))
-        return new_name
+        if write:
+            os.rename(original_name, new_name)
+        else:
+            return new_name
     else:
-        return file_name
+        return original_name
 
 
-def files_rename(path=None):
+def files_rename(path=None, ext='.dwg'):
 
     if not path:
-        path = dwgFolderApPath
+        path = workFolderApPath
 
     print(os.listdir(path))
     os.chdir(path)  # Смена текущей директории
 
-    for f in [f for f in os.listdir(path) if f.lower().endswith('.dwg')]:
+    for f in [f for f in os.listdir(path) if f.lower().endswith(ext)]:
         print(f)
         file_rename(f)
 
@@ -55,7 +59,7 @@ print('Year:', year, '\nJob#', job, 'Release:', relType, relNum, "\n")
 
 os.chdir(projectsRoot)
 os.chdir(year)
-for i in os.listdir():  # Siking
+for i in os.listdir():  # Seeking
     if i.startswith(job) and os.path.isdir(i):
         os.chdir(i)
         jobSrcFolder = os.getcwd()
@@ -68,7 +72,7 @@ for i in os.listdir():  # Siking
                     if k.find(relType) != -1 and k.endswith(relNum):
                         print('\t- ', k)
                         for l in os.listdir(os.path.join(j, k)):
-                            print('\t\t- ', file_rename(l))
+                            print('\t\t- ', file_rename(l, write=False))
                             if l.startswith('Spreadsheet'):
                                 excelPath = os.path.join(os.getcwd(), j, k, l)
                         if j in ['PD', 'PDs']:
@@ -77,10 +81,10 @@ for i in os.listdir():  # Siking
 print("Project fullname:", jobFolderName)
 print("Source dwg folder:", dwgFolderApPath)
 
-try:
-    print('Exelfile path:', excelPath)
-except:
-    print('Exelfile file not found')
+if excelPath:
+    print('Excel file path:', excelPath)
+else:
+    print('Excel file file not found')
 
 workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
 # print("Work path:", workFolderApPath)

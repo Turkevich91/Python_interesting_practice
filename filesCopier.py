@@ -1,31 +1,34 @@
-import os
-from shutil import copytree
+from os import chdir, listdir, getcwd, rename
+from os.path import join, isdir, splitext
+from shutil import copytree, copyfile
 import re
 
 
-def files_transfer(src=None, dest=None, **kwargs):
+def files_transfer(src=None, dest=None, excel_src=None, **kwargs):
     if not src:
         src = dwgFolderApPath
     if not dest:
         dest = workFolderApPath
+    if not excel_src:
+        excel_src = excelPath
     try:
         copytree(src, dest, **kwargs)  # arg dirs_exist_ok=True to overwrite
+        copyfile(excel_src, join(dest, 'PDF', f"Spreadsheet {relType} {relNum}{splitext(excel_src)[1]}"))
     except FileExistsError:
-        print('\nFiles exists overwrite them?')
+        print('\nFiles exist overwrite them?')
         choice_request(files_transfer, dirs_exist_ok=True)
 
 
 def file_rename(original_name, write=True):
-
     if len(original_name.split('-')) == 3:  # and os.path.isfile(file_name)
-        file_name, file_ext = os.path.splitext(original_name)  # Делим файл на имя и расширение
+        file_name, file_ext = splitext(original_name)  # Делим файл на имя и расширение
         f_job, f_release, f_num = file_name.split('-')  # Делим имя файла по метке "-" на 3 части
         new_name = ('{}-{}{}'.format(f_release, f_num, file_ext))
         if write:
             try:
-                os.rename(original_name, new_name)
+                rename(original_name, new_name)
             except FileExistsError:
-                print(f'Error: File "{new_name}" already exist!')
+                print(f'File "{new_name}" already exist!')
         else:
             return new_name
     else:
@@ -33,15 +36,10 @@ def file_rename(original_name, write=True):
 
 
 def files_rename(path=None, ext='.dwg'):
-
     if not path:
         path = workFolderApPath
-
-    print(os.listdir(path))
-    os.chdir(path)  # Смена текущей директории
-
-    for f in [f for f in os.listdir(path) if f.lower().endswith(ext)]:
-        # print(f)
+    chdir(path)
+    for f in [f for f in listdir(path) if f.lower().endswith(ext)]:
         file_rename(f)
 
 
@@ -53,7 +51,6 @@ def choice_request(func, *args, **kwargs):
     else:
         print('Yes')
         func(args, **kwargs)
-        # print('\nProcessed succeed')
         return True
 
 
@@ -65,26 +62,26 @@ job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upp
 year = '20' + job[:2]  # 2018  (first 2 digits represent year)
 print('Year:', year, '\nJob#', job, 'Release:', relType, relNum, "\n")
 
-os.chdir(projectsRoot)
-os.chdir(year)
-for i in os.listdir():  # Seeking
-    if i.startswith(job) and os.path.isdir(i):
-        os.chdir(i)
-        jobSrcFolder = os.getcwd()
+chdir(projectsRoot)
+chdir(year)
+for i in listdir():  # Seeking
+    if i.startswith(job) and isdir(i):
+        chdir(i)
+        jobSrcFolder = getcwd()
         jobFolderName = i
         print(jobSrcFolder, '\t -->  !!!  FOUND  !!!')
-        for j in os.listdir():
-            if j in ['ID', 'IDs', 'PD', 'PDs'] and os.path.isdir(j):
+        for j in listdir():
+            if j in ['ID', 'IDs', 'PD', 'PDs'] and isdir(j):
                 print('- ', j)
-                for k in os.listdir(os.path.join(j)):
+                for k in listdir(join(j)):
                     if k.find(relType) != -1 and k.endswith(relNum):
                         print('\t- ', k)
-                        for l in os.listdir(os.path.join(j, k)):
+                        for l in listdir(join(j, k)):
                             print('\t\t- ', l)
                             if l.startswith('Spreadsheet'):
-                                excelPath = os.path.join(os.getcwd(), j, k, l)
+                                excelPath = join(getcwd(), j, k, l)
                         if j in ['PD', 'PDs']:
-                            dwgFolderApPath = os.path.join(os.getcwd(), j, k)
+                            dwgFolderApPath = join(getcwd(), j, k)
 
 print("Project fullname:", jobFolderName)
 print("Source dwg folder:", dwgFolderApPath)
@@ -94,7 +91,7 @@ if excelPath:
 else:
     print('Excel file not found')
 
-workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
+workFolderApPath = join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
 print("Work directory:", workFolderApPath)
 
 print(f'\nCopy files to work directory?')

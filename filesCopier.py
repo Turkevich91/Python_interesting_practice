@@ -18,7 +18,10 @@ def file_rename(original_name, write=True):
         f_job, f_release, f_num = file_name.split('-')  # Делим имя файла по метке "-" на 3 части
         new_name = ('{}-{}{}'.format(f_release, f_num, file_ext))
         if write:
-            os.rename(original_name, new_name)
+            try:
+                os.rename(original_name, new_name)
+            except FileExistsError:
+                print(f'Error: File "{new_name}" already exist!')
         else:
             return new_name
     else:
@@ -34,12 +37,12 @@ def files_rename(path=None, ext='.dwg'):
     os.chdir(path)  # Смена текущей директории
 
     for f in [f for f in os.listdir(path) if f.lower().endswith(ext)]:
-        print(f)
+        # print(f)
         file_rename(f)
 
 
 def choice_request(func):
-    answer = input('Press "Enter" to process or type "n" to decline').lower()
+    answer = input('"Enter" to process "n" to decline: ').lower()
     if answer == 'no' or answer == 'n':
         print('Declined')
         return False
@@ -87,12 +90,12 @@ else:
     print('Excel file file not found')
 
 workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
-# print("Work path:", workFolderApPath)
+print("Work directory:", workFolderApPath)
 
-print(f'\n??? Copy files to work directory ???\t({workFolderApPath})')
+print(f'\nCopy files to work directory?')
 answer = choice_request(files_transfer)
-if answer:   # Рокировочка =) Оператор "если" запускает функцию.
-    print('\nDo you want to simplify names of these files?')
+if answer:
+    print('\nSimplify names of these files?')
     choice_request(files_rename)
 
 print('\nWell done!')

@@ -3,12 +3,16 @@ from shutil import copytree
 import re
 
 
-def files_transfer(src=None, dest=None):
+def files_transfer(src=None, dest=None, **kwargs):
     if not src:
         src = dwgFolderApPath
     if not dest:
         dest = workFolderApPath
-    copytree(src, dest, dirs_exist_ok=True)
+    try:
+        copytree(src, dest, **kwargs)  # arg dirs_exist_ok=True to overwrite
+    except FileExistsError:
+        print('\nFiles exists overwrite them?')
+        choice_request(files_transfer, dirs_exist_ok=True)
 
 
 def file_rename(original_name, write=True):
@@ -41,13 +45,13 @@ def files_rename(path=None, ext='.dwg'):
         file_rename(f)
 
 
-def choice_request(func):
-    answer = input('"Enter" to process "n" to decline: ').lower()
-    if answer == 'no' or answer == 'n':
+def choice_request(func, *args, **kwargs):
+    received_answer = input('"Enter" to process "n" to decline: ').lower()
+    if received_answer == 'no' or received_answer == 'n':
         print('Declined')
         return False
     else:
-        func()
+        func(args, **kwargs)
         print('Processed succeed')
         return True
 

@@ -1,5 +1,5 @@
 from os import chdir, listdir, getcwd, rename
-from os.path import join, isdir, splitext
+from os.path import join, isdir, splitext, basename
 from shutil import copytree, copyfile
 import re
 
@@ -13,7 +13,7 @@ def files_transfer(src=None, dest=None, excel_src=None, **kwargs):
         excel_src = excelPath
     try:
         copytree(src, dest, **kwargs)  # arg dirs_exist_ok=True to overwrite
-        copyfile(excel_src, join(dest, 'PDF', f"Spreadsheet {relType} {relNum}{splitext(excel_src)[1]}"))
+        copyfile(excel_src, join(dest, 'PDF', basename(excel_src)))
     except FileExistsError:
         print('\nFiles exist overwrite them?')
         choice_request(files_transfer, dirs_exist_ok=True)

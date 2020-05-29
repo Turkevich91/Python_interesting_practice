@@ -46,13 +46,14 @@ def files_rename(path=None, ext='.dwg'):
 
 
 def choice_request(func, *args, **kwargs):
-    received_answer = input('"Enter" to process "n" to decline: ').lower()
+    received_answer = input('"Enter" to process; "no" to decline: ').lower()
     if received_answer == 'no' or received_answer == 'n':
         print('Declined')
         return False
     else:
+        print('Yes')
         func(args, **kwargs)
-        print('Processed succeed')
+        # print('\nProcessed succeed')
         return True
 
 
@@ -91,7 +92,7 @@ print("Source dwg folder:", dwgFolderApPath)
 if excelPath:
     print('Excel file path:', excelPath)
 else:
-    print('Excel file file not found')
+    print('Excel file not found')
 
 workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
 print("Work directory:", workFolderApPath)

@@ -72,7 +72,7 @@ for i in os.listdir():  # Seeking
                     if k.find(relType) != -1 and k.endswith(relNum):
                         print('\t- ', k)
                         for l in os.listdir(os.path.join(j, k)):
-                            print('\t\t- ', file_rename(l, write=False))
+                            print('\t\t- ', l)
                             if l.startswith('Spreadsheet'):
                                 excelPath = os.path.join(os.getcwd(), j, k, l)
                         if j in ['PD', 'PDs']:
@@ -90,7 +90,8 @@ workFolderApPath = os.path.join(workRoot, year, jobFolderName, '%s %s' % (relTyp
 # print("Work path:", workFolderApPath)
 
 print(f'\n??? Copy files to work directory ???\t({workFolderApPath})')
-if choice_request(files_transfer):   # Рокировочка =) Оператор "если" запускает функцию.
+answer = choice_request(files_transfer)
+if answer:   # Рокировочка =) Оператор "если" запускает функцию.
     print('\nDo you want to simplify names of these files?')
     choice_request(files_rename)
 

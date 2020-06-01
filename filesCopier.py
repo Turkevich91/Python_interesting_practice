@@ -54,15 +54,15 @@ def choice_request(func, *args, **kwargs):
         return True
 
 
-projectsRoot = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"   # \\mcp-fsvs2\Engineering\01 Projects
-workRoot = r"D:\Users\Public\Downloads\Dest folder"   # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
+PROJECT_ROOT = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"   # \\mcp-fsvs2\Engineering\01 Projects
+WORK_ROOT = r"D:\Users\Public\Downloads\Dest folder"   # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
 job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # replace with input()
 year = '20' + job[:2]  # 2018  (first 2 digits represent year)
 print('Year:', year, '\nJob#', job, 'Release:', relType, relNum, "\n")
 
-chdir(projectsRoot)
+chdir(PROJECT_ROOT)
 chdir(year)
 for i in listdir():  # Seeking
     if i.startswith(job) and isdir(i):
@@ -91,7 +91,7 @@ if excelPath:
 else:
     print('Excel file not found')
 
-workFolderApPath = join(workRoot, year, jobFolderName, '%s %s' % (relType, relNum))
+workFolderApPath = join(WORK_ROOT, year, jobFolderName, '%s %s' % (relType, relNum))
 print("Work directory:", workFolderApPath)
 
 print(f'\nCopy files to work directory?')

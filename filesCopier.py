@@ -85,14 +85,12 @@ for i in listdir():  # Seeking
 
 print("Project fullname:", jobFolderName)
 print("Source dwg folder:", dwgFolderApPath)
-
+workFolderApPath = join(WORK_ROOT, year, jobFolderName, '%s %s' % (relType, relNum))
+print("Work directory:", workFolderApPath)
 if excelPath:
     print('Excel file path:', excelPath)
 else:
     print('Excel file not found')
-
-workFolderApPath = join(WORK_ROOT, year, jobFolderName, '%s %s' % (relType, relNum))
-print("Work directory:", workFolderApPath)
 
 print(f'\nCopy files to work directory?')
 answer = choice_request(files_transfer)

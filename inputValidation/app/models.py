@@ -23,7 +23,6 @@ class Release(models.Model):
     # release_material = models.ForeignKey(Material, on_delete=models.CASCADE)
     release_title = models.CharField('Release name', max_length=10)
     release_folder = models.CharField('Folder', max_length=200)
-    # creation_date = models.DateTimeField('Creation date')
 
     def __srt__(self):
         return self.release_title
@@ -33,8 +32,10 @@ class Panel(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
     panel_title = models.CharField('Panel name', max_length=10)
     panel_quantity = models.IntegerField('Quantity')
-    # creation_date = models.DateTimeField('Creation date')
 
     def __srt__(self):
         return self.panel_title
 
+    class Meta:
+        verbose_name = 'Panel'
+        verbose_name_plural = 'Panels'

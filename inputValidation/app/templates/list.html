@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Last Work{% endblock %}
+
+{% block content %}
+
+    {% if Project %}
+
+        {% for a in Project%}
+            <a href="{% url 'index' a.Projects}">{{a.project_number}}</a>
+        {% endfor %}
+
+    {% else %}
+        nothing found
+    {% endif %}
+
+{% endblock %}

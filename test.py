@@ -13,16 +13,26 @@
 
 from random import randint
 
-s = 'RSP'
+
+def input_checker(s):
+    user_input = input(f'chose one letter from string "{s}" ').upper()
+    if user_input in s and user_input not in "":
+        return sampleSTR.index(user_input)
+    else:
+        print('Wrong input, try again')
+        input_checker(s)
+
+
+sampleSTR = 'RSP'
 stop = False
 
 while not stop:
     random = randint(0, 2)
-    getValue = s.index(input('chose one letter from string "RSP" ').upper())
-    print("CPU:", s[random], "Player:", s[getValue])
+    getValue = input_checker(sampleSTR)
+    print("CPU:", sampleSTR[random], "Player:", sampleSTR[getValue])
     if random == getValue:
         print('dead heat')
-    elif s[random - 1] == s[getValue]:
+    elif sampleSTR[random - 1] == sampleSTR[getValue]:
         print('You Won')
     else:
         print('You lose')

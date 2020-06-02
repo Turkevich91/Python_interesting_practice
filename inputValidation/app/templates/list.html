@@ -5,13 +5,12 @@
 {% block content %}
 
     {% if Project %}
-
         {% for a in Project%}
-            <a href="{% url 'index' a.Projects}">{{a.project_number}}</a>
+            <a href="{% url 'Index' a.id%}">{{a.project_number}}</a>
         {% endfor %}
 
     {% else %}
-        nothing found
+        nothing here yet, but it is coming soon....
     {% endif %}
 
 {% endblock %}

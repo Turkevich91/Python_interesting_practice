@@ -3,14 +3,22 @@
     {% block title %}Last Work{% endblock %}
 
     {% block content %}
-    <h1>Available works</h1>
+        {% if user.get_full_name %}
+        <h2>Hello {{ user.get_full_name }}! </h2> <!-- user.get_full_name -->
+        {% else %}
+        <h2>Hello! </h2> <h4>Please <a href="#">login</a> to track your personal progress</h4>
+        {% endif %}
+
         {% if project_list %}
-        <p>please chose one on which you are working now:</p>
-        <ul>
+        <h4 style="horiz-align: center">Here are some of the tasks available:</h4><br>
+        <div class="list-group">
             {% for a in project_list %}
-                <li><a href="#">{{a.project_title}}</a></li>
+                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><b>{{a.project_title}}</b>
+                <span class="badge badge-primary badge-pill">{{1}}</span>
+                </a>
+
             {% endfor %}
-        </ul>
+        </div>
         {% else %}
             nothing here yet, but it is coming soon....
         {% endif %}

@@ -11,7 +11,7 @@ class Project(models.Model):
     project_path = models.CharField('Folder', max_length=200)
     # creation_date = models.DateTimeField('Creation date')
 
-    def __srt__(self):
+    def __str__(self):
         return self.project_title
 
     # def was_published_recently(self):
@@ -24,7 +24,7 @@ class Release(models.Model):
     release_title = models.CharField('Release name', max_length=10)
     release_folder = models.CharField('Folder', max_length=200)
 
-    def __srt__(self):
+    def __str__(self):
         return self.release_title
 
 
@@ -33,7 +33,7 @@ class Panel(models.Model):
     panel_title = models.CharField('Panel name', max_length=10)
     panel_quantity = models.IntegerField('Quantity')
 
-    def __srt__(self):
+    def __str__(self):
         return self.panel_title
 
     class Meta:

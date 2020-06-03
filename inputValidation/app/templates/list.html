@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Last Work{% endblock %}
+    {% block title %}Last Work{% endblock %}
 
-{% block content %}
-
-    {% if Project %}
-        {% for a in Project%}
-            <a href="{% url 'Index' a.id%}">{{a.project_number}}</a>
-        {% endfor %}
-
-    {% else %}
-        nothing here yet, but it is coming soon....
-    {% endif %}
+    {% block content %}
+    <h1>Available works</h1>
+        {% if project_list %}
+        <p>please chose one on which you are working now:</p>
+        <ul>
+            {% for a in project_list %}
+                <li><a href="#">{{a.project_title}}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            nothing here yet, but it is coming soon....
+        {% endif %}
 
 {% endblock %}

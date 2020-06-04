@@ -25,13 +25,18 @@
                     <a class="nav-item nav-link" href="{% url 'production' %}">production</a>
                     <a class="nav-item nav-link" href="{% url 'manage' %}">management</a>
                     <a class="nav-item nav-link" href="{% url 'engineering' %}">engineering</a>
+                    <a class="nav-item nav-link" href="/admin/">~ADMIN~</a>
                 </div>
             </div>
         </nav>
     </div>
 </header>
 <div class="container">
-    {% block content %}Hello{% endblock %}
+    {% block content %}
+        <h1>Something will be here soon...</h1>
+        <h2>but you can help me by sending any ideas about what you think should be on this page to my email address: <a
+                href="mailto:vturkevych@millerclapperton.com">vturkevych@millerclapperton.com</a></h2>
+    {% endblock %}
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

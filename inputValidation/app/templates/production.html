@@ -13,14 +13,22 @@
         <h4 style="horiz-align: center">Here are some of the tasks available:</h4><br>
         <div class="list-group">
             {% for a in project_list %}
+
                 <a href="{{a.project_number}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"><b>{{a.project_title}}</b>
-                <span class="badge badge-primary badge-pill">{{ a.id }}</span>
+{#                    {% for x in release_quantity %}#}
+                    <span class="badge badge-primary badge-pill">{{ a.id }}</span>
+{#                    {% endfor %}#}
                 </a>
 
             {% endfor %}
         </div>
         {% else %}
-            nothing here yet, but it is coming soon....
+            Nothing here yet, but it is coming soon....
         {% endif %}
-
+{#<p>{{ project_list }}</p>#}
+{#        {% for a in release_quantity %}#}
+{#            <p>{{a.project}}</p>#}
+{##}
+{#        {% endfor %}#}
+{#<p>{{ release_quantity }}</p>#}
 {% endblock %}

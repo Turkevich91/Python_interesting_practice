@@ -11,19 +11,26 @@ def index(request):
 
 
 def production(request):
-    project_numbers_list = Project.objects.order_by('project_number')
-    # quantity_of_releases = Release.project.get_foreign_related_value(project_numbers_list)
-    return render(request, 'production.html', {'project_list': project_numbers_list})
+    project_numbers_list = Project.objects.order_by('id', 'project_number')
+    release_quantity = Release.objects.order_by('project')
+    print(release_quantity)
+    # # print(len(Release.objects.filter(project__project_number=19006)))  # Works!
+
+    return render(request, 'production.html',
+                  {'project_list': project_numbers_list,
+                   'release_quantity': release_quantity})
 
 
 def projects(request, project_num):
-    work_number = Project.objects.get(project_num)
-    # quantity_of_releases = Release.project.get_foreign_related_value(project_numbers_list)
-    return render(request, 'projects.html', work_number)
+    try:
+        a = Release.objects.filter(project=project_num)
+        print(a)
+    except:
+        raise Http404('The page wasn\'t found')
+    return render(request, 'projects.html', {'project': a})
 
 
 def management(request):
-
     return render(request, 'management.html')
 
 
@@ -37,5 +44,4 @@ def releases(request, rel_title):
     except:
         raise Http404('Page not found')
 
-    return render(request, 'releases.html',)
-
+    return render(request, 'releases.html', )

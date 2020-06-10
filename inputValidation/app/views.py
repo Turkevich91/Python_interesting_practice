@@ -14,7 +14,7 @@ def production(request):
     project_numbers_list = Project.objects.order_by('id', 'project_number')
     release_quantity = Release.objects.order_by('project')
     print(release_quantity)
-    # # print(len(Release.objects.filter(project__project_number=19006)))  # Works!
+    print(len(Release.objects.filter(project__id=1)))  # Works!
 
     return render(request, 'production.html',
                   {'project_list': project_numbers_list,

@@ -54,8 +54,8 @@ def choice_request(func, *args, **kwargs):
         return True
 
 
-PROJECT_ROOT = r"D:\Users\Public\Downloads\01ProjectEmptyFiles"   # \\mcp-fsvs2\Engineering\01 Projects
-WORK_ROOT = r"D:\Users\Public\Downloads\Dest folder"   # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
+PROJECT_ROOT = r"\\mcp-fsvs2\Engineering\01 Projects"   # \\mcp-fsvs2\Engineering\01 Projects
+WORK_ROOT = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"   # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
 job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # replace with input()

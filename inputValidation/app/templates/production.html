@@ -18,6 +18,7 @@
 {#                    {% for x in a.release_set.get_queryset %} WORKS!!! {{ x.release_title }} #}
                     <span class="badge badge-primary badge-pill">{{ a.release_set.count }}</span>
 {#                    {% endfor %}#}
+{#                {% url 'app:projects' a.project_number %}#}
                 </a>
 
             {% endfor %}
@@ -25,6 +26,8 @@
         {% else %}
             Nothing here yet, but it is coming soon....
         {% endif %}
+{#{% load static %}#}
+{#<img src="{% static "g0tt2sic.bmp" %}" alt="My image">#}
 {#<p>{{ project_list }}</p>#}
 {#        {% for a in release_quantity %}#}
 {#            <p>{{a.project}}</p>#}

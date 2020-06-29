@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
 
@@ -26,14 +26,15 @@ def production(request):
 
 
 @gzip_page
-def projects(request, project_num):
+def projects(request, project_number):
     # try:
-    print(project_num)
-    a = Project.objects.get(project_number=project_num)
-    print(a)
+    # print(project_num)
+    # a = Project.objects.get(project_number=project_num)
+    # print(a)
     # except:
     #     raise Http404("The page wasn't found")
-    return render(request, 'projects.html', {'project': a})
+    return HttpResponse(f'Project page {project_number}')
+    # return render(request, 'projects.html', {'project': a})
 
 
 def management(request):

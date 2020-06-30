@@ -42,7 +42,8 @@ def releases(request, project_number, release_title):
     try:
         a = Release.objects.get(release_title=release_title)
     except:
-        raise Http404('Page not found.')
+        raise Http404('Right now this page in develop, please try again later')
+
 
     return render(request, 'releases.html', {'release': a})
 

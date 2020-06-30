@@ -27,14 +27,24 @@ def production(request):
 
 @gzip_page
 def projects(request, project_number):
-    # try:
-    # print(project_num)
-    # a = Project.objects.get(project_number=project_num)
-    # print(a)
-    # except:
-    #     raise Http404("The page wasn't found")
-    return HttpResponse(f'Project page {project_number}')
-    # return render(request, 'projects.html', {'project': a})
+    try:
+        a = Project.objects.get(project_number=project_number)
+        print(a)
+    except:
+        raise Http404("Page not found")
+    # return HttpResponse(f'Project page {project_number}')
+    return render(request, 'projects.html', {'project': a})
+
+
+@gzip_page
+def releases(request, project_number, release_title):
+    print(project_number, release_title)
+    try:
+        a = Release.objects.get(release_title=release_title)
+    except:
+        raise Http404('Page not found.')
+
+    return render(request, 'releases.html', {'release': a})
 
 
 def management(request):
@@ -43,12 +53,3 @@ def management(request):
 
 def engineering(request):
     return render(request, 'engineering.html', )
-
-
-def releases(request, rel_title):
-    try:
-        a = Release.objects.get(rel_titlerelease_title=rel_title)
-    except:
-        raise Http404('Page not found')
-
-    return render(request, 'releases.html', )

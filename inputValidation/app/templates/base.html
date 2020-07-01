@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>{% block title %}Hello, world!{% endblock %}</title>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
+
 <header>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+            <a class="navbar-brand" href="{% url 'index' %}"><b>MillerClapperton</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,19 +26,32 @@
                     <a class="nav-item nav-link" href="{% url 'production' %}">production</a>
                     <a class="nav-item nav-link" href="{% url 'manage' %}">management</a>
                     <a class="nav-item nav-link" href="{% url 'engineering' %}">engineering</a>
+                    <a class="nav-item nav-link" href="{% url 'login' %}">login</a>
                     <a class="nav-item nav-link" href="/admin/">~ADMIN~</a>
                 </div>
             </div>
         </nav>
     </div>
 </header>
-<div class="container">
-    {% block content %}
-        <h1>This page in progress</h1>
-        <h2>You can help me with filling by sending me any ideas to my email address: <a
-                href="mailto:vturkevych@millerclapperton.com">vturkevych@millerclapperton.com</a></h2>
-    {% endblock %}
-</div>
+
+
+<main role="main" class="flex-shrink-0">
+    <div class="container">
+        {% block content %}
+            <h1>This page in progress</h1>
+            <h2>You can help me with filling by sending me any ideas to my email address: <a
+                    href="mailto:vturkevych@millerclapperton.com">vturkevych@millerclapperton.com</a></h2>
+        {% endblock %}
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3" >
+    <div class="container" >
+        <span class="text-muted" style="position: fixed; bottom: 0;">© All rights reserved 2020, Site designed by Vitalii Turkevych</span>
+    </div>
+</footer>
+
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

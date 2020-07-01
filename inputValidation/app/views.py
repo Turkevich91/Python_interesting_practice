@@ -1,10 +1,7 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
-
+from django.contrib.auth import authenticate, login
 from .models import Project, Release, Panel
 
 
@@ -14,11 +11,28 @@ def index(request):
 
 
 @gzip_page
+def login(request):
+    return render(request, 'login.html')
+
+
+def authorisation(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    # user = authenticate(username=username, password=password)
+    if user is not None:
+        login(request, user)
+    else:
+        message = 'Wrong credentions, please, try again'
+        return message
+
+
+@gzip_page
 def production(request):
     project_numbers_list = Project.objects.order_by('id')
     release_quantity = Release.objects.order_by('project')
-    print(release_quantity)
-    print(len(Release.objects.filter(project__id=1)))  # Works!
+    # print(release_quantity)
+    # print(len(Release.objects.filter(project__id=1)))  # Works!
 
     return render(request, 'production.html',
                   {'project_list': project_numbers_list,
@@ -38,13 +52,11 @@ def projects(request, project_number):
 
 @gzip_page
 def releases(request, project_number, release_title):
-    print(project_number, release_title)
+    # print(project_number, release_title)
     try:
         a = Release.objects.get(release_title=release_title)
     except:
         raise Http404('Right now this page in develop, please try again later')
-
-
     return render(request, 'releases.html', {'release': a})
 
 

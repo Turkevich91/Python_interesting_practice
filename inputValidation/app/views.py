@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import Project, Release, Panel
 
@@ -12,22 +13,20 @@ def index(request):
 
 @gzip_page
 def login(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    print('username: ', username)
+    print('password: ', password)
+    user = authenticate(username=username, password=password)
+    print(user)
+    if user is not None:
+        login(request, user)
     return render(request, 'login.html')
 
 
-def authorisation(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    # user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-    else:
-        message = 'Wrong credentions, please, try again'
-        return message
-
 
 @gzip_page
+# @login_required
 def production(request):
     project_numbers_list = Project.objects.order_by('id')
     release_quantity = Release.objects.order_by('project')

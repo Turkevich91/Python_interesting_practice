@@ -33,7 +33,7 @@ class Release(models.Model):
 class Panel(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
     panel_title = models.CharField('Panel name', max_length=10)
-    panel_quantity = models.IntegerField('Quantity', blank=True)
+    panel_quantity = models.IntegerField('Quantity', blank=True, default=1)
 
     def __str__(self):
         return self.panel_title

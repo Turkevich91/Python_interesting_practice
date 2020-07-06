@@ -1,28 +1,28 @@
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404  # , HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .models import Project, Release, Panel
 
 
 @gzip_page
-def index(request):
-    return render(request, 'index.html')
+def home_view(request):
+    return render(request, 'home.html')
 
 
 @gzip_page
-def login(request):
+def login_view(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
-    print('username: ', username)
-    print('password: ', password)
-    user = authenticate(username=username, password=password)
-    print(user)
-    if user is not None:
-        login(request, user)
+    if username and password:
+        user = authenticate(request, username=username, password=password)
+        print(f'{user} is logging in')
+        print('password: ', password)
+        if user is not None:
+            login(request, user)
+            print('Successfully logged in')
     return render(request, 'login.html')
-
 
 
 @gzip_page
@@ -57,6 +57,12 @@ def releases(request, project_number, release_title):
     except:
         raise Http404('Right now this page in develop, please try again later')
     return render(request, 'releases.html', {'release': a})
+
+
+@gzip_page
+def panels(request, panel_title):
+    a = Panel.objects.get(panel_title=panel_title)
+    return render(request, 'panels.html', {'panels': a})
 
 
 def management(request):

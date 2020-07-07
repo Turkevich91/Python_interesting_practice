@@ -1,3 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}home page{% endblock %}
+{% block content %}
+    {% if user.get_full_name %}<h1>Welcome back {{ user.get_short_name }}</h1>
+        <span> last login was {{ user.last_login }}</span>
+        <p>you have next permissions:</p>
+        <ol>{% for permission in  user.get_all_permissions %}
+
+            <li>{{ permission }}</li>
+
+        {% endfor %}</ol>
+    {% elif user.is_anonymous %}
+        <h2>You dont have any permission unless you <a href="{% url 'login' %}">login</a></h2>
+    {% endif %}
+{% endblock %}

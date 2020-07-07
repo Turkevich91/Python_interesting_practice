@@ -2,11 +2,6 @@
 
 {% block title %}{{ project.project_title }}{% endblock %}
 {% block content %}
-    {% if user.get_full_name %}
-        <h2>Hello {{ user.get_full_name }}! </h2> <!-- user.get_full_name -->
-    {% else %}
-        <h2>Hello! </h2> <h4>Please <a href="#">login</a> to track your personal progress</h4>
-    {% endif %}
 
     {% if project %}
         <h1>{{ project.project_title }}</h1>

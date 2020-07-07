@@ -1,8 +1,8 @@
-from django.http import Http404  # , HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
 # from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Project, Release, Panel
 
 
@@ -22,19 +22,27 @@ def login_view(request):
         if user is not None:
             login(request, user)
             print('Successfully logged in')
+            return render(request, 'home.html')
+    # if request.POST.get('logout'):
+
     return render(request, 'login.html')
+
+
+def logout_request(request):
+    logout(request)
+    return HttpResponseRedirect('/')
 
 
 @gzip_page
 # @login_required
 def production(request):
-    project_numbers_list = Project.objects.order_by('id')
+    projects = Project.objects.order_by('id')
     release_quantity = Release.objects.order_by('project')
     # print(release_quantity)
     # print(len(Release.objects.filter(project__id=1)))  # Works!
 
     return render(request, 'production.html',
-                  {'project_list': project_numbers_list,
+                  {'projects': projects,
                    'release_quantity': release_quantity})
 
 
@@ -53,7 +61,8 @@ def projects(request, project_number):
 def releases(request, project_number, release_title):
     # print(project_number, release_title)
     try:
-        a = Release.objects.get(release_title=release_title)
+        a = Release.objects.get(project_number=project_number, release_title=release_title)
+        print(a)
     except:
         raise Http404('Right now this page in develop, please try again later')
     return render(request, 'releases.html', {'release': a})
@@ -69,5 +78,5 @@ def management(request):
     return render(request, 'management.html')
 
 
-def engineering(request):
-    return render(request, 'engineering.html', )
+# def engineering(request):
+#     return render(request, 'engineering.html', )

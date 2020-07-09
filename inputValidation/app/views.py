@@ -22,28 +22,22 @@ def login_view(request):
         if user is not None:
             login(request, user)
             print('Successfully logged in')
-            return render(request, 'home.html')
-    # if request.POST.get('logout'):
-
+            return HttpResponseRedirect('/')
     return render(request, 'login.html')
 
 
 def logout_request(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/login/')
 
 
 @gzip_page
 # @login_required
 def production(request):
     projects = Project.objects.order_by('id')
-    release_quantity = Release.objects.order_by('project')
-    # print(release_quantity)
     # print(len(Release.objects.filter(project__id=1)))  # Works!
-
     return render(request, 'production.html',
-                  {'projects': projects,
-                   'release_quantity': release_quantity})
+                  {'projects': projects})
 
 
 @gzip_page
@@ -53,15 +47,14 @@ def projects(request, project_number):
         print(a)
     except:
         raise Http404("Page not found")
-    # return HttpResponse(f'Project page {project_number}')
     return render(request, 'projects.html', {'project': a})
 
 
 @gzip_page
 def releases(request, project_number, release_title):
-    # print(project_number, release_title)
+    # releases =
     try:
-        a = Release.objects.get(project_number=project_number, release_title=release_title)
+        a = Release.objects.get(project_number=project_number, project__in_releases=release_title)
         print(a)
     except:
         raise Http404('Right now this page in develop, please try again later')

@@ -41,3 +41,39 @@ class Panel(models.Model):
     class Meta:
         verbose_name = 'Panel'
         verbose_name_plural = 'Panels'
+
+
+class Staff(models.Model):
+    first_name = models.CharField('first_name', max_length=50)
+    last_name = models.CharField('last_name', max_length=50)
+    STAFF_TITLES = [
+        ('PM', 'Project manager'),
+        ('Pr', 'Production'),
+        ('MP', 'Machine operator'),
+        ('TW', 'Table worker'),
+        ('Ud', 'Undefined'),
+    ]
+    title = models.Choices(STAFF_TITLES)
+
+
+class Task(models.Model):
+    release = models.ForeignKey(Release, on_delete=models.CASCADE)
+    project_manager = models.ForeignKey(Staff.title('PM'),  on_delete=models.CASCADE)
+    loose_items = models.BooleanField(default=False)
+    outsource_paint = models.CharField(max_length=10, choices=[('NO', 'NO'), ('YES', 'YES')])
+    # parts_drawings = models.IntegerField(max_length=4)
+    """This is just counter of quantity of dwg inside the folder.
+    we dont need to have this field in fact"""
+    zee_hats_angels = models.IntegerField(max_length=7, blank=True)
+    flashing = models.IntegerField(max_length=7, blank=True)
+    coping = models.IntegerField(max_length=7, blank=True)
+    splice_plate = models.IntegerField(max_length=7, blank=True)
+    blade_screen = models.IntegerField(max_length=7, blank=True)
+    perf = models.IntegerField(max_length=7, blank=True)
+    plate_panels = models.IntegerField(max_length=7, blank=True)
+    frames = models.IntegerField(max_length=7, blank=True)
+    strapping = models.IntegerField(max_length=7, blank=True)
+    clips = models.IntegerField(max_length=7, blank=True)
+    misc = models.IntegerField(max_length=7, blank=True)
+    est_mh = models.IntegerField(max_length=7, blank=True)
+    rel_date = models.DateField(max_length=7, blank=True)

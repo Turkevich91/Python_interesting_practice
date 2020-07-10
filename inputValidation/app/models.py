@@ -1,8 +1,5 @@
 from django.db import models
-
-# Create your models here.
 from django.utils import timezone
-import datetime
 
 
 class Project(models.Model):
@@ -46,6 +43,7 @@ class Panel(models.Model):
 class Staff(models.Model):
     first_name = models.CharField('first_name', max_length=50)
     last_name = models.CharField('last_name', max_length=50)
+    email = models.EmailField(blank=True)
     STAFF_TITLES = [
         ('PM', 'Project manager'),
         ('Pr', 'Production'),
@@ -53,27 +51,48 @@ class Staff(models.Model):
         ('TW', 'Table worker'),
         ('Ud', 'Undefined'),
     ]
-    title = models.Choices(STAFF_TITLES)
+    title = models.CharField(max_length=20, choices=STAFF_TITLES)
+
+    def __str__(self):
+        return self.first_name[0] + '. ' + self.last_name
 
 
 class Task(models.Model):
+    # project = models.ForeignKey(Project, on_delete=models.CASCADE)
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
-    project_manager = models.ForeignKey(Staff.title('PM'),  on_delete=models.CASCADE)
+    project_manager = models.ForeignKey(Staff, on_delete=models.CASCADE)
     loose_items = models.BooleanField(default=False)
-    outsource_paint = models.CharField(max_length=10, choices=[('NO', 'NO'), ('YES', 'YES')])
+    outsource_paint = models.BooleanField(default=False)
     # parts_drawings = models.IntegerField(max_length=4)
     """This is just counter of quantity of dwg inside the folder.
     we dont need to have this field in fact"""
-    zee_hats_angels = models.IntegerField(max_length=7, blank=True)
-    flashing = models.IntegerField(max_length=7, blank=True)
-    coping = models.IntegerField(max_length=7, blank=True)
-    splice_plate = models.IntegerField(max_length=7, blank=True)
-    blade_screen = models.IntegerField(max_length=7, blank=True)
-    perf = models.IntegerField(max_length=7, blank=True)
-    plate_panels = models.IntegerField(max_length=7, blank=True)
-    frames = models.IntegerField(max_length=7, blank=True)
-    strapping = models.IntegerField(max_length=7, blank=True)
-    clips = models.IntegerField(max_length=7, blank=True)
-    misc = models.IntegerField(max_length=7, blank=True)
-    est_mh = models.IntegerField(max_length=7, blank=True)
-    rel_date = models.DateField(max_length=7, blank=True)
+    zee_hats_angels = models.IntegerField(blank=True)
+    flashing = models.IntegerField(blank=True)
+    coping = models.IntegerField(blank=True)
+    splice_plate = models.IntegerField(blank=True)
+    blade_screen = models.IntegerField(blank=True)
+    perf = models.IntegerField(blank=True)
+    plate_panels = models.IntegerField(blank=True)
+    frames = models.IntegerField(blank=True)
+    strapping = models.IntegerField(blank=True)
+    clips = models.IntegerField(blank=True)
+    misc = models.IntegerField(blank=True)
+    est_mh = models.IntegerField(blank=True)  # Established Man hours
+    rel_date = models.DateField(auto_now_add=True)
+    requested_ship_date = models.DateField(blank=True)
+    shipped_date = models.DateField(blank=True)
+    STATUSES = [
+        ('Producing', 'Producing'),
+        ('Shipped', 'Shipped'),
+        ('Ready for Pick Up', 'Ready for Pick Up'),
+        ('In progress', 'In progress'),
+        ('Partial Pick Up', 'Partial Pick Up')
+    ]
+    status = models.CharField(max_length=20, choices=STATUSES)
+    shipped_to_location = models.CharField(max_length=100, blank=True)
+    remarks = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return str(self.id)
+
+

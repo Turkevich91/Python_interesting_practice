@@ -66,33 +66,34 @@ class Task(models.Model):
     # parts_drawings = models.IntegerField(max_length=4)
     """This is just counter of quantity of dwg inside the folder.
     we dont need to have this field in fact"""
-    zee_hats_angels = models.IntegerField(blank=True)
-    flashing = models.IntegerField(blank=True)
-    coping = models.IntegerField(blank=True)
-    splice_plate = models.IntegerField(blank=True)
-    blade_screen = models.IntegerField(blank=True)
-    perf = models.IntegerField(blank=True)
-    plate_panels = models.IntegerField(blank=True)
-    frames = models.IntegerField(blank=True)
-    strapping = models.IntegerField(blank=True)
-    clips = models.IntegerField(blank=True)
-    misc = models.IntegerField(blank=True)
-    est_mh = models.IntegerField(blank=True)  # Established Man hours
+    zee_hats_angels = models.IntegerField(blank=True, null=True)
+    flashing = models.IntegerField(blank=True, null=True)
+    coping = models.IntegerField(blank=True, null=True)
+    splice_plate = models.IntegerField(blank=True, null=True)
+    blade_screen = models.IntegerField(blank=True, null=True)
+    perf = models.IntegerField(blank=True, null=True)
+    plate_panels = models.IntegerField(blank=True, null=True)
+    frames = models.IntegerField(blank=True, null=True)
+    strapping = models.IntegerField(blank=True, null=True)
+    clips = models.IntegerField(blank=True, null=True)
+    misc = models.IntegerField(blank=True, null=True)
+    est_mh = models.IntegerField(blank=True, null=True)  # Established Man hours
     rel_date = models.DateField(auto_now_add=True)
     requested_ship_date = models.DateField(blank=True)
     shipped_date = models.DateField(blank=True)
     STATUSES = [
-        ('Producing', 'Producing'),
-        ('Shipped', 'Shipped'),
-        ('Ready for Pick Up', 'Ready for Pick Up'),
         ('In progress', 'In progress'),
-        ('Partial Pick Up', 'Partial Pick Up')
+        ('Delayed', 'Delayed'),
+        ('Producing', 'Producing'),
+        ('Ready for Pick Up', 'Ready for Pick Up'),
+        ('Partial Pick Up', 'Partial Pick Up'),
+        ('Shipped', 'Shipped')
     ]
-    status = models.CharField(max_length=20, choices=STATUSES)
+    status = models.CharField(max_length=20, choices=STATUSES, default='In progress')
     shipped_to_location = models.CharField(max_length=100, blank=True)
     remarks = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.release.project.project_number) + ' ' + str(self.release)
 
 

@@ -28,7 +28,7 @@
 
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="{% url 'production' %}">production</a>
-                    <a class="nav-item nav-link" href="{% url 'manage' %}">management</a>
+                    <a class="nav-item nav-link" href="{% url 'management' %}">management</a>
 {#                    <a class="nav-item nav-link" href="{% url 'engineering' %}">engineering</a>#}
 {#                    <a class="nav-item nav-link" href="{% url 'login' %}">login</a>#}
                     <a class="nav-item nav-link" href="/admin/">~ADMIN~</a>
@@ -43,13 +43,14 @@
 
 
 <main role="main" class="flex-shrink-0">
-    <div class="container-sm">
+    <div class="container-{% block container_type %}sm{% endblock %}">
         {% block content %}
             <h1>This page in progress</h1>
             <h2>You can help me with filling by sending me any ideas to my email address: <a
                     href="mailto:vturkevych@millerclapperton.com">vturkevych@millerclapperton.com</a></h2>
         {% endblock %}
     </div>
+
 </main>
 
 <footer class="footer mt-auto py-3" >

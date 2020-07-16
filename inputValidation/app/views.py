@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Project, Release, Panel
+from .models import Project, Release, Panel, Task
 
 
 @gzip_page
@@ -68,8 +68,35 @@ def panels(request, panel_title):
 
 
 def management(request):
-    return render(request, 'management.html')
-
+    tasks = Task.objects.order_by('rel_date')
+    theads = [
+        'Name',
+        'Release',
+        'PM',
+        'loose items',
+        'Outsource Paint',
+        'Pt Dwgs',
+        'Zee Hats Angles',
+        'Flashing',
+        'Coping',
+        'Splice Plate',
+        'Blade Screen',
+        'Perf',
+        'Plate Panels',
+        'Frames',
+        'Strapping',
+        'Clips',
+        'Misc.',
+        'Est. MH',
+        'Rel-Date',
+        'Requested Ship Date',
+        'Shipped Date',
+        'Date dif',
+        'Status',
+        'Shipped to Location',
+        'REMARKS',
+    ]
+    return render(request, 'management.html', {'tasks': tasks, 'theads': theads})
 
 # def engineering(request):
 #     return render(request, 'engineering.html', )

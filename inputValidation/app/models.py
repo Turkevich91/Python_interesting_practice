@@ -17,14 +17,13 @@ class Project(models.Model):
 
 class Release(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    # release_material = models.ForeignKey(Material, on_delete=models.CASCADE)
     release_title = models.CharField('Release name', max_length=10)
     release_folder = models.CharField('Folder', max_length=200,
                                       default=r"D:\Users\Public\Downloads\01ProjectEmptyFiles",
                                       blank=True)
 
     def __str__(self):
-        return self.release_title
+        return str(f'{self.project.project_number} - {self.release_title}')
 
 
 class Panel(models.Model):
@@ -60,7 +59,7 @@ class Staff(models.Model):
 class Task(models.Model):
     # project = models.ForeignKey(Project, on_delete=models.CASCADE)
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
-    project_manager = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    project_manager = models.ForeignKey(Staff, on_delete=models.CASCADE, limit_choices_to={'title': 'PM'})
     loose_items = models.BooleanField(default=False)
     outsource_paint = models.BooleanField(default=False)
     # parts_drawings = models.IntegerField(max_length=4)
@@ -94,6 +93,6 @@ class Task(models.Model):
     remarks = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return str(self.release.project.project_number) + ' ' + str(self.release)
+        return str(self.release.project.project_number) + ' - ' + str(self.release.release_title)
 
 

@@ -11,7 +11,7 @@ from django.conf import settings
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('production/', views.production, name='production'),
-    path('manage/', views.management, name='manage'),
+    path('management/', views.management, name='management'),
     # path('engineering/', views.engineering, name='engineering'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_request, name='logout'),

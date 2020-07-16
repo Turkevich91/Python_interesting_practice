@@ -1,7 +1,48 @@
 {% extends 'base.html' %}
 
-{% block title %}Management{% endblock %}
+{% block container_type %}fluid{% endblock %}
+
+{% block title %}Task Management{% endblock %}
 
 {% block content %}
-    <h1>Management page</h1>
+    <h1>Task management page</h1>
+
+    <table class="table">
+        <thead>
+        {% for i in theads %}
+            <th>{{ i }}</th>
+        {% endfor %}
+        </thead>
+        <tbody>{% for task in tasks %}
+
+            <tr>
+                <td>{{ task.release.project.project_number }} {{ task.release.project.project_title }}</td>
+                <td>{{ task.release.release_title }}</td>
+                <td>{{ task.project_manager }}</td>
+                <td>{{ task.loose_items }}</td>
+                <td>{{ task.outsource_paint }}</td>
+                <td>{{ task.release.panel_set.count }}</td>
+                <td>{{ task.zee_hats_angels }}</td>
+                <td>{{ task.flashing }}</td>
+                <td>{{ task.coping }}</td>
+                <td>{{ task.splice_plate }}</td>
+                <td>{{ task.blade_screen }}</td>
+                <td>{{ task.perf }}</td>
+                <td>{{ task.plate_panels }}</td>
+                <td>{{ task.frames }}</td>
+                <td>{{ task.strapping }}</td>
+                <td>{{ task.clips }}</td>
+                <td>{{ task.misc }}</td>
+                <td>{{ task.est_mh }}</td>
+                <td>{{ task.rel_date }}</td>
+                <td>{{ task.requested_ship_date }}</td>
+                <td>{{ task.shipped_date }}</td>
+                <td></td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.shipped_to_location }}</td>
+                <td>{{ task.remarks }}</td>
+
+            </tr>
+        {% endfor %}</tbody>
+    </table>
 {% endblock %}

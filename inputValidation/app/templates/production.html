@@ -10,7 +10,7 @@
             {% for project in projects %}
 
                 <a href="{{project.project_number}}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    <b>{{project.project_title}}</b>
+                    <b>{{project.project_number}} {{ project.project_title }}</b>
 {#                    {% for x in project.release_set.get_queryset %} WORKS!!! {{ x.release_title }} #}
                     <span class="badge badge-primary badge-pill">{{ project.release_set.count }}</span>
 {#                    {% endfor %}#}

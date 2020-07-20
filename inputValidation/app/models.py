@@ -22,6 +22,9 @@ class Release(models.Model):
                                       default=r"D:\Users\Public\Downloads\01ProjectEmptyFiles",
                                       blank=True)
 
+    class Meta:
+        unique_together = (("project", "release_title"),)
+
     def __str__(self):
         return str(f'{self.project.project_number} - {self.release_title}')
 
@@ -29,7 +32,7 @@ class Release(models.Model):
 class Panel(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
     panel_title = models.CharField('Panel name', max_length=10)
-    panel_quantity = models.IntegerField('Quantity', blank=True, default=1)
+    panel_quantity = models.PositiveIntegerField('Quantity', blank=True, default=1)
 
     def __str__(self):
         return self.panel_title

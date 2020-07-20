@@ -23,6 +23,8 @@ class Release(models.Model):
                                       blank=True)
 
     class Meta:
+        verbose_name = 'release'
+        verbose_name_plural = 'releases'
         constraints = [
             models.UniqueConstraint(fields=['release_title', 'project'], name='unique pro releases')
         ]
@@ -40,8 +42,11 @@ class Panel(models.Model):
         return self.panel_title
 
     class Meta:
-        verbose_name = 'Panel'
-        verbose_name_plural = 'Panels'
+        verbose_name = 'panel'
+        verbose_name_plural = 'panels'
+        constraints = [
+            models.UniqueConstraint(fields=['release', 'panel_title'], name='unique panels')
+        ]
 
 
 class Staff(models.Model):

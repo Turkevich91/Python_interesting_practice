@@ -23,11 +23,7 @@ class Release(models.Model):
                                       blank=True)
 
     class Meta:
-        db_table = 'Release'
-        constraints = [
-            models.UniqueConstraint(fields=['release_title', 'project'], name='unique pro releases')
-        ]
-        # unique_together = (("project", "release_title"),)
+        unique_together = (("project", "release_title"),)
 
     def __str__(self):
         return str(f'{self.project.project_number} - {self.release_title}')

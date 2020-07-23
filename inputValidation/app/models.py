@@ -26,7 +26,8 @@ class Release(models.Model):
         verbose_name = 'release'
         verbose_name_plural = 'releases'
         constraints = [
-            models.UniqueConstraint(fields=['release_title', 'project'], name='unique pro releases')
+            models.UniqueConstraint(fields=['release_title', 'project'], name='unique pro releases'),
+            # models.CheckConstraint(check=())
         ]
 
     def __str__(self):

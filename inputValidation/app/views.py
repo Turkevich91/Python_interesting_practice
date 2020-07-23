@@ -1,7 +1,7 @@
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, Release, Panel, Task
 
@@ -54,10 +54,11 @@ def projects(request, project_number):
 def releases(request, project_number, release_title):
     # releases =
     try:
-        a = Release.objects.get(project_number=project_number, project__in_releases=release_title)
-        print(a)
+        # a = Release.objects.filter(project__project_number=project_number, release_title=release_title)
+        a = Release.objects.get(release_title=release_title, project__project_number=project_number)
+        # print(a[0])
     except:
-        raise Http404('Right now this page in develop, please try again later')
+        raise Http404('VIEWS PROBLEM')
     return render(request, 'releases.html', {'release': a})
 
 
@@ -67,6 +68,7 @@ def panels(request, panel_title):
     return render(request, 'panels.html', {'panels': a})
 
 
+@login_required()
 def management(request):
     tasks = Task.objects.order_by('rel_date')
     theads = [

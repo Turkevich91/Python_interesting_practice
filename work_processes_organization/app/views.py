@@ -63,8 +63,15 @@ def releases(request, project_number, release_title):
 
 
 @gzip_page
-def panels(request, panel_title):
-    a = Panel.objects.get(panel_title=panel_title)
+def panels(request, project_number, release_title, panel_title):
+    try:
+        a = Panel.objects.get(
+            release__project__project_number=project_number,
+            release__release_title=release_title,
+            panel_title=panel_title
+        )
+    except:
+        raise Http404('VIEWS PROBLEM')
     return render(request, 'panels.html', {'panels': a})
 
 

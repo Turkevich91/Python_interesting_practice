@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Active work{% endblock %}
+
+{% block content %}
+
+    {% if projects %}
+        <h4 style="horiz-align: center">Here are some of the tasks available:</h4><br>
+        <div class="list-group">
+            {% for project in projects %}
+
+                <a href="{{ project.project_number }}"
+                   class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                    <b>{{ project.project_number }} {{ project.project_title }}</b>
+                    {#                    {% for x in project.release_set.get_queryset %} WORKS!!! {{ x.release_title }} #}
+                    <span class="badge badge-primary badge-pill">{{ project.release_set.count }}</span>
+                    {#                    {% endfor %}#}
+                    {#                {% url 'app:projects' project.project_number %}#}
+                </a>
+
+            {% endfor %}
+        </div>
+    {% else %}
+        Nothing here yet, but it is coming soon....
+    {% endif %}
+    {#{% load static %}#}
+    {#<img src="{% static "g0tt2sic.bmp" %}" alt="My image">#}
+    {#<p>{{ project_list }}</p>#}
+    {#        {% for a in release_quantity %}#}
+    {#            <p>{{a.project}}</p>#}
+    {##}
+    {#        {% endfor %}#}
+    {#<p>{{ release_quantity }}</p>#}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ release.project.project_number }} {{ release.release_title }}{% endblock %}
+{% block content %}
+
+    {% if release %}
+        <h1><span class="text-primary">{{ release.project.project_number }}</span> {{ release.project.project_title }}
+        </h1>
+        <h1>Release: <span class="text-primary">{{ release.release_title }}</span></h1>
+        {% if release.panel_set.exists %}
+            <h2 class="text-success">List of panels:</h2>
+
+            <div class="list-group">
+                {% for panel in release.panel_set.get_queryset %}
+                    <a href="{{ panel }}"
+                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        {{ panel.panel_title }}
+                        <span>123</span>
+                        <img src="#" alt="pic">
+                        <span class="badge badge-primary badge-pill">QTY: {{ panel.panel_quantity }}</span>
+                        <span>{{ panel.panel_quantity }}</span>
+                    </a>
+                {% endfor %}
+                total dwg: {{ release.panel_set.count }}, total panels: {{ release.panel_set.get_queryset.0 }}
+            </div>
+        {% else %}
+            <h2 class="text-danger">There are not any panels.</h2>
+        {% endif %}
+    {% else %}
+        Template doesnt received anything
+    {% endif %}
+
+{% endblock %}

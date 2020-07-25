@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ panels.release.project.project_number }} {{ panels.release.release_title }}
-    {{ panels.panel_title }}{% endblock %}
+{% block title %}{{ panels.release.project.project_number }}-{{ panels.release.release_title }}:
+     {{ panels.panel_title }}{% endblock %}
 {% block content %}
-
     {% if panels %}
 
     {% else %}
-        Template doesnt received anything
+        <span class="text-danger">Template doesnt received anything</span>
     {% endif %}
 
 {% endblock %}

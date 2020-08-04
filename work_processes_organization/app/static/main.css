@@ -1,5 +1,5 @@
 body {
-    background: url("img/Facades_GeorgiaAquarium.jpg"), 100% 100%;
+    background: url("img/Facades_GeorgiaAquarium.jpg"), 100% 100% no-repeat;
     background-size: 100%, 100%;
 }
 
@@ -13,16 +13,13 @@ body {
 }
 
 .bg-light {
-    backdrop-filter: blur(2px);
+    background: rgba(248, 249, 250, 0.9) !important;
 }
 
 .container-sm {
     background: rgba(248, 249, 250, 0.9);
     border: 1px solid gray;
-    padding: 10px 10px 20px;
+    padding: 10px;
     border-radius: 0 0 10px 10px;
 }
 
-footer div{
-    background: #f8f8f8;
-}

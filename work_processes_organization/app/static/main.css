@@ -1,7 +1,28 @@
+body {
+    background: url("img/Facades_GeorgiaAquarium.jpg"), 100% 100%;
+    background-size: 100%, 100%;
+}
+
 .table td {
     padding: 2px;
+    background: rgba(248, 249, 250, 0.9);
 }
 
 .column-width {
     width: 100px;
+}
+
+.bg-light {
+    backdrop-filter: blur(2px);
+}
+
+.container-sm {
+    background: rgba(248, 249, 250, 0.9);
+    border: 1px solid gray;
+    padding: 10px 10px 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+footer div{
+    background: #f8f8f8;
 }

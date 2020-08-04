@@ -75,7 +75,7 @@ def panels(request, project_number, release_title, panel_title):
     return render(request, 'panels.html', {'panels': a})
 
 
-@login_required()
+# @login_required()
 def management(request):
     tasks = Task.objects.order_by('rel_date')
     theads = [

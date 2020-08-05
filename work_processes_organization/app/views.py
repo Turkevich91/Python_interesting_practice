@@ -44,7 +44,6 @@ def production(request):
 def projects(request, project_number):
     try:
         a = Project.objects.get(project_number=project_number)
-        print(a)
     except:
         raise Http404("Page not found")
     return render(request, 'projects.html', {'project': a})

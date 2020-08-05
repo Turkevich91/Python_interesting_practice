@@ -8,6 +8,11 @@ body {
     background: rgba(248, 249, 250, 0.9);
 }
 
+.table td:hover {
+    box-shadow: 1px 1px 5px inset;
+    cursor: pointer;
+}
+
 .column-width {
     width: 100px;
 }

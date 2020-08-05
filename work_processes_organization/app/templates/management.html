@@ -17,7 +17,7 @@
             <tbody>{% for task in tasks %}
 
                 <tr>
-                    <td>{{ task.release.project.project_number }} {{ task.release.project.project_title }}</td>
+                    <td title="{{ task.release.project.project_title }}">{{ task.release.project.project_number }} {{ task.release.project.project_title }}</td>
                     <td>{{ task.release.release_title }}</td>
                     <td>{{ task.project_manager }}</td>
                     <td class="column-width">{{ task.loose_items }}</td>

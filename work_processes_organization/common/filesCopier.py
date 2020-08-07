@@ -60,7 +60,7 @@ PROJECT_ROOT = r"\\mcp-fsvs2\Engineering\01 Projects"  # \\mcp-fsvs2\Engineering
 WORK_ROOT = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"  # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
-job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # replace with input()
+job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # (^\d+|(?i)(pap|mcm)|\d+[a-z]?|[a-z]+$)
 year = '20' + job[:2]  # 2018  (first 2 digits represent year)
 print('Year:', year, '\nJob#', job, 'Release:', relType, relNum, "\n")
 

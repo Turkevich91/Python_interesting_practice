@@ -4,7 +4,9 @@ from django.views.decorators.gzip import gzip_page
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, Release, Panel, Task
-from ..common.modules import ExcelHandler
+
+
+# from ..common.modules import ExcelHandler
 
 
 @gzip_page

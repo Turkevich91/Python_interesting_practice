@@ -65,7 +65,7 @@ class ExcelHandler:
     @staticmethod
     def line_grab(row_num):
         if sheet.cell(row=row_num, column=1).value == 'Job':  # Headers
-            line_type = 'headers'
+            line_type = 'HEADERS'
             return line_type
         elif isinstance(sheet.cell(row=row_num, column=5).value, datetime.datetime):  # Datetime
             line_type = 'DATETIME'
@@ -73,6 +73,9 @@ class ExcelHandler:
         elif isinstance(sheet.cell(row=row_num, column=2).value, str):
             line_type = "DATA"
             return line_type
+        elif isinstance(sheet.cell(row=row_num, column=7).value, str) \
+                and sheet.cell(row=row_num, column=7).value.startswith('='):
+            return 'SUMMARY LINE'
         else:
             return 'empty line'
 
@@ -91,9 +94,8 @@ for row in range(1, 500):  # sheet.max_row
     for cell in range(1, sheet.max_column):
         cell_value = sheet.cell(row=row, column=cell).value
         if cell_value:
-            if isinstance(cell_value, str) and not cell_value.startswith('='):
+            if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
                 print(sheet.cell(row=row, column=cell).value)
-
 
 # print(f"SPECIAL REQUEST ANSWER IS {sheet['E478'].value}", f"TYPE = ", type(sheet['E478'].value))
 """

@@ -1,15 +1,17 @@
 import openpyxl
 from openpyxl.utils import get_column_letter, column_index_from_string
 import os
+import datetime
 from os.path import isfile, join, splitext, exists
 
 
 class ExcelHandler:
     root_folder_schedules = r"\\mcp-fsvs2\Schedules"
 
-    def __init__(self, job, job_name, release, pm, loose_item: False, out_paint, pt_dwg, zha, flashing, coping,
-                 splice_pate, blade_screen, perf, plate_panels, frames, strapping, misc, est_mh, rel_date, shipped_date,
-                 date_dif, status, shipped_to, remarks):
+    def __init__(self, job, job_name, release, pm, pt_dwg=None, zha=None, flashing=None, coping=None,
+                 splice_pate=None, blade_screen=None, perf=None, plate_panels=None, frames=None, strapping=None,
+                 misc=None, est_mh=None, rel_date=None, shipped_date=None, date_dif=None, status=None, shipped_to=None,
+                 remarks=None, loose_item=False, out_paint=False):
         self.job = job
         self.job_name = job_name
         self.release = release
@@ -40,7 +42,7 @@ class ExcelHandler:
         """этот модуль собирает данные с таблиц и добавляет их в базу данных.
         Если не задать аргументы метод возвращает список файлов .xlsx с папки SCHEDULES
         Если передать аргумент filename (должен соответствовать существующим файлам)
-         то скопирует содержимое файла в базу данных.
+        то скопирует содержимое файла в базу данных.
         """
 
         if filename:
@@ -60,9 +62,53 @@ class ExcelHandler:
     def export_schedule():
         pass
 
+    @staticmethod
+    def line_grab(row_num):
+        if sheet.cell(row=row_num, column=1).value == 'Job':  # Headers
+            line_type = 'headers'
+            return line_type
+        elif isinstance(sheet.cell(row=row_num, column=5).value, datetime.datetime):  # Datetime
+            line_type = 'DATETIME'
+            return line_type
+        elif isinstance(sheet.cell(row=row_num, column=2).value, str):
+            line_type = "DATA"
+            return line_type
+        else:
+            return 'empty line'
+
 
 # for line in grab_excel(filename='Installation Schedule - 2020.xlsx'):
 #     print(line)
+sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
+print(sheet)
 
-print(ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx'))
 a = ExcelHandler(123, 'asdfasdf', 'pap 03', 'vasya pupkin', out_paint=False)
+print(a)
+print(sheet.cell(row=1, column=2))
+print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
+for row in range(1, 500):  # sheet.max_row
+    print(f'\n{row} -= {ExcelHandler.line_grab(row)} =-\n')
+    for cell in range(1, sheet.max_column):
+        cell_value = sheet.cell(row=row, column=cell).value
+        if cell_value:
+            if isinstance(cell_value, str) and not cell_value.startswith('='):
+                print(sheet.cell(row=row, column=cell).value)
+
+
+# print(f"SPECIAL REQUEST ANSWER IS {sheet['E478'].value}", f"TYPE = ", type(sheet['E478'].value))
+"""
+markers:
+if column['E'].isinstance('datetime.datetime') /
+or column['A'] is not Null /
+or column
+
+line_types:
+headers
+date - save only one cell
+model - cell with 
+summary  - ignore, dynamic data, i cant save it directly
+empty - just ignore
+
+
+SPECIAL REQUEST ANSWER IS 2020-08-03 00:00:00 TYPE =  <class 'datetime.datetime'>
+"""

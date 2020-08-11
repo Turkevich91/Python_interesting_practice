@@ -70,19 +70,19 @@ class ExcelHandler:
                 lst.append(sheet_job.cell(row=i, column=j).value)
                 # print(lst)
             job_dict.update({lst.pop(0): lst})
-        for x in job_dict:
-            print(f'{x}: {job_dict[x]}')
+        # for x in job_dict:
+        #     print(f'{x}: {job_dict[x]}')
         return job_dict
 
     @staticmethod
     def parse_line(row_num):
-        if sheet.cell(row=row_num, column=1).value == 'Job':  # Headers
+        if sheet.cell(row=row_num, column=1).value in ['Job', 'Job #']:  # Headers
             line_type = 'HEADERS'
             return line_type
         elif isinstance(sheet.cell(row=row_num, column=5).value, datetime.datetime):  # Datetime
             line_type = 'DATETIME'
             return line_type
-        elif isinstance(sheet.cell(row=row_num, column=2).value, str):
+        elif isinstance(sheet.cell(row=row_num, column=1).value, int):
             line_type = "DATA"
             return line_type
         elif isinstance(sheet.cell(row=row_num, column=7).value, str) \
@@ -119,7 +119,10 @@ for row in range(1, 500):  # sheet.max_row
         cell_value = sheet.cell(row=row, column=cell).value
         if cell_value:
             if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
-                if cell == 2:
-                    print(proj_list[1572][0])
+                if cell == 2 and ExcelHandler.parse_line(row) == "DATA":
+                    qwe = sheet.cell(row=row, column=1).value
+                    print(proj_list[qwe][0])
+                # elif ExcelHandler.parse_line(row) in ["HEADERS", "SUMMARY LINE"]:
+                #     continue
                 else:
                     print(sheet.cell(row=row, column=cell).value)

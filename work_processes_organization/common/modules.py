@@ -1,6 +1,7 @@
 import openpyxl
 from openpyxl.utils import get_column_letter, column_index_from_string
 import os
+import subprocess
 import datetime
 from os.path import isfile, join, splitext, exists
 
@@ -38,7 +39,7 @@ class ExcelHandler:
         self.remarks = remarks
 
     @staticmethod
-    def import_schedule(src_dir=root_folder_schedules, filename=None):
+    def get_book(src_dir=root_folder_schedules, filename=None):
         """этот модуль собирает данные с таблиц и добавляет их в базу данных.
         Если не задать аргументы метод возвращает список файлов .xlsx с папки SCHEDULES
         Если передать аргумент filename (должен соответствовать существующим файлам)
@@ -49,7 +50,7 @@ class ExcelHandler:
                 filepath = join(ExcelHandler.root_folder_schedules, filename)
                 print(filepath)
                 wb = openpyxl.load_workbook(filepath)
-                return {wb[wb.sheetnames[0]], wb[wb.sheetnames[1]]}  # возвращаем отдельно 2 листа книги
+                return wb  # возвращаем отдельно 2 листа книги
             except FileNotFoundError:
                 print(f'Couldn\'t open "{filename}" file not found')
         else:  # если не задано имя файла то возвращает список всех Эксель файлов в директории.
@@ -96,13 +97,16 @@ class ExcelHandler:
         pass
 
 
-sheet, job_sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
+book = ExcelHandler.get_book(filename='Metal Shop Schedule - 2020.xlsx')
+sheet = book.get_sheet_by_name('Sheet1')
+job_sheet = book.get_sheet_by_name('Job Specific ')
 proj_list = ExcelHandler.get_pro_list(job_sheet)
 
 """ 
 с порядком тут какие-то проблемы, не знаю почему мне пришлось поменять местами переменные, так-что 
 второй лист копируется в первую переменную, а 
 первый лист во вторую переменную
+через время все прошло само по себе О_о
 """
 ExcelHandler.get_pro_list(job_sheet)
 # print(sheet, job_sheet, isinstance(job_sheet, openpyxl.worksheet.worksheet.Worksheet), type(job_sheet))
@@ -133,3 +137,7 @@ for row in range(1, sheet.max_row):  # sheet.max_row
                     continue
                 else:
                     print(sheet.cell(row=row, column=cell).value)
+
+
+
+

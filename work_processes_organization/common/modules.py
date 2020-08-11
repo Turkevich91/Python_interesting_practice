@@ -75,7 +75,7 @@ class ExcelHandler:
         return job_dict
 
     @staticmethod
-    def parse_line(row_num):
+    def define_line_type(row_num):
         if sheet.cell(row=row_num, column=1).value in ['Job', 'Job #']:  # Headers
             line_type = 'HEADERS'
             return line_type
@@ -91,8 +91,12 @@ class ExcelHandler:
         else:
             return 'EMPTY LINE'
 
+    @staticmethod
+    def import_data_to_db():
+        pass
 
-job_sheet, sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
+
+sheet, job_sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
 proj_list = ExcelHandler.get_pro_list(job_sheet)
 
 """ 
@@ -113,16 +117,19 @@ ExcelHandler.get_pro_list(job_sheet)
 """
 
 print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
-for row in range(1, 500):  # sheet.max_row
-    print(f'\nLine:{row} -= {ExcelHandler.parse_line(row)} =-\n')
+for row in range(1, sheet.max_row):  # sheet.max_row
+    print(f'\nLine:{row} -= {ExcelHandler.define_line_type(row)} =-\n')
     for cell in range(1, sheet.max_column):
         cell_value = sheet.cell(row=row, column=cell).value
         if cell_value:
             if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
-                if cell == 2 and ExcelHandler.parse_line(row) == "DATA":
-                    qwe = sheet.cell(row=row, column=1).value
-                    print(proj_list[qwe][0])
-                # elif ExcelHandler.parse_line(row) in ["HEADERS", "SUMMARY LINE"]:
-                #     continue
+                if cell == 2 and ExcelHandler.define_line_type(row) == "DATA":
+                    repl = sheet.cell(row=row, column=1).value
+                    try:
+                        print(proj_list[repl][0])
+                    except KeyError:
+                        continue
+                elif ExcelHandler.define_line_type(row) in ["HEADERS", "SUMMARY LINE", "EMPTY LINE", "DATETIME"]:
+                    continue
                 else:
                     print(sheet.cell(row=row, column=cell).value)

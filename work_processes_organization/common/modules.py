@@ -44,17 +44,15 @@ class ExcelHandler:
         Если передать аргумент filename (должен соответствовать существующим файлам)
         то скопирует содержимое файла в базу данных.
         """
-
         if filename:
-            try:
+            try:  # пробуем сопоставить строку и реальным именем файла, если файл найден то читаем все в переменную wb
                 filepath = join(ExcelHandler.root_folder_schedules, filename)
                 print(filepath)
                 wb = openpyxl.load_workbook(filepath)
-                sheet = wb.active
-                return wb['Sheet1']
+                return {wb[wb.sheetnames[0]], wb[wb.sheetnames[1]]}  # возвращаем отдельно 2 листа книги
             except FileNotFoundError:
                 print(f'Couldn\'t open "{filename}" file not found')
-        else:
+        else:  # если не задано имя файла то возвращает список всех Эксель файлов в директории.
             files = os.listdir(src_dir)
             return [x for x in files if isfile(join(src_dir, x)) and x.endswith('.xlsx') and not x.startswith('~')]
 
@@ -63,7 +61,20 @@ class ExcelHandler:
         pass
 
     @staticmethod
-    def line_grab(row_num):
+    def get_pro_list(sheet_job):
+        sheet_job = sheet_job
+        job_dict = dict()
+        for i in range(2, sheet_job.max_row):
+            lst = []
+            for j in range(1, 5):
+                lst.append(sheet_job.cell(row=i, column=j).value)
+                # print(lst)
+            job_dict.update({lst.pop(0): lst})
+        for x in job_dict:
+            print(f'{x}: {job_dict[x]}')
+
+    @staticmethod
+    def parse_line(row_num):
         if sheet.cell(row=row_num, column=1).value == 'Job':  # Headers
             line_type = 'HEADERS'
             return line_type
@@ -77,40 +88,20 @@ class ExcelHandler:
                 and sheet.cell(row=row_num, column=7).value.startswith('='):
             return 'SUMMARY LINE'
         else:
-            return 'empty line'
+            return 'EMPTY LINE'
 
 
-# for line in grab_excel(filename='Installation Schedule - 2020.xlsx'):
-#     print(line)
-sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
-print(sheet)
+sheet, job_sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
+ExcelHandler.get_pro_list(sheet)
+# print(sheet, job_sheet, isinstance(job_sheet, openpyxl.worksheet.worksheet.Worksheet), type(job_sheet))
 
-a = ExcelHandler(123, 'asdfasdf', 'pap 03', 'vasya pupkin', out_paint=False)
-print(a)
-print(sheet.cell(row=1, column=2))
-print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
-for row in range(1, 500):  # sheet.max_row
-    print(f'\n{row} -= {ExcelHandler.line_grab(row)} =-\n')
-    for cell in range(1, sheet.max_column):
-        cell_value = sheet.cell(row=row, column=cell).value
-        if cell_value:
-            if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
-                print(sheet.cell(row=row, column=cell).value)
+# print(ExcelHandler.get_pro_list(job_sheet))
 
-# print(f"SPECIAL REQUEST ANSWER IS {sheet['E478'].value}", f"TYPE = ", type(sheet['E478'].value))
-"""
-markers:
-if column['E'].isinstance('datetime.datetime') /
-or column['A'] is not Null /
-or column
-
-line_types:
-headers
-date - save only one cell
-model - cell with 
-summary  - ignore, dynamic data, i cant save it directly
-empty - just ignore
-
-
-SPECIAL REQUEST ANSWER IS 2020-08-03 00:00:00 TYPE =  <class 'datetime.datetime'>
-"""
+# print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
+# for row in range(1, 500):  # sheet.max_row
+#     print(f'\nLine:{row} -= {ExcelHandler.parse_line(row)} =-\n')
+#     for cell in range(1, sheet.max_column):
+#         cell_value = sheet.cell(row=row, column=cell).value
+#         if cell_value:
+#             if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
+#                 print(sheet.cell(row=row, column=cell).value)

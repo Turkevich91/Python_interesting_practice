@@ -61,7 +61,7 @@ class ExcelHandler:
         pass
 
     @staticmethod
-    def get_pro_list(sheet_job):
+    def get_pro_list(sheet_job):  # as {Job_number:[title, saleman, PM]}
         sheet_job = sheet_job
         job_dict = dict()
         for i in range(2, sheet_job.max_row):
@@ -72,6 +72,7 @@ class ExcelHandler:
             job_dict.update({lst.pop(0): lst})
         for x in job_dict:
             print(f'{x}: {job_dict[x]}')
+        return job_dict
 
     @staticmethod
     def parse_line(row_num):
@@ -91,17 +92,34 @@ class ExcelHandler:
             return 'EMPTY LINE'
 
 
-sheet, job_sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
-ExcelHandler.get_pro_list(sheet)
+job_sheet, sheet = ExcelHandler.import_schedule(filename='Metal Shop Schedule - 2020.xlsx')
+proj_list = ExcelHandler.get_pro_list(job_sheet)
+
+""" 
+с порядком тут какие-то проблемы, не знаю почему мне пришлось поменять местами переменные, так-что 
+второй лист копируется в первую переменную, а 
+первый лист во вторую переменную
+"""
+ExcelHandler.get_pro_list(job_sheet)
 # print(sheet, job_sheet, isinstance(job_sheet, openpyxl.worksheet.worksheet.Worksheet), type(job_sheet))
-
+#
 # print(ExcelHandler.get_pro_list(job_sheet))
+# print(proj_list[1572])
 
-# print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
-# for row in range(1, 500):  # sheet.max_row
-#     print(f'\nLine:{row} -= {ExcelHandler.parse_line(row)} =-\n')
-#     for cell in range(1, sheet.max_column):
-#         cell_value = sheet.cell(row=row, column=cell).value
-#         if cell_value:
-#             if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
-#                 print(sheet.cell(row=row, column=cell).value)
+""" 
+*****************
+*** TEST AREA *** 
+*****************
+"""
+
+print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
+for row in range(1, 500):  # sheet.max_row
+    print(f'\nLine:{row} -= {ExcelHandler.parse_line(row)} =-\n')
+    for cell in range(1, sheet.max_column):
+        cell_value = sheet.cell(row=row, column=cell).value
+        if cell_value:
+            if isinstance(cell_value, (str, int)):  # and not cell_value.startswith('=')
+                if cell == 2:
+                    print(proj_list[1572][0])
+                else:
+                    print(sheet.cell(row=row, column=cell).value)

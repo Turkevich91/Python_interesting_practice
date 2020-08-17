@@ -80,7 +80,7 @@ def panels(request, project_number, release_title, panel_title):
 # @login_required()
 def management(request):
     tasks = Task.objects.order_by('rel_date')
-    theads = [
+    heads = [
         'Name',
         'Release',
         'PM',
@@ -107,7 +107,7 @@ def management(request):
         'Shipped to Location',
         'REMARKS',
     ]
-    return render(request, 'management.html', {'tasks': tasks, 'theads': theads})
+    return render(request, 'management.html', {'tasks': tasks, 'heads': heads})
 
 # def engineering(request):
 #     return render(request, 'engineering.html', )

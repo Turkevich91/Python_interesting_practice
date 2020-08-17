@@ -12,7 +12,10 @@ def files_transfer(src=None, dest=None, excel_src=None, **kwargs):
     if not dest:
         dest = workFolderApPath
     if not excel_src:
-        excel_src = excelPath
+        try:
+            excel_src = excelPath
+        except:
+            print('no file')
     try:
         copytree(src, dest, **kwargs)
         copyfile(excel_src, join(dest, 'PDF', basename(excel_src)))
@@ -60,7 +63,12 @@ PROJECT_ROOT = r"\\mcp-fsvs2\Engineering\01 Projects"  # \\mcp-fsvs2\Engineering
 WORK_ROOT = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"  # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
-job, relType, relNum = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())  # (^\d+|(?i)(pap|mcm)|\d+[a-z]?|[a-z]+$)
+job, relType, relNum, *suffix, = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())
+try:
+    print(suffix)
+except:
+    pass
+# (^\d+|(?i)(pap|mcm)|\d+[a-z]?|[a-z]+$)
 year = '20' + job[:2]  # 2018  (first 2 digits represent year)
 print('Year:', year, '\nJob#', job, 'Release:', relType, relNum, "\n")
 
@@ -81,7 +89,10 @@ for i in listdir():  # Seeking
                         for l in listdir(join(j, k)):
                             print('\t\t- ', l)
                             if l.startswith('Spreadsheet'):
-                                excelPath = join(getcwd(), j, k, l)
+                                try:
+                                    excelPath = join(getcwd(), j, k, l)
+                                except:
+                                    print('no exel file')
                         if j in ['PD', 'PDs']:
                             dwgFolderApPath = join(getcwd(), j, k)
 
@@ -89,10 +100,10 @@ print("Project fullname:", jobFolderName)
 print("Source dwg folder:", dwgFolderApPath)
 workFolderApPath = join(WORK_ROOT, year, jobFolderName, '%s %s' % (relType, relNum))
 print("Work directory:", workFolderApPath)
-if excelPath:
-    print('Excel file path:', excelPath)
-else:
-    print('Excel file not found')
+# if excelPath is not None:
+#     print('Excel file path:', excelPath)
+# else:
+#     print('Excel file not found')
 
 print(f'\nCopy files to work directory?')
 answer = choice_request(files_transfer)

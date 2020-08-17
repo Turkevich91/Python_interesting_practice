@@ -28,3 +28,9 @@ body {
     border-radius: 0 0 10px 10px;
 }
 
+.shadowed {
+    color: whitesmoke;
+    text-shadow: 3px 3px 7px aqua;
+    text-align: center;
+}
+

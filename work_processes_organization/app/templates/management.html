@@ -5,12 +5,12 @@
 {% block title %}Task Management{% endblock %}
 
 {% block content %}
-    <h1>Task management page</h1>
+    <h1 class="shadowed">Task management page</h1>
 
     <div class="overflow-auto">
         <table class="table table-striped  table-bordered">
             <thead class="thead-dark">
-            {% for i in theads %}
+            {% for i in heads %}
                 <th>{{ i }}</th>
             {% endfor %}
             </thead>

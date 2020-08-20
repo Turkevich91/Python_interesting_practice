@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="pdf_view"></canvas>
+
+<script src="{% static 'js/pdf.min.js' %}" ></script>
+<script>
+    var loadingTask = pdfjsLib.getDocument({% static 'pdf/PAP 15.pdf' %})
+    loadingTask.promise.then(function(pdf) {
+      // you can now use *pdf* here
+        pdf.getPage(1).then(function(page) {
+            // you can now use *page* here
+            var scale = 1.5;
+            var viewport = page.getViewport({ scale: scale, });
+
+            var canvas = document.getElementById('pdf_view');
+            var context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            var renderContext = {
+              canvasContext: context,
+              viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    });
+</script>
+</body>
+</html>

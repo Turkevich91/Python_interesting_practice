@@ -1,9 +1,11 @@
-from django.http import Http404, HttpResponseRedirect, HttpResponse
+from django.http import Http404, HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, Release, Panel, Task
+import io
+from reportlab.pdfgen import canvas
 
 
 # from ..common.modules import ExcelHandler
@@ -109,5 +111,25 @@ def management(request):
     ]
     return render(request, 'management.html', {'tasks': tasks, 'heads': heads})
 
+
+def pdf_view(request):
+    return render(request, 'pdf.html', {'pdf_name': 'PAP 15.pdf'})
 # def engineering(request):
 #     return render(request, 'engineering.html', )
+
+
+# https://docs.djangoproject.com/en/3.0/howto/outputting-pdf/
+# def pdf_view(request):
+#     buffer = io.BytesIO()
+#     p = canvas.Canvas(buffer)
+#     p.drawString(0, 100, "Hello world.")
+#     p.showPage()
+#     p.save()
+#     buffer.seek(0)
+#     return FileResponse(buffer, as_attachment=True, filename='Hello.pdf')
+# def pdf_view(request):
+#     with open('static/pdf/PAP 15.pdf', 'r') as pdf:
+#         response = HttpResponse(pdf.read(), mimetype='application/pdf')
+#         response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+#         return response
+#     pdf.closed

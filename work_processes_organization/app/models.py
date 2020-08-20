@@ -107,6 +107,6 @@ class Task(models.Model):
     def __str__(self):
         return str(self.release.project.project_number) + ' - ' + str(self.release.release_title)
 
-    @staticmethod
-    def get_heads():
-        pass
+    # @staticmethod
+    # def get_heads():
+    #     pass

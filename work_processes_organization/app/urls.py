@@ -2,7 +2,7 @@
 #
 #
 
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -19,6 +19,8 @@ urlpatterns = [
     path('production/<int:project_number>/', views.projects, name='projects'),
     path('production/<int:project_number>/<str:release_title>/', views.releases, name='releases'),
     path('production/<int:project_number>/<str:release_title>/<str:panel_title>', views.panels, name='panels'),
+    path('pdf', views.pdf_view, name='pdf'),
+    # re_path(r' *.pdf$', views.pdf, name='pdf'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

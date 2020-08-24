@@ -4,9 +4,11 @@ from shutil import copytree, copyfile
 from sys import stdout
 from time import sleep
 import re
+#   TODO: Adapt this module to the WEB also.
 
 
 def files_transfer(src=None, dest=None, excel_src=None, **kwargs):
+    """  """
     if not src:
         src = dwgFolderApPath
     if not dest:
@@ -63,6 +65,7 @@ PROJECT_ROOT = r"\\mcp-fsvs2\Engineering\01 Projects"  # \\mcp-fsvs2\Engineering
 WORK_ROOT = r"\\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_"  # \\mcp-fsvs2\Production\_Programming_JOBS\_Turret Punch_
 
 print('Write work and release number separated with space bar: \nexample: 1873 PAP 14A or 18112 MCM 06')
+#   FIXME: Extend RegEx
 job, relType, relNum, *suffix, = re.findall(r'(^\d+|[a-zA-Z]+|\d+[a-zA-Z]?$)', input().upper())
 try:
     print(suffix)

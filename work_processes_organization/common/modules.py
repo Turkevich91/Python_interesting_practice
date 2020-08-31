@@ -1,8 +1,6 @@
 import openpyxl
 from openpyxl.utils import get_column_letter, column_index_from_string
 import os
-import subprocess
-import subprocess
 import datetime
 from os.path import isfile, join, splitext, exists
 
@@ -16,7 +14,6 @@ class ProjectScheduler:
     """
 
     root_folder = r"\\mcp-fsvs2\Schedules"
-
     # def __init__(self, job, job_name, release, pm, pt_dwg=None, zha=None, flashing=None, coping=None,
     #              splice_pate=None, blade_screen=None, perf=None, plate_panels=None, frames=None, strapping=None,
     #              misc=None, est_mh=None, rel_date=None, shipped_date=None, date_dif=None, status=None, shipped_to=None,
@@ -76,7 +73,7 @@ class ProjectScheduler:
     @staticmethod
     def get_pro_list(sheet_job):  # as {Job_number:[title, saleman, PM]}
         """ func -> dict() This dict important to find Project Title in the Excel file """
-        sheet_job = sheet_job
+        # sheet_job = sheet_job
         job_dict = dict()
         for i in range(2, sheet_job.max_row):
             lst = []
@@ -147,10 +144,9 @@ proj_list = ProjectScheduler.get_pro_list(job_sheet)
 *****************
 """
 
-print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')
+print(f'rows = {sheet.max_row}, columns = {sheet.max_column}')  # statistic data
 for row in range(1, sheet.max_row):  # sheet.max_row
     # print(f'\nLine:{row} -= {ExcelHandler.define_line_type(row)} =-\n')
-    print('\n')
     for cell in range(1, sheet.max_column):
         cell_value = sheet.cell(row=row, column=cell).value
         if cell_value:

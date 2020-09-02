@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 
@@ -6,6 +7,9 @@ class Project(models.Model):
     project_title = models.CharField('Project name', max_length=200)
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
+    # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
+    # todo: Add ForeignKey to User(Group='PM'), it is VERY important
+    # https://stackoverflow.com/questions/2245895/is-there-a-simple-way-to-get-group-names-of-a-user-in-django
 
     # creation_date = models.DateTimeField('Creation date')
 
@@ -52,6 +56,11 @@ class Panel(models.Model):
 
 
 class Staff(models.Model):
+    """
+    todo: replace Staff with system model User => Groups
+    it will be more correct and simple
+    """
+
     first_name = models.CharField('first_name', max_length=50)
     last_name = models.CharField('last_name', max_length=50)
     email = models.EmailField(blank=True)
@@ -69,9 +78,10 @@ class Staff(models.Model):
 
 
 class Task(models.Model):
-    # project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)  # -> Project
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
     project_manager = models.ForeignKey(Staff, on_delete=models.CASCADE, limit_choices_to={'title': 'PM'})
+
     loose_items = models.BooleanField(default=False)
     outsource_paint = models.BooleanField(default=False)
     # parts_drawings = models.IntegerField(max_length=4)

@@ -1,11 +1,11 @@
 from django.http import Http404, HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render
 from django.views.decorators.gzip import gzip_page
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Project, Release, Panel, Task
-import io
-from reportlab.pdfgen import canvas
+# import io
+# from reportlab.pdfgen import canvas
 
 
 # from ..common.modules import ExcelHandler
@@ -112,8 +112,8 @@ def management(request):
     return render(request, 'management.html', {'tasks': tasks, 'heads': heads})
 
 
-def pdf_view(request):
-    return render(request, 'pdf.html', {'pdf_name': 'PAP 15.pdf'})
+# def pdf_view(request):
+#     return render(request, 'pdf.html', {'pdf_name': 'PAP 15.pdf'})
 # def engineering(request):
 #     return render(request, 'engineering.html', )
 

@@ -7,8 +7,9 @@ class Project(models.Model):
     project_title = models.CharField('Project name', max_length=200)
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
-    # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
     # todo: Add ForeignKey to User(Group='PM'), it is VERY important
+    project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.DO_NOTHING)
+    # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
     # https://stackoverflow.com/questions/2245895/is-there-a-simple-way-to-get-group-names-of-a-user-in-django
 
     # creation_date = models.DateTimeField('Creation date')
@@ -55,38 +56,34 @@ class Panel(models.Model):
         ]
 
 
-class Staff(models.Model):
-    """
-    todo: replace Staff with system model User => Groups
-    it will be more correct and simple
-    """
-
-    first_name = models.CharField('first_name', max_length=50)
-    last_name = models.CharField('last_name', max_length=50)
-    email = models.EmailField(blank=True)
-    STAFF_TITLES = [
-        ('PM', 'Project manager'),
-        ('Pr', 'Production'),
-        ('MP', 'Machine operator'),
-        ('TW', 'Table worker'),
-        ('Ud', 'Undefined'),
-    ]
-    title = models.CharField(max_length=20, choices=STAFF_TITLES)
-
-    def __str__(self):
-        return self.first_name[0] + '. ' + self.last_name
+# class Staff(models.Model):
+#     """
+#     todo: replace Staff with system model User => Groups
+#     it will be more correct and simple
+#     """
+#
+#     first_name = models.CharField('first_name', max_length=50)
+#     last_name = models.CharField('last_name', max_length=50)
+#     email = models.EmailField(blank=True)
+#     STAFF_TITLES = [
+#         ('PM', 'Project manager'),
+#         ('Pr', 'Production'),
+#         ('MP', 'Machine operator'),
+#         ('TW', 'Table worker'),
+#         ('Ud', 'Undefined'),
+#     ]
+#     title = models.CharField(max_length=20, choices=STAFF_TITLES)
+#
+#     def __str__(self):
+#         return self.first_name[0] + '. ' + self.last_name
 
 
 class Task(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)  # -> Project
-    release = models.ForeignKey(Release, on_delete=models.CASCADE)
-    project_manager = models.ForeignKey(Staff, on_delete=models.CASCADE, limit_choices_to={'title': 'PM'})
+    project = models.ForeignKey(Project, on_delete=models.DO_NOTHING)  # -> Project
+    release = models.ForeignKey(Release, on_delete=models.DO_NOTHING)
 
     loose_items = models.BooleanField(default=False)
     outsource_paint = models.BooleanField(default=False)
-    # parts_drawings = models.IntegerField(max_length=4)
-    """This is just counter of quantity of dwg inside the folder.
-    we dont need to have this field in fact"""
     zee_hats_angels = models.IntegerField(blank=True, null=True)
     flashing = models.IntegerField(blank=True, null=True)
     coping = models.IntegerField(blank=True, null=True)
@@ -116,6 +113,3 @@ class Task(models.Model):
 
     def __str__(self):
         return str(self.release.project.project_number) + ' - ' + str(self.release.release_title)
-    # @staticmethod
-    # def get_heads():
-    #     pass

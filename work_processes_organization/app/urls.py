@@ -19,7 +19,7 @@ urlpatterns = [
     path('production/<int:project_number>/', views.projects, name='projects'),
     path('production/<int:project_number>/<str:release_title>/', views.releases, name='releases'),
     path('production/<int:project_number>/<str:release_title>/<str:panel_title>', views.panels, name='panels'),
-    path('pdf', views.pdf_view, name='pdf'),
+    # path('pdf', views.pdf_view, name='pdf'),
     # re_path(r' *.pdf$', views.pdf, name='pdf'),
 ]
 

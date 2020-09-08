@@ -7,12 +7,12 @@ class Project(models.Model):
     project_title = models.CharField('Project name', max_length=200)
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
-    # todo: Add ForeignKey to User(Group='PM'), it is VERY important
+    # todo: reduce choice to User(Group='PM').
     project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.DO_NOTHING)
+    modified = models.DateTimeField(auto_now=True)
+
     # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
     # https://stackoverflow.com/questions/2245895/is-there-a-simple-way-to-get-group-names-of-a-user-in-django
-
-    # creation_date = models.DateTimeField('Creation date')
 
     def __str__(self):
         return self.project_title
@@ -27,6 +27,7 @@ class Release(models.Model):
     release_folder = models.CharField('Folder', max_length=200,
                                       default=r"D:\Users\Public\Downloads\01ProjectEmptyFiles",
                                       blank=True)
+    modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'release'
@@ -44,6 +45,7 @@ class Panel(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
     panel_title = models.CharField('Panel name', max_length=10)
     panel_quantity = models.PositiveIntegerField('Quantity', blank=True, default=1)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.panel_title
@@ -54,28 +56,6 @@ class Panel(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['release', 'panel_title'], name='unique panels')
         ]
-
-
-# class Staff(models.Model):
-#     """
-#     todo: replace Staff with system model User => Groups
-#     it will be more correct and simple
-#     """
-#
-#     first_name = models.CharField('first_name', max_length=50)
-#     last_name = models.CharField('last_name', max_length=50)
-#     email = models.EmailField(blank=True)
-#     STAFF_TITLES = [
-#         ('PM', 'Project manager'),
-#         ('Pr', 'Production'),
-#         ('MP', 'Machine operator'),
-#         ('TW', 'Table worker'),
-#         ('Ud', 'Undefined'),
-#     ]
-#     title = models.CharField(max_length=20, choices=STAFF_TITLES)
-#
-#     def __str__(self):
-#         return self.first_name[0] + '. ' + self.last_name
 
 
 class Task(models.Model):
@@ -110,6 +90,7 @@ class Task(models.Model):
     status = models.CharField(max_length=20, choices=STATUSES, default='In progress')
     shipped_to_location = models.CharField(max_length=100, blank=True)
     remarks = models.CharField(max_length=200, blank=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return str(self.release.project.project_number) + ' - ' + str(self.release.release_title)

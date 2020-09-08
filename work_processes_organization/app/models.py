@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.utils import timezone
 
 
@@ -8,12 +8,19 @@ class Project(models.Model):
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
     # todo: reduce choice to User(Group='PM').
-    project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.DO_NOTHING)
+    project_manager = models.ForeignKey(User, default=None, null=True, limit_choices_to={
+        'username': ['BJohn', 'TGilstrap', 'SOrrell', 'THarwell', 'TMesser', 'MKunz', 'JJohns', 'MJacobson', 'SHadley',
+                     'CWhitehorne', 'TKuhn', 'GVEspinell', 'CTucker', 'ELizardi', 'CJaunsen', 'LBonilla', 'JMatheus',
+                     'FMcCormick', 'JHulsey']
+        # User.objects.filter(groups__name='PM') #  works in general but not with limit_choices_to: returns Qset
+        # User.objects.filter(username='JHulsey') # works also for singular instance
+    },
+                                        on_delete=models.DO_NOTHING, )  # todo FINISH THIS!!!
     modified = models.DateTimeField(auto_now=True)
 
     # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
     # https://stackoverflow.com/questions/2245895/is-there-a-simple-way-to-get-group-names-of-a-user-in-django
-
+    # User.objects.get(groups__name='PM')
     def __str__(self):
         return self.project_title
 

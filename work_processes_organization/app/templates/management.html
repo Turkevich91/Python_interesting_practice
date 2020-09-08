@@ -17,37 +17,35 @@
 
             <tbody>
             {% for task in tasks %}
-
                 <tr>
-                <td>task</td>
-{#                    <td title="{{ task.release.project.project_title }}">{{ task.release.project.project_number }} {{ task.release.project.project_title }}</td>#}
-{#                    <td>{{ task.release.release_title }}</td>#}
-{#                    <td>{{ task.project_manager }}</td>#}
-{#                    <td class="column-width">{{ task.loose_items }}</td>#}
-{#                    <td class="column-width">{{ task.outsource_paint }}</td>#}
-{#                    <td class="column-width">{{ task.release.panel_set.count }}</td>#}
-{#                    <td class="column-width">{{ task.zee_hats_angels }}</td>#}
-{#                    <td class="column-width">{{ task.flashing }}</td>#}
-{#                    <td class="column-width">{{ task.coping }}</td>#}
-{#                    <td class="column-width">{{ task.splice_plate }}</td>#}
-{#                    <td class="column-width">{{ task.blade_screen }}</td>#}
-{#                    <td class="column-width">{{ task.perf }}</td>#}
-{#                    <td class="column-width">{{ task.plate_panels }}</td>#}
-{#                    <td class="column-width">{{ task.frames }}</td>#}
-{#                    <td class="column-width">{{ task.strapping }}</td>#}
-{#                    <td class="column-width">{{ task.clips }}</td>#}
-{#                    <td class="column-width">{{ task.misc }}</td>#}
-{#                    <td class="column-width">{{ task.est_mh }}</td>#}
-{#                    <td>{{ task.rel_date }}</td>#}
-{#                    <td>{{ task.requested_ship_date }}</td>#}
-{#                    <td>{{ task.shipped_date }}</td>#}
-{#                    <td></td>#}
-{#                    <td>{{ task.status }}</td>#}
-{#                    <td>{{ task.shipped_to_location }}</td>#}
-{#                    <td>{{ task.remarks }}</td>#}
-
+                <td title="{{ task.release.project.project_title }}">{{ task.release.project.project_number }} {{ task.release.project.project_title }}</td>
+                <td>{{ task.release.release_title }}</td>
+                <td>{{ task.release.project.project_manager }}</td>
+                <td class="column-width">{{ task.loose_items }}</td>
+                <td class="column-width">{{ task.outsource_paint }}</td>
+                <td class="column-width">{{ task.release.panel_set.count }}</td>
+                <td class="column-width">{{ task.zee_hats_angels }}</td>
+                <td class="column-width">{{ task.flashing }}</td>
+                <td class="column-width">{{ task.coping }}</td>
+                <td class="column-width">{{ task.splice_plate }}</td>
+                <td class="column-width">{{ task.blade_screen }}</td>
+                <td class="column-width">{{ task.perf }}</td>
+                <td class="column-width">{{ task.plate_panels }}</td>
+                <td class="column-width">{{ task.frames }}</td>
+                <td class="column-width">{{ task.strapping }}</td>
+                <td class="column-width">{{ task.clips }}</td>
+                <td class="column-width">{{ task.misc }}</td>
+                <td class="column-width">{{ task.est_mh }}</td>
+                <td>{{ task.rel_date }}</td>
+                <td>{{ task.requested_ship_date }}</td>
+                <td>{{ task.shipped_date }}</td>
+                <td>{{ task.requested_ship_date }} - {{ task.shipped_date }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.shipped_to_location }}</td>
+                <td>{{ task.remarks }}</td>
                 </tr>
-            {% endfor %}</tbody>
+            {% endfor %}
+            </tbody>
 
         </table>
     </div>

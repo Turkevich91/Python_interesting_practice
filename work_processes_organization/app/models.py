@@ -7,15 +7,18 @@ class Project(models.Model):
     project_title = models.CharField('Project name', max_length=200)
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
-    # todo: reduce choice to User(Group='PM').
-    project_manager = models.ForeignKey(User, default=None, null=True, limit_choices_to={
-        'username': ['BJohn', 'TGilstrap', 'SOrrell', 'THarwell', 'TMesser', 'MKunz', 'JJohns', 'MJacobson', 'SHadley',
-                     'CWhitehorne', 'TKuhn', 'GVEspinell', 'CTucker', 'ELizardi', 'CJaunsen', 'LBonilla', 'JMatheus',
-                     'FMcCormick', 'JHulsey']
-        # User.objects.filter(groups__name='PM') #  works in general but not with limit_choices_to: returns Qset
-        # User.objects.filter(username='JHulsey') # works also for singular instance
-    },
-                                        on_delete=models.DO_NOTHING, )  # todo FINISH THIS!!!
+    # todo: restrict choice to User(Group='PM').
+    project_manager = models.ForeignKey(User, default=None, null=True,
+                                        # limit_choices_to=
+                                        # User.objects.select_related('Group').get(id=25),
+                                        # {'username': User.groups.aggregate('PM')
+                                        #     'username': ['BJohn', 'TGilstrap', 'SOrrell', 'THarwell', 'TMesser', 'MKunz', 'JJohns', 'MJacobson', 'SHadley',
+                                        #                  'CWhitehorne', 'TKuhn', 'GVEspinell', 'CTucker', 'ELizardi', 'CJaunsen', 'LBonilla', 'JMatheus',
+                                        #                  'FMcCormick', 'JHulsey']
+                                        #     User.objects.filter(groups__name='PM') #  works in general but not with limit_choices_to: returns Qset
+                                        #     # User.objects.filter(username='JHulsey') # works also for singular instance
+                                        # },
+                                        on_delete=models.DO_NOTHING, )
     modified = models.DateTimeField(auto_now=True)
 
     # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
@@ -66,9 +69,7 @@ class Panel(models.Model):
 
 
 class Task(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.DO_NOTHING)  # -> Project
     release = models.ForeignKey(Release, on_delete=models.DO_NOTHING)
-
     loose_items = models.BooleanField(default=False)
     outsource_paint = models.BooleanField(default=False)
     zee_hats_angels = models.IntegerField(blank=True, null=True)

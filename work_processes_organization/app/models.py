@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
+from django.db.models import Q
 from django.utils import timezone
 
 
@@ -8,17 +9,24 @@ class Project(models.Model):
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
     # todo: restrict choice to User(Group='PM').
-    project_manager = models.ForeignKey(User, default=None, null=True,
-                                        # limit_choices_to=
-                                        # User.objects.select_related('Group').get(id=25),
-                                        # {'username': User.groups.aggregate('PM')
-                                        #     'username': ['BJohn', 'TGilstrap', 'SOrrell', 'THarwell', 'TMesser', 'MKunz', 'JJohns', 'MJacobson', 'SHadley',
-                                        #                  'CWhitehorne', 'TKuhn', 'GVEspinell', 'CTucker', 'ELizardi', 'CJaunsen', 'LBonilla', 'JMatheus',
-                                        #                  'FMcCormick', 'JHulsey']
-                                        #     User.objects.filter(groups__name='PM') #  works in general but not with limit_choices_to: returns Qset
-                                        #     # User.objects.filter(username='JHulsey') # works also for singular instance
-                                        # },
-                                        on_delete=models.DO_NOTHING, )
+    project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.DO_NOTHING)
+
+    # limit_choices_to=
+    # User.objects.select_related('Group').get(id=25),
+    # {'username': User.groups.aggregate('PM')
+    #     'username': ['BJohn', 'TGilstrap', 'SOrrell', 'THarwell', 'TMesser', 'MKunz', 'JJohns', 'MJacobson', 'SHadley',
+    #                  'CWhitehorne', 'TKuhn', 'GVEspinell', 'CTucker', 'ELizardi', 'CJaunsen', 'LBonilla', 'JMatheus',
+    #                  'FMcCormick', 'JHulsey']
+    #     User.objects.filter(groups__name='PM') #  works in general but not with limit_choices_to: returns Qset
+    #     # User.objects.filter(username='JHulsey') # works also for singular instance
+    # },
+    class Meta:
+        verbose_name = 'project'
+        verbose_name_plural = 'projects'
+        constraints = [
+            # models.CheckConstraint(check=[], name='')
+        ]
+
     modified = models.DateTimeField(auto_now=True)
 
     # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
@@ -37,6 +45,8 @@ class Release(models.Model):
     release_folder = models.CharField('Folder', max_length=200,
                                       default=r"D:\Users\Public\Downloads\01ProjectEmptyFiles",
                                       blank=True)
+    # release_material = models.ForeignKey(Material, blank=None, null=True, on_delete=models.DO_NOTHING)
+    # punch_nest = models.CharField('Nest_dict', max_length=1000)
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:

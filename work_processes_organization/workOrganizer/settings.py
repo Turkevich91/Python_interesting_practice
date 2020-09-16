@@ -34,6 +34,7 @@ print(f'Hostname: {gethostname()}')
 
 INSTALLED_APPS = [
     'app.apps.AppConfig',
+    'inventory.apps.InventoryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

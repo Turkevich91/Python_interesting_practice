@@ -42,8 +42,8 @@ class MaterialThickness(models.Model):
     measuring_system = models.CharField("Measuring system", choices=SYSTEMS, default='in', max_length=8)
 
     def __str__(self):
-        if self.thickness % 2 == 0:
-            return f"{'%.0f' % self.thickness}{self.measuring_system}"
+        if self.thickness.is_integer():
+            return f"{int(self.thickness)}{self.measuring_system}"
         else:
             return f"{self.thickness}{self.measuring_system}"
 
@@ -77,3 +77,4 @@ class Material(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['material_type', 'material_shape', 'material_size'], name='material')
         ]
+

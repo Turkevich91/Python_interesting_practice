@@ -33,16 +33,23 @@ class MaterialSize(models.Model):
         return str(f'{self.size_x}x{self.size_y}')
 
 
+class MaterialColor(models.Model):
+    color = models.CharField("Color", max_length=30)
+
+
 class Material(models.Model):
     material_type = models.ForeignKey(MaterialType, on_delete=models.DO_NOTHING)
-    material_shape = models.ForeignKey(MaterialShape, on_delete=models.DO_NOTHING)
     material_size = models.ForeignKey(MaterialSize, on_delete=models.DO_NOTHING)
-    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.DO_NOTHING)
+    material_shape = models.ForeignKey(MaterialShape, blank=True, null=True, default=None, on_delete=models.DO_NOTHING)
+    manufacturer = models.ForeignKey(Manufacturer, blank=True, null=True, default=None, on_delete=models.DO_NOTHING)
+    color = models.ForeignKey(MaterialColor, default=None, null=True, blank=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return str(f"{str(self.material_type.name)[:3]}: {self.material_size.size_x}x{self.material_size.size_y}")
 
     class Meta:
+        verbose_name = 'MATERIAL'
+        verbose_name_plural = 'MATERIALS'
         constraints = [
             models.UniqueConstraint(fields=['material_type', 'material_shape', 'material_size'], name='material')
         ]

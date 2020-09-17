@@ -33,19 +33,43 @@ class MaterialSize(models.Model):
         return str(f'{self.size_x}x{self.size_y}')
 
 
+class MaterialThickness(models.Model):
+    thickness = models.FloatField("Thickness", default=0.125)
+    SYSTEMS = [
+        ("in", "Imperial"),
+        ("mm", "CI")
+    ]
+    measuring_system = models.CharField("Measuring system", choices=SYSTEMS, default='in', max_length=8)
+
+    def __str__(self):
+        if self.thickness % 2 == 0:
+            return f"{'%.0f' % self.thickness}{self.measuring_system}"
+        else:
+            return f"{self.thickness}{self.measuring_system}"
+
+    class Meta:
+        verbose_name = "Thickness"
+        verbose_name_plural = "Thickness"
+
+
 class MaterialColor(models.Model):
     color = models.CharField("Color", max_length=30)
+
+    def __str__(self):
+        return self.color
 
 
 class Material(models.Model):
     material_type = models.ForeignKey(MaterialType, on_delete=models.DO_NOTHING)
     material_size = models.ForeignKey(MaterialSize, on_delete=models.DO_NOTHING)
-    material_shape = models.ForeignKey(MaterialShape, blank=True, null=True, default=None, on_delete=models.DO_NOTHING)
+    material_thickness = models.ForeignKey(MaterialThickness, default=1, on_delete=models.DO_NOTHING)
+    material_shape = models.ForeignKey(MaterialShape, null=True, blank=True, default=1, on_delete=models.DO_NOTHING)
+    color = models.ForeignKey(MaterialColor, default=1, blank=True, on_delete=models.DO_NOTHING)
     manufacturer = models.ForeignKey(Manufacturer, blank=True, null=True, default=None, on_delete=models.DO_NOTHING)
-    color = models.ForeignKey(MaterialColor, default=None, null=True, blank=True, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return str(f"{str(self.material_type.name)[:3]}: {self.material_size.size_x}x{self.material_size.size_y}")
+        return f"{'%.0f' % self.material_size.size_x}x{'%.0f' % self.material_size.size_y}    " \
+               f"{str(self.material_type.name)} {self.material_thickness}"
 
     class Meta:
         verbose_name = 'MATERIAL'

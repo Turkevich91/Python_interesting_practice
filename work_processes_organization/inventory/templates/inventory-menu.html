@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+
+<div>Menu:</div>
+<a href="{% url "material" %}">♦
+    <div><img src="#" alt="material-pic"></div>
+</a>
+<a href="{% url "m_equipment" %}">♦
+    <div><img src="#" alt="m_equipment-pic"></div>
+</a>
+<a href="{% url "personal_equipment" %}">♦
+    <div>machine eqp<br>tools and parts<br><img src="#" alt="personal_equipment-pic"></div>
+</a>
+
+{% endblock %}

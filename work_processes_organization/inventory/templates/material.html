@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}material{% endblock %}
+
+{% block content %}
+
+    {% if pur_order %}
+        <ul>
+        {% for order in pur_order %}
+            <li>PO# {{ order.po }}</li>
+                <ul>
+                    {% for material in order.material.get_queryset %}
+                        <li>{{ material }}</li>
+                    {% endfor %}
+                </ul>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

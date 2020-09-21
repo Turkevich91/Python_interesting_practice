@@ -114,3 +114,4 @@ class MaterialAmount(models.Model):
 
     def __str__(self):
         return f'PO:{self.po.po} {self.material} {self.amount}pcs'
+

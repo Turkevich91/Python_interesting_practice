@@ -104,8 +104,8 @@ class PurchaseOrder(models.Model):
 
 
 class MaterialAmount(models.Model):
-    po = models.ForeignKey(PurchaseOrder, related_name='material_amounts', on_delete=models.SET_NULL, null=True)
-    material = models.ForeignKey(Material, related_name='material_amounts', on_delete=models.SET_NULL, null=True)
+    po = models.ForeignKey(PurchaseOrder, related_name='material_amounts', on_delete=models.CASCADE, null=True)
+    material = models.ForeignKey(Material, related_name='material_amounts', on_delete=models.CASCADE, null=True)
     amount = models.IntegerField()
 
     class Meta:
@@ -115,3 +115,14 @@ class MaterialAmount(models.Model):
     def __str__(self):
         return f'PO:{self.po.po} {self.material} {self.amount}pcs'
 
+
+# todo finish and comprehend pallet relation
+
+class PalletPlace(models.Model):
+    descriptions = models.CharField("Place descriptions", max_length=100)
+    name = models.CharField("Pallet place", max_length=30)
+
+
+class Pallet(models.Model):
+    material = models.ForeignKey(Material, on_delete=models.CASCADE)
+    pallet_place = models.ForeignKey(PalletPlace, on_delete=models.SET_NULL, null=True)

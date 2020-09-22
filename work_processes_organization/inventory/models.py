@@ -77,21 +77,22 @@ class Material(models.Model):
     color = models.ForeignKey(MaterialColor, default=1, blank=True, on_delete=models.DO_NOTHING)
     manufacturer = models.ForeignKey(Manufacturer, blank=True, null=True, default=None, on_delete=models.SET_NULL)
 
-    def __str__(self):
-        return f"{'%.0f' % self.material_size.size_x}x{'%.0f' % self.material_size.size_y}    " \
-               f"{str(self.material_type.name)} {self.material_thickness}"
-
     class Meta:
         verbose_name = 'MATERIAL'
         verbose_name_plural = 'MATERIALS'
+        ordering = ['material_type', 'material_size', 'material_thickness', 'color', ]
         constraints = [
             models.UniqueConstraint(fields=['material_type', 'material_shape', 'material_size'], name='material')
         ]
 
+    def __str__(self):
+        return f"{str(self.material_type.name)} { '%.0f' % self.material_size.size_x}x" \
+               f"{'%.0f' % self.material_size.size_y} {self.material_thickness}"
+
 
 class PurchaseOrder(models.Model):
     po = models.PositiveIntegerField("PO", auto_created=True, primary_key=True)
-    material = models.ManyToManyField(Material, through="MaterialAmount", related_name='pos')
+    material = models.ManyToManyField(Material, through="Pallet", related_name='pos')
     date_ordered = models.DateField(blank=True, default=None, null=True)
     date_received = models.DateField(blank=True, default=None, null=True)
 
@@ -103,26 +104,27 @@ class PurchaseOrder(models.Model):
         return str(self.po)
 
 
-class MaterialAmount(models.Model):
-    po = models.ForeignKey(PurchaseOrder, related_name='material_amounts', on_delete=models.CASCADE, null=True)
-    material = models.ForeignKey(Material, related_name='material_amounts', on_delete=models.CASCADE, null=True)
-    amount = models.IntegerField()
-
-    class Meta:
-        verbose_name = "Material amount"
-        verbose_name_plural = "Materials amount"
+class PalletPlace(models.Model):
+    name = models.CharField("Pallet place", max_length=30)
+    descriptions = models.CharField("Place descriptions", max_length=100, blank=True)
 
     def __str__(self):
-        return f'PO:{self.po.po} {self.material} {self.amount}pcs'
-
-
-# todo finish and comprehend pallet relation
-
-class PalletPlace(models.Model):
-    descriptions = models.CharField("Place descriptions", max_length=100)
-    name = models.CharField("Pallet place", max_length=30)
+        if self.descriptions:
+            return f"{self.name} ({self.descriptions})"
+        else:
+            return self.name
 
 
 class Pallet(models.Model):
-    material = models.ForeignKey(Material, on_delete=models.CASCADE)
+    po = models.ForeignKey(PurchaseOrder, related_name='material_amounts', on_delete=models.CASCADE, null=True)
+    material = models.ForeignKey(Material, related_name='material_amounts', on_delete=models.CASCADE, null=True)
+    amount = models.IntegerField()
     pallet_place = models.ForeignKey(PalletPlace, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        verbose_name = "Pallet"
+        verbose_name_plural = "Pallets"
+
+    def __str__(self):
+        return f'PO:{self.po.po} {self.material} {self.amount}pcs'
+# todo finish and comprehend pallet relation

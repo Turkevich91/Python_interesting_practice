@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.db.models import Q
-from django.utils import timezone
+# from django.db.models import Q
+# from django.utils import timezone
 
 
 class Project(models.Model):
@@ -9,7 +9,7 @@ class Project(models.Model):
     project_number = models.IntegerField('Project number')
     project_path = models.CharField('Folder', max_length=200)
     # todo: restrict choice to User(Group='PM').
-    project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.DO_NOTHING)
+    project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
 
     # limit_choices_to=
     # User.objects.select_related('Group').get(id=25),

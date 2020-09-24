@@ -5,14 +5,17 @@
 {% block content %}
 
 <div>Menu:</div>
-<a href="{% url "material" %}">♦
-    <div><img src="#" alt="material-pic"></div>
+<a href="{% url "table" %}">
+    <div>test-table</div>
 </a>
-<a href="{% url "m_equipment" %}">♦
-    <div><img src="#" alt="m_equipment-pic"></div>
+<a href="{% url "material" %}">
+    <div>material</div>
 </a>
-<a href="{% url "personal_equipment" %}">♦
-    <div>machine eqp<br>tools and parts<br><img src="#" alt="personal_equipment-pic"></div>
+<a href="{% url "m_equipment" %}">
+    <div>m_equipment</div>
+</a>
+<a href="{% url "personal_equipment" %}">
+    <div>machine eqp; tools and parts<br></div>
 </a>
 
 {% endblock %}

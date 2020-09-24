@@ -11,7 +11,7 @@ def inventory(request):
 
 
 def material(request):
-    po = PurchaseOrder.objects.all()
+    po = PurchaseOrder.objects.get_queryset()
     return render(request, 'material.html', {"pur_order": po})
 
 
@@ -23,3 +23,8 @@ def m_equipment(request):
 def p_equipment(request):
     # TODO create DB
     return HttpResponse('HttpResponse: p_equipment view, no data yet')
+
+
+def table(request):
+    po = PurchaseOrder.objects.get_queryset()
+    return render(request, "table.html", {"po": po})

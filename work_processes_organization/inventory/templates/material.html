@@ -1,20 +1,31 @@
+{#https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#}
+
 {% extends 'base.html' %}
 
 {% block title %}material{% endblock %}
 
 {% block content %}
-
     {% if pur_order %}
         <ul>
-        {% for order in pur_order %}
-            <li>PO# {{ order.po }}</li>
-                <ul>
-                    {% for material in order.material.get_queryset %}
-                        <li>{{ material }}</li>
-                    {% endfor %}
-                </ul>
-        {% endfor %}
+            {% for order in pur_order %}
+                <li>PO# {{ order.po }}</li>
+                {% if order.material %}
+                    <ul>
+                        {% for material in order.material.get_queryset %}
+                            <li>{{ material.material_type }}</li>
+                                {% if material.material_thickness %}
+                                    <ul>
+                                        <li>{{ material.material_size }} {{ material.material_thickness }}</li>
+{#                                        {% for thickness in material %}#}
+{#                                            <li>{{ thickness }}</li>#}
+{#                                        {% endfor %}#}
+                                    </ul>
+                                {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
         </ul>
     {% endif %}
-
 {% endblock %}
+

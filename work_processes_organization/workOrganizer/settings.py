@@ -14,9 +14,9 @@ import os
 from socket import gethostname, gethostbyname
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROJECT_ROOT = os.path.dirname(__file__)
-
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__)))  # ...\work_processes_organization\work_processes_organization
+PROJECT_ROOT = os.path.dirname(__file__)  # \work_processes_organization\workOrganizer
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -26,7 +26,7 @@ SECRET_KEY = '7dcx%@0wm=tasxkn)5gs6vey%inu$#tw#hv%+hj+37dk%g_6i3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']    # 'localhost', '127.0.0.1', gethostname(), gethostbyname(gethostname()),
+ALLOWED_HOSTS = ['*']  # 'localhost', '127.0.0.1', gethostname(), gethostbyname(gethostname()),
 print(f'Host: {gethostbyname(gethostname())}')
 print(f'Hostname: {gethostname()}')
 
@@ -116,8 +116,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files (css, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://djbook.ru/rel1.8/ref/templates/builtins.html#static
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')

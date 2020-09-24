@@ -92,7 +92,7 @@ class Material(models.Model):
 
 class PurchaseOrder(models.Model):
     po = models.PositiveIntegerField("PO", auto_created=True, primary_key=True)
-    material = models.ManyToManyField(Material, through="Pallet", related_name='pos')
+    material = models.ManyToManyField(Material, through="Pallet")
     date_ordered = models.DateField(blank=True, default=None, null=True)
     date_received = models.DateField(blank=True, default=None, null=True)
 
@@ -105,20 +105,20 @@ class PurchaseOrder(models.Model):
 
 
 class PalletPlace(models.Model):
-    name = models.CharField("Pallet place", max_length=30)
-    descriptions = models.CharField("Place descriptions", max_length=100, blank=True)
+    place_name = models.CharField("Pallet place", max_length=30)
+    place_descriptions = models.CharField("Place descriptions", max_length=100, blank=True)
 
     def __str__(self):
-        if self.descriptions:
-            return f"{self.name} ({self.descriptions})"
+        if self.place_descriptions:
+            return f"{self.place_name} ({self.place_descriptions})"
         else:
-            return self.name
+            return self.place_name
 
 
 class Pallet(models.Model):
-    po = models.ForeignKey(PurchaseOrder, related_name='material_amounts', on_delete=models.CASCADE, null=True)
-    material = models.ForeignKey(Material, related_name='material_amounts', on_delete=models.CASCADE, null=True)
-    amount = models.IntegerField()
+    purchase_order = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, null=True)
+    material = models.ForeignKey(Material, related_name="pallet", on_delete=models.CASCADE, null=True)
+    material_amount = models.IntegerField()
     pallet_place = models.ForeignKey(PalletPlace, on_delete=models.SET_NULL, null=True)
 
     class Meta:
@@ -126,5 +126,4 @@ class Pallet(models.Model):
         verbose_name_plural = "Pallets"
 
     def __str__(self):
-        return f'PO:{self.po.po} {self.material} {self.amount}pcs'
-# todo finish and comprehend pallet relation
+        return f'PO:{self.purchase_order} {self.material} {self.material_amount}pcs'

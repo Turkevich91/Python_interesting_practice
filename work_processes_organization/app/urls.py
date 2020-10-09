@@ -7,7 +7,8 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
-# app_name = "app"
+app_name = 'app'
+# https://youtu.be/w4nrT7emiVc?t=4766
 
 urlpatterns = [
     path('', views.home_view, name='home'),

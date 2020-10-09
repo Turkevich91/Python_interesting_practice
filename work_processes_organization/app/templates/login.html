@@ -8,7 +8,7 @@
         {% csrf_token %}
         {% if user.get_full_name %}
             <p>You have already logged in as <strong>{{ user.get_full_name }}</strong>, however you can login with
-                different account or just <a href="{% url 'logout' %}">logout</a>
+                different account or just <a href="{% url 'app:logout' %}">logout</a>
                 {#            <form method="post">#}
                 {#                <button name="logout" value="True" type="submit" class="btn btn-primary">Log out</button>#}
                 {#            </form>#}

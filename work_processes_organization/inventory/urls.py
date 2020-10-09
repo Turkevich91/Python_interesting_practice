@@ -4,9 +4,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('inventory/', views.inventory, name='inventory'),
-    path('inventory/material', views.material, name='material'),
-    path('inventory/m_equipment', views.m_equipment, name='m_equipment'),
-    path('inventory/p_equipment', views.p_equipment, name='personal_equipment'),
-    path('inventory/table', views.table, name='table'),
+    path('', views.inventory, name='inventory'),
+    path('material', views.material, name='material'),
+    path('m_equipment', views.m_equipment, name='m_equipment'),
+    path('p_equipment', views.p_equipment, name='personal_equipment'),
+    path('table', views.table, name='table'),
 ]

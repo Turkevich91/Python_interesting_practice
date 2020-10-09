@@ -1,7 +1,7 @@
 {% block userbar %}
     {% if user.get_full_name %}
-        <span><a href="{% url 'login' %}" class="badge-light">{{ user.get_short_name }}</a></span>
+        <span><a href="{% url 'app:login' %}" class="badge-light">{{ user.get_short_name }}</a></span>
     {% else %}
-        <span>Please <a href="{% url 'login' %}">login</a></span>
+        <span>Please <a href="{% url 'app:login' %}">login</a></span>
     {% endif %}
 {% endblock %}

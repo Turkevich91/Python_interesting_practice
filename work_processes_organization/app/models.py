@@ -79,7 +79,7 @@ class Panel(models.Model):
 
 
 class Task(models.Model):
-    release = models.ForeignKey(Release, on_delete=models.DO_NOTHING)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE)
     loose_items = models.BooleanField(default=False)
     outsource_paint = models.BooleanField(default=False)
     zee_hats_angels = models.IntegerField(blank=True, null=True)

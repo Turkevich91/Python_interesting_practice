@@ -22,7 +22,7 @@
 <header>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'home' %}"><b>MillerClapperton</b></a>
+            <a class="navbar-brand" href="{% url 'app:home' %}"><b>MillerClapperton</b></a>
 
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -33,8 +33,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="{% url 'production' %}">production</a>
-                    <a class="nav-item nav-link" href="{% url 'management' %}">management</a>
+                    <a class="nav-item nav-link" href="{% url 'app:production' %}">production</a>
+                    <a class="nav-item nav-link" href="{% url 'app:management' %}">management</a>
                     <a class="nav-item nav-link" href="{% url 'inventory' %}">inventory</a>
                     {#                    <a class="nav-item nav-link" href="{% url 'engineering' %}">engineering</a>#}
                     {#                    <a class="nav-item nav-link" href="{% url 'login' %}">login</a>#}

@@ -18,7 +18,7 @@
 
         {% endif %}
     {% elif user.is_anonymous %}
-        <h2>You dont have any permission unless you <a href="{% url 'login' %}">login</a></h2>
+        <h2>You dont have any permission unless you <a href="{% url 'app:login' %}">login</a></h2>
     {% endif %}
 
 

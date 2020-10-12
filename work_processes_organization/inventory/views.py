@@ -15,14 +15,14 @@ def material(request):
     return render(request, 'material.html', {"pur_order": po})
 
 
-def m_equipment(request):
+def machine_equipment(request):
     # TODO create DB
-    return HttpResponse('HttpResponse: m_equipment view, no data yet')
+    return HttpResponse('HttpResponse: machine_equipment view, no data yet')
 
 
-def p_equipment(request):
+def personal_equipment(request):
     # TODO create DB
-    return HttpResponse('HttpResponse: p_equipment view, no data yet')
+    return HttpResponse('HttpResponse: personal_equipment view, no data yet')
 
 
 def table(request):

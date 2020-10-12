@@ -5,11 +5,14 @@ from django.contrib.auth.models import User, Group
 
 
 class Project(models.Model):
-    project_title = models.CharField('Project name', max_length=200)
-    project_number = models.IntegerField('Project number')
-    project_path = models.CharField('Folder', max_length=200)
+    project_number = models.PositiveIntegerField('Project number')
+    project_title = models.CharField('Project name', max_length=200, blank=True)
+    project_path = models.CharField('File Path', max_length=200, blank=True)
     # todo: restrict choice to User(Group='PM').
     project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
+    purchase_order = models.ForeignKey('inventory.PurchaseOrder', default=None, null=True, blank=True, on_delete=models.SET_NULL)   #thanks for solution https://t.me/pydjango@eva_kuator
+    address = models.CharField('Address', max_length=254, null=True, blank=True)
+    mail_address = models.CharField("Mail address", max_length=254, null=True, blank=True)
 
     # limit_choices_to=
     # User.objects.select_related('Group').get(id=25),
@@ -24,7 +27,7 @@ class Project(models.Model):
         verbose_name = 'project'
         verbose_name_plural = 'projects'
         constraints = [
-            # models.CheckConstraint(check=[], name='')
+            models.UniqueConstraint(fields=['project_number'], name='project_number')
         ]
 
     modified = models.DateTimeField(auto_now=True)
@@ -33,7 +36,7 @@ class Project(models.Model):
     # https://stackoverflow.com/questions/2245895/is-there-a-simple-way-to-get-group-names-of-a-user-in-django
     # User.objects.get(groups__name='PM')
     def __str__(self):
-        return self.project_title
+        return str(self.project_number)
 
     # def was_published_recently(self):
     #     return self.creation_date >= (timezone.now() - datetime.timedelta(days=14))
@@ -45,6 +48,8 @@ class Release(models.Model):
     release_folder = models.CharField('Folder', max_length=200,
                                       default=r"D:\Users\Public\Downloads\01ProjectEmptyFiles",
                                       blank=True)
+    release_material = models.ManyToManyField('inventory.Material',  through="ReleaseMaterial")
+    # todo finish above first
     # release_material = models.ForeignKey(Material, blank=None, null=True, on_delete=models.DO_NOTHING)
     # punch_nest = models.CharField('Nest_dict', max_length=1000)
     modified = models.DateTimeField(auto_now=True)
@@ -59,6 +64,12 @@ class Release(models.Model):
 
     def __str__(self):
         return str(f'{self.project.project_number} - {self.release_title}')
+
+
+class ReleaseMaterial(models.Model):
+    release = models.ForeignKey(Release, on_delete=models.CASCADE)
+    material = models.ForeignKey('inventory.Material', on_delete=models.CASCADE)
+    material_quantity = models.PositiveIntegerField('quantity')
 
 
 class Panel(models.Model):

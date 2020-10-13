@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'project',
-                'verbose_name_plural': 'projects',
+                'verbose_name_plural': 'project_view',
             },
         ),
         migrations.CreateModel(
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'release',
-                'verbose_name_plural': 'releases',
+                'verbose_name_plural': 'release_view',
             },
         ),
         migrations.CreateModel(
@@ -82,15 +82,15 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'panel',
-                'verbose_name_plural': 'panels',
+                'verbose_name_plural': 'panel_info',
             },
         ),
         migrations.AddConstraint(
             model_name='release',
-            constraint=models.UniqueConstraint(fields=('release_title', 'project'), name='unique pro releases'),
+            constraint=models.UniqueConstraint(fields=('release_title', 'project'), name='unique pro release_view'),
         ),
         migrations.AddConstraint(
             model_name='panel',
-            constraint=models.UniqueConstraint(fields=('release', 'panel_title'), name='unique panels'),
+            constraint=models.UniqueConstraint(fields=('release', 'panel_title'), name='unique panel_info'),
         ),
     ]

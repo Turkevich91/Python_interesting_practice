@@ -80,7 +80,7 @@ class ReleaseMaterial(models.Model):
 
 class Panel(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
-    panel_title = models.CharField('Panel name', max_length=10)
+    panel_title = models.CharField('Panel title', max_length=10)
     panel_quantity = models.PositiveIntegerField('Quantity', blank=True, default=1)
     modified = models.DateTimeField(auto_now=True)
 

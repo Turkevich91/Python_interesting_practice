@@ -17,9 +17,9 @@ urlpatterns = [
     # path('engineering/', views.engineering, name='engineering'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_request, name='logout'),
-    path('production/<int:project_number>/', views.projects, name='projects'),
-    path('production/<int:project_number>/<str:release_title>/', views.releases, name='releases'),
-    path('production/<int:project_number>/<str:release_title>/<str:panel_title>', views.panels, name='panels'),
+    path('production/<int:project_number>/', views.project_view, name='project_view'),
+    path('production/<int:project_number>/<str:release_title>/', views.release_view, name='release_view'),
+    path('production/<int:project_number>/<str:release_title>/<str:panel_title>', views.panel_info, name='panel_info'),
     # path('pdf', views.pdf_view, name='pdf'),
     # re_path(r' *.pdf$', views.pdf, name='pdf'),
 ]

@@ -3,15 +3,18 @@
 {% block title %}{{ project.project_title }}{% endblock %}
 {% block content %}
 
-    {% if project %}
+    {% if releases and project %}
         <h1>{{ project.project_number }} {{ project.project_title }}</h1>
+
+        <p>PM: {{ project.project_manager.get_full_name }}<br>PO: {{ project.purchase_order }}</p>
+
         <h2>List of releases:</h2>
         <div class="list-group">
-            {% for a in project.release_set.get_queryset %}
-                <a href="{{ a.release_title }}"
+            {% for release in releases %}
+                <a href="{{ release.release_title }}"
                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    {{ a.release_title }}
-                    <span class="badge badge-primary badge-pill">{{ a.panel_set.count }}</span>
+                    {{ release.release_title }}
+                    <span class="badge badge-primary badge-pill">{{ release.panel_set.count }}</span>
                 </a>
             {% endfor %}
         </div>

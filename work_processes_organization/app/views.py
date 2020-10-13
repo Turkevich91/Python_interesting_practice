@@ -39,44 +39,44 @@ def logout_request(request):
 @gzip_page
 # @login_required
 def production(request):
-    projects = Project.objects.order_by('id')
+    active_tasks = set(Project.objects.filter(release__task__status="In progress"))
+    tasks = Task.objects.filter(status="In progress")
     # print(len(Release.objects.filter(project__id=1)))  # Works!
     return render(request, 'production.html',
-                  {'projects': projects})
+                  {'active_tasks': active_tasks, 'tasks': tasks})
 
 
 @gzip_page
-def projects(request, project_number):
+def project_view(request, project_number):
     try:
-        a = Project.objects.get(project_number=project_number)
+        project = Project.objects.get(project_number=project_number, release__task__status="In progress")
+        releases = Release.objects.filter(project__project_number=project_number, task__status="In progress")
+        print(releases)
     except:
-        raise Http404("Page not found")
-    return render(request, 'projects.html', {'project': a})
+        raise Http404("bad request or view_method logic problem, not found!!!")
+    return render(request, 'project_view.html', {'releases': releases, 'project': project})
 
 
 @gzip_page
-def releases(request, project_number, release_title):
-    # releases =
+def release_view(request, project_number, release_title):
     try:
-        # a = Release.objects.filter(project__project_number=project_number, release_title=release_title)
-        a = Release.objects.get(release_title=release_title, project__project_number=project_number)
-        # print(a[0])
+        release = Release.objects.get(release_title=release_title, project__project_number=project_number)
     except:
         raise Http404('VIEWS PROBLEM')
-    return render(request, 'releases.html', {'release': a})
+    return render(request, 'release_view.html', {'release': release})
 
 
 @gzip_page
-def panels(request, project_number, release_title, panel_title):
+def panel_info(request, project_number, release_title, panel_title):
     try:
-        a = Panel.objects.get(
+        panel = Panel.objects.get(
             release__project__project_number=project_number,
             release__release_title=release_title,
             panel_title=panel_title
         )
     except:
         raise Http404('VIEWS PROBLEM')
-    return render(request, 'panels.html', {'panels': a})
+    return render(request, 'panel.html', {'panel': panel})
 
 
 # @login_required()

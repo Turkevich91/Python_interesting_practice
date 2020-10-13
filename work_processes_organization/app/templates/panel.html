@@ -3,12 +3,16 @@
 {% block title %}{{ panels.panel_title }}{% endblock %}
 {% block content %}
 
-    {% if panels %}
-        <h1>{{ panels.release.release_title }} {{ panels.release.project.project_number }}</h1>
-        <h2>Panel number: <span class="text-primary">{{ panels.panel_title }}</span></h2>
+    {% if panel %}
+        <h2>PN:
+            <span class="text-primary">
+            {{ panel.release.project.project_number }}-{{ panel.release.release_title }}-{{ panel.panel_title }}
+            </span>
+        </h2>
+        <h1></h1>
         <h2>Panel information: </h2>
         <ul>
-            <li>Quantity: {{ panels.panel_quantity }}</li>
+            <li>Quantity: {{ panel.panel_quantity }}</li>
             <li>dimentions: N/A</li>
         </ul>
 

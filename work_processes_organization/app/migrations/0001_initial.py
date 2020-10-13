@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'project',
-                'verbose_name_plural': 'project_view',
+                'verbose_name_plural': 'projects',
             },
         ),
         migrations.CreateModel(
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'release',
-                'verbose_name_plural': 'release_view',
+                'verbose_name_plural': 'releases',
             },
         ),
         migrations.CreateModel(
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'panel',
-                'verbose_name_plural': 'panel_info',
+                'verbose_name_plural': 'panels',
             },
         ),
         migrations.AddConstraint(

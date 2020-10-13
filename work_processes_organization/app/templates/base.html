@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico.png' %}"/>
     <title>{% block title %}Hello, world!{% endblock %}</title>
 </head>
 <body class="d-flex flex-column h-100">
@@ -22,7 +23,10 @@
 <header>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'app:home' %}"><b>MillerClapperton</b></a>
+            <a class="navbar-brand" href="{% url 'app:home' %}">
+                <img src="{% static 'img/icon.png' %}" alt="pic">
+                <b>MillerClapperton</b>
+            </a>
 
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"

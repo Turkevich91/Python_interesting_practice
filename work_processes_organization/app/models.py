@@ -71,6 +71,12 @@ class ReleaseMaterial(models.Model):
     material = models.ForeignKey('inventory.Material', on_delete=models.CASCADE)
     material_quantity = models.PositiveIntegerField('quantity')
 
+    class Meta:
+        verbose_name = 'Release material'
+
+    def __str__(self):
+        return f'{self.release} - [{self.material}] - ({self.material_quantity} pcs)'
+
 
 class Panel(models.Model):
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
@@ -78,8 +84,22 @@ class Panel(models.Model):
     panel_quantity = models.PositiveIntegerField('Quantity', blank=True, default=1)
     modified = models.DateTimeField(auto_now=True)
 
+
+
+    # todo сообразить куда вставить этот блок, скорее всего надо будет создать дополнительную таблицу где будем логировать
+    # кто, когда и на каком этапе сделал панель, в случае нестов программа должна обрабатывать каждую панель отдельно, ведь
+    # каждая панель может быть спродуктирована разными людьми с разного материала и в разное время
+    """
+    punching_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
+    punch_datetime = models.DateTimeField(default=None, null=True)
+    bending_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
+    bend_datetime = models.DateTimeField(default=None, null=True)
+    fabricator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
+    fabricated = models.DateTimeField(default=None, null=True)
+    """
+
     def __str__(self):
-        return self.panel_title
+        return f'{self.release}-{self.panel_title}'
 
     class Meta:
         verbose_name = 'panel'
@@ -106,8 +126,8 @@ class Task(models.Model):
     misc = models.IntegerField(blank=True, null=True)
     est_mh = models.IntegerField(blank=True, null=True)  # Established Man hours
     rel_date = models.DateField(auto_now_add=True)
-    requested_ship_date = models.DateField(blank=True)
-    shipped_date = models.DateField(blank=True)
+    requested_ship_date = models.DateField(blank=True, default=None, null=True)
+    shipped_date = models.DateField(blank=True, default=None, null=True)
     STATUSES = [
         ('In progress', 'In progress'),
         ('Delayed', 'Delayed'),
@@ -121,5 +141,11 @@ class Task(models.Model):
     remarks = models.CharField(max_length=200, blank=True)
     modified = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['release'], name='task_uniques')
+        ]
+
     def __str__(self):
         return str(self.release.project.project_number) + ' - ' + str(self.release.release_title)
+

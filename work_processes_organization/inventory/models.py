@@ -9,7 +9,7 @@ class MaterialType(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.abbreviation})"
 
 
 class Manufacturer(models.Model):

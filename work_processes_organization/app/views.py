@@ -40,10 +40,8 @@ def logout_request(request):
 # @login_required
 def production(request):
     active_tasks = set(Project.objects.filter(release__task__status="In progress"))
-    tasks = Task.objects.filter(status="In progress")
     # print(len(Release.objects.filter(project__id=1)))  # Works!
-    return render(request, 'production.html',
-                  {'active_tasks': active_tasks, 'tasks': tasks})
+    return render(request, 'production.html', {'active_tasks': active_tasks})
 
 
 @gzip_page
@@ -51,7 +49,6 @@ def project_view(request, project_number):
     try:
         project = Project.objects.get(project_number=project_number, release__task__status="In progress")
         releases = Release.objects.filter(project__project_number=project_number, task__status="In progress")
-        print(releases)
     except:
         raise Http404("bad request or view_method logic problem, not found!!!")
     return render(request, 'project_view.html', {'releases': releases, 'project': project})

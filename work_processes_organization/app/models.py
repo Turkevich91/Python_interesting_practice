@@ -1,28 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-# from django.db.models import Q
+from django.db.models import Q
 # from django.utils import timezone
 
 
 class Project(models.Model):
     project_number = models.PositiveIntegerField('Project number')
-    project_title = models.CharField('Project name', max_length=200, blank=True)
+    project_title = models.CharField('Project title', max_length=200, blank=True)
     project_path = models.CharField('File Path', max_length=200, blank=True)
-    # todo: restrict choice to User(Group='PM').
-    project_manager = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
-    purchase_order = models.ForeignKey('inventory.PurchaseOrder', default=None, null=True, blank=True, on_delete=models.SET_NULL)   #thanks for solution https://t.me/pydjango@eva_kuator
+    project_manager = models.ForeignKey(User, default=None, null=True, blank=True, on_delete=models.SET_NULL,
+                                        limit_choices_to=Q(groups=2))   # id(2) == group_name("PM")
+    purchase_order = models.ForeignKey('inventory.PurchaseOrder', default=None, null=True, blank=True,
+                                       on_delete=models.SET_NULL)   # thanks https://t.me/pydjango@eva_kuator
     address = models.CharField('Address', max_length=254, null=True, blank=True)
     mail_address = models.CharField("Mail address", max_length=254, null=True, blank=True)
 
-    # limit_choices_to=
-    # User.objects.select_related('Group').get(id=25),
-    # {'username': User.groups.aggregate('PM')
-    #     'username': ['BJohn', 'TGilstrap', 'SOrrell', 'THarwell', 'TMesser', 'MKunz', 'JJohns', 'MJacobson', 'SHadley',
-    #                  'CWhitehorne', 'TKuhn', 'GVEspinell', 'CTucker', 'ELizardi', 'CJaunsen', 'LBonilla', 'JMatheus',
-    #                  'FMcCormick', 'JHulsey']
-    #     User.objects.filter(groups__name='PM') #  works in general but not with limit_choices_to: returns Qset
-    #     # User.objects.filter(username='JHulsey') # works also for singular instance
-    # },
     class Meta:
         verbose_name = 'project'
         verbose_name_plural = 'projects'
@@ -32,9 +24,6 @@ class Project(models.Model):
 
     modified = models.DateTimeField(auto_now=True)
 
-    # project_manager = models.ForeignKey(User, limit_choices_to={'Group'})
-    # https://stackoverflow.com/questions/2245895/is-there-a-simple-way-to-get-group-names-of-a-user-in-django
-    # User.objects.get(groups__name='PM')
     def __str__(self):
         return str(self.project_number)
 
@@ -46,13 +35,18 @@ class Release(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     release_title = models.CharField('Release name', max_length=10)
     release_folder = models.CharField('Folder', max_length=200,
-                                      default=r"D:\Users\Public\Downloads\01ProjectEmptyFiles",
+                                      default=r"PD",
                                       blank=True)
-    release_material = models.ManyToManyField('inventory.Material',  through="ReleaseMaterial")
-    # todo finish above first
-    # release_material = models.ForeignKey(Material, blank=None, null=True, on_delete=models.DO_NOTHING)
-    # punch_nest = models.CharField('Nest_dict', max_length=1000)
-    modified = models.DateTimeField(auto_now=True)
+    # production specific information
+    material_type = models.ForeignKey('inventory.MaterialType', on_delete=models.CASCADE)
+    material_thickness = models.ForeignKey('inventory.MaterialThickness', on_delete=models.CASCADE)
+    material_color = models.ForeignKey('inventory.MaterialColor', on_delete=models.CASCADE, blank=True, null=True)
+    grain_direction = models.BooleanField("GD")
+    provided_material = models.ManyToManyField('inventory.Material', through="ReleaseMaterial",
+                                               blank=True)
+
+    # data-time fields
+    created = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'release'
@@ -67,7 +61,7 @@ class Release(models.Model):
 
 
 class ReleaseMaterial(models.Model):
-    release = models.ForeignKey(Release, on_delete=models.CASCADE)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE)  # не вырубать! нужно даже если все вот это.
     material = models.ForeignKey('inventory.Material', on_delete=models.CASCADE)
     material_quantity = models.PositiveIntegerField('quantity')
 
@@ -83,20 +77,21 @@ class Panel(models.Model):
     panel_title = models.CharField('Panel title', max_length=10)
     panel_quantity = models.PositiveIntegerField('Quantity', blank=True, default=1)
     modified = models.DateTimeField(auto_now=True)
+    size_x = models.FloatField('X')
+    size_y = models.FloatField('Y')
 
-
-
-    # todo сообразить куда вставить этот блок, скорее всего надо будет создать дополнительную таблицу где будем логировать
-    # кто, когда и на каком этапе сделал панель, в случае нестов программа должна обрабатывать каждую панель отдельно, ведь
-    # каждая панель может быть спродуктирована разными людьми с разного материала и в разное время
-    """
-    punching_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
+    # # report fields
+    punching_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+                                          related_name="punching_operator")
+    punching_operator_helper = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+                                                 related_name="punch_operator_helper")
+    bending_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+                                         related_name="bending_operator")
+    fabricator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+                                   related_name="fabricator")
     punch_datetime = models.DateTimeField(default=None, null=True)
-    bending_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
     bend_datetime = models.DateTimeField(default=None, null=True)
-    fabricator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL)
     fabricated = models.DateTimeField(default=None, null=True)
-    """
 
     def __str__(self):
         return f'{self.release}-{self.panel_title}'
@@ -107,6 +102,34 @@ class Panel(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['release', 'panel_title'], name='unique panels')
         ]
+
+
+class Nest(models.Model):
+    name = models.CharField("name", max_length=56, unique=True)
+    release = models.ForeignKey(Release, on_delete=models.CASCADE)
+
+
+class Layout(models.Model):
+    name = models.CharField("name", max_length=16)
+    quantity = models.PositiveIntegerField(default=1)
+    nest = models.ForeignKey(Nest, on_delete=models.CASCADE)
+    panels = models.ManyToManyField(Panel, through="LayoutPanels")
+
+    def __str__(self):
+        return f'{self.nest}-{self.name}'
+
+    class Meta:
+        verbose_name = 'layout'
+        verbose_name_plural = 'layouts'
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'nest'], name='unique layout')
+        ]
+
+
+class LayoutPanels(models.Model):
+    layout = models.ForeignKey(Layout, on_delete=models.CASCADE)
+    panel = models.ForeignKey(Panel, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 
 
 class Task(models.Model):

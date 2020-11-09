@@ -1,6 +1,9 @@
+import lorem
+
+
 class Pagination:
 
-    def __init__(self, items=[], page_size=10):
+    def __init__(self, items, page_size=10):
         self.items = items
         self.page_size = page_size
         self.total_pages = 1 if not self.items else (len(self.items) // self.page_size) + 1
@@ -50,6 +53,6 @@ class Pagination:
         return self.items[start:end]
 
 
-a = Pagination([x for x in range(1, 1001)], 15)
+a = Pagination([lorem.paragraph() for x in range(1, 10001)], page_size=20)
 for i in range(1, a.total_pages+1):
     print(f'page {a.current_page}:', a.go_to_page(i).get_visible_items())

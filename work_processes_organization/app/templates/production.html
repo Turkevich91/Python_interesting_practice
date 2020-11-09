@@ -4,16 +4,18 @@
 
 {% block content %}
 
-    {% if active_tasks %}
+    {% if active_projects %}
         <h4 style="horiz-align: center">Here are some of the tasks available:</h4><br>
         <div class="list-group">
-            {% for project in active_tasks %}
+            {% for project in active_projects %}
 
                 <a href="{{ project.project_number }}"
                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <b>{{ project.project_number }} {{ project.project_title }}</b>
+                    <span>{{ project }}</span>
                     {#                    {% for x in project.release_set.get_queryset %} WORKS!!! {{ x.release_title }} #}
                     <span class="badge badge-primary badge-pill">{{ project.release_set.count }}</span>
+                    {# todo found correct filter #}
                     {#                    {% endfor %}#}
                     {#                {% url 'app:project_view' project.project_number %}#}
                 </a>

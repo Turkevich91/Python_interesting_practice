@@ -1,9 +1,12 @@
-from django.http import Http404, HttpResponseRedirect, HttpResponse, FileResponse
-from django.shortcuts import render
-from django.views.decorators.gzip import gzip_page
 # from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render
+from django.views.decorators.gzip import gzip_page
+
 from .models import Project, Release, Panel, Task
+
+
 # import io
 # from reportlab.pdfgen import canvas
 
@@ -39,19 +42,16 @@ def logout_request(request):
 @gzip_page
 # @login_required
 def production(request):
-    active_tasks = set(Project.objects.filter(release__task__status="In progress"))
+    active_tasks = Project.objects.filter(release__task__status="In progress")
     # print(len(Release.objects.filter(project__id=1)))  # Works!
-    return render(request, 'production.html', {'active_tasks': active_tasks})
+    return render(request, 'production.html', {'active_projects': set(active_tasks)})
 
 
 @gzip_page
 def project_view(request, project_number):
-    try:
-        project = Project.objects.get(project_number=project_number, release__task__status="In progress")
-        releases = Release.objects.filter(project__project_number=project_number, task__status="In progress")
-    except:
-        raise Http404("bad request or view_method logic problem, not found!!!")
-    return render(request, 'project_view.html', {'releases': releases, 'project': project})
+    project = Project.objects.filter(project_number=project_number, release__task__status="In progress")
+    releases = Release.objects.filter(project__project_number=project_number, task__status="In progress")
+    return render(request, 'project_view.html', {'releases': releases, 'project': project[0]})
 
 
 @gzip_page

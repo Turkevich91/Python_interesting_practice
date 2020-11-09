@@ -1,6 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import User, Group
+from django.db import models
 from django.db.models import Q
+
+
 # from django.utils import timezone
 
 
@@ -9,9 +11,9 @@ class Project(models.Model):
     project_title = models.CharField('Project title', max_length=200, blank=True)
     project_path = models.CharField('File Path', max_length=200, blank=True)
     project_manager = models.ForeignKey(User, default=None, null=True, blank=True, on_delete=models.SET_NULL,
-                                        limit_choices_to=Q(groups=2))   # id(2) == group_name("PM")
+                                        limit_choices_to=Q(groups=2))  # id(2) == group_name("PM")
     purchase_order = models.ForeignKey('inventory.PurchaseOrder', default=None, null=True, blank=True,
-                                       on_delete=models.SET_NULL)   # thanks https://t.me/pydjango@eva_kuator
+                                       on_delete=models.SET_NULL)  # thanks https://t.me/pydjango@eva_kuator
     address = models.CharField('Address', max_length=254, null=True, blank=True)
     mail_address = models.CharField("Mail address", max_length=254, null=True, blank=True)
 
@@ -66,7 +68,7 @@ class ReleaseMaterial(models.Model):
     material_quantity = models.PositiveIntegerField('quantity')
 
     class Meta:
-        verbose_name = 'Release material'
+        verbose_name = 'Expected material usage'
 
     def __str__(self):
         return f'{self.release} - [{self.material}] - ({self.material_quantity} pcs)'
@@ -81,17 +83,17 @@ class Panel(models.Model):
     size_y = models.FloatField('Y')
 
     # # report fields
-    punching_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+    punching_operator = models.ForeignKey(User, default=None, null=True, blank=True, on_delete=models.SET_NULL,
                                           related_name="punching_operator")
-    punching_operator_helper = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+    punching_operator_helper = models.ForeignKey(User, default=None, null=True, blank=True, on_delete=models.SET_NULL,
                                                  related_name="punch_operator_helper")
-    bending_operator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+    bending_operator = models.ForeignKey(User, default=None, null=True, blank=True, on_delete=models.SET_NULL,
                                          related_name="bending_operator")
-    fabricator = models.ForeignKey(User, default=None, null=True, on_delete=models.SET_NULL,
+    fabricator = models.ForeignKey(User, default=None, null=True, blank=True, on_delete=models.SET_NULL,
                                    related_name="fabricator")
-    punch_datetime = models.DateTimeField(default=None, null=True)
-    bend_datetime = models.DateTimeField(default=None, null=True)
-    fabricated = models.DateTimeField(default=None, null=True)
+    punch_datetime = models.DateTimeField(default=None, null=True, blank=True)
+    bend_datetime = models.DateTimeField(default=None, null=True, blank=True)
+    fabricated = models.DateTimeField(default=None, null=True, blank=True)
 
     def __str__(self):
         return f'{self.release}-{self.panel_title}'
@@ -108,12 +110,20 @@ class Nest(models.Model):
     name = models.CharField("name", max_length=56, unique=True)
     release = models.ForeignKey(Release, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Nest'
+        verbose_name_plural = 'Nests'
+
 
 class Layout(models.Model):
     name = models.CharField("name", max_length=16)
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField('Quantity', default=1)
+    produced = models.PositiveIntegerField('Produced', default=0)
     nest = models.ForeignKey(Nest, on_delete=models.CASCADE)
-    panels = models.ManyToManyField(Panel, through="LayoutPanels")
+    panels = models.ManyToManyField(Panel, through="LayoutPanel")
 
     def __str__(self):
         return f'{self.nest}-{self.name}'
@@ -126,10 +136,16 @@ class Layout(models.Model):
         ]
 
 
-class LayoutPanels(models.Model):
+class LayoutPanel(models.Model):
     layout = models.ForeignKey(Layout, on_delete=models.CASCADE)
     panel = models.ForeignKey(Panel, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.layout.nest.name}-{self.layout.name}-{self.panel.panel_title} ({self.quantity})'
+
+    class Meta:
+        verbose_name = "Layout's panel"
 
 
 class Task(models.Model):
@@ -171,4 +187,3 @@ class Task(models.Model):
 
     def __str__(self):
         return str(self.release.project.project_number) + ' - ' + str(self.release.release_title)
-

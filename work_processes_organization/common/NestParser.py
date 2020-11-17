@@ -1,5 +1,5 @@
-import re
 import json
+import re
 
 
 class Nest:
@@ -31,7 +31,14 @@ class Nest:
 
     @property
     def parse_striker_report(self):
-        f = open(Nest.STRIKER_REPORT_PATH, "r")
+        try:
+            f = open(Nest.STRIKER_REPORT_PATH, "r")
+        except FileNotFoundError:
+            print('File not found\nPlease, specify correct file path below:', end="\n")
+            f_path = input()
+            f = open(f_path, "r")
+
+        # start parsing here:
         while line := f.readline():  # walrus operator!
 
             # Nest information
@@ -42,12 +49,12 @@ class Nest:
                 line = f.readline()
                 self.material_thickness = float(line.split()[-1].strip())
 
-                print(f'Kit name:  {self.kit_name}')
-                print(f'Material: {self.material}')
-                print("Material Thickness: %.3f" % self.material_thickness)
+                # print(f'Kit name:  {self.kit_name}')
+                # print(f'Material: {self.material}')
+                # print("Material Thickness: %.3f" % self.material_thickness)
 
             if 'Nest System' in line:
-                print('Nest System:')
+                # print('Nest System:')
                 line = f.readline()
                 self.total_scrap = float(line.split(':')[1].strip())
                 line = f.readline()
@@ -58,7 +65,7 @@ class Nest:
                 self.nest_utilization = line.split(':')[1].strip()
 
             if '*** PART SUMMARY ***' in line:
-                print('@' * 50 + '\n' + '\t' * 5 + 'Part list\n' + '@' * 50)
+                # print('@' * 50 + '\n' + '\t' * 5 + 'Part list\n' + '@' * 50)
                 f.readline()  # Просто пропускает одну строку бесполезных данных
                 line = f.readline()  # начиная с этой строки и дальше данные проверяются и записываются
                 while line != '\n':
@@ -66,49 +73,49 @@ class Nest:
 
                     self.parts[S[0]] = {'x': float(S[1]), "y": float(S[2]), "qty": int(S[3])}
                     line = f.readline()
-                for i in self.parts:
-                    print(i, '\t\t',
-                          str(self.parts[i]['x']).ljust(5), '\t\t',
-                          str(self.parts[i]['y']).ljust(6), '\t',
-                          self.parts[i]['qty']
-                          )
+                # for i in self.parts:
+                #     print(i, '\t\t',
+                #           str(self.parts[i]['x']).ljust(5), '\t\t',
+                #           str(self.parts[i]['y']).ljust(6), '\t',
+                #           self.parts[i]['qty']
+                #           )
 
             if '*** Layout Number' in line:
 
-                print('************* Layouts: ******************')
-                while line:
+                layout_number = int(re.findall(r'(\d+)', line)[0])
+                line = f.readline()
+                # print(layout_number)
+                self.layouts[layout_number] = {}
 
-                    if '*** Layout Number' in line:
-                        layout_number = int(re.findall(r'(\d+)', line)[0])
-                        line = f.readline()
-                        print(layout_number)
-                        self.layouts[layout_number] = {}
-
-                        while line != '\n':
-                            a = line.strip().split(':')
-                            print(a)
-                            self.layouts[layout_number][a[0].strip()] = a[1]
-                            line = f.readline()
-
-                            if 'PartNo.' in line:
-                                line = f.readline()
-
-                                while line != '\n':
-                                    self.layouts[layout_number][a[0]]['parts'][line.split()[0]] = line.split()[4]
-                                    self.layouts[layout_number][a[0]]['parts'] = line.split()[0]
-
-                        # print(self.layouts.get(layout_number))
-                        # print(self.layouts)
-
-                        # if "PartNo." in line:
-                        #     f.readline()
-                        #     # while line != '\n':
-                        #     #     self.layouts = {layout_number: {"Part": line.split()[0]}}
-                        #
-                        # line = f.readline()
-                        # print(f'{self.layouts}'.rjust(2, '0')+":")
+                while line != '\n':
+                    a = line.strip().split(':')
+                    # print(a)
+                    self.layouts[layout_number][a[0].strip()] = a[1]
 
                     line = f.readline()
+                line = f.readline()
+
+                if 'PartNo' in line:
+                    line = f.readline()
+
+                    self.layouts[layout_number]["Parts"] = {}
+
+                    while line != '\n' and line:
+                        ls = line.split()
+                        self.layouts[layout_number]["Parts"][ls[0]] = {'Blank/Qty': ls[4], "Total/Qty": ls[5]}
+                        # print([ls[0]], [ls[4], ls[5]])
+                        line = f.readline()
+
+                # print(self.layouts.get(layout_number))
+                # print(self.layouts)
+
+                # if "PartNo." in line:
+                #     f.readline()
+                #     # while line != '\n':
+                #     #     self.layouts = {layout_number: {"Part": line.split()[0]}}
+                #
+                # line = f.readline()
+                # print(f'{self.layouts}'.rjust(2, '0')+":")
 
         f.close()
         return self
@@ -117,9 +124,6 @@ class Nest:
 nest = Nest()
 nest.parse_striker_report
 
-print('parts: ', nest.total_parts())
-print('*******JSON*******', end='\n')
-print(json.dumps(nest.__dict__, indent=2))
-# print(nest.parts['PAP05-154']['qty'])
-# print(nest.parts.get('PAP05-244'))
-# del nest
+# print('parts: ', nest.total_parts())
+# print('*******JSON*******', end='\n')
+print(json.dumps(nest.__dict__, indent=3))

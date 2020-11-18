@@ -25,6 +25,12 @@ class Nest:
             parts += part['qty']
         return parts
 
+    def total_sheets(self):
+        sheets = int()
+        for part in self.material_set.values():
+            sheets += part['Qty']
+        return sheets
+
     def __str__(self):
         if self.kit_name:
             return self.kit_name
@@ -64,8 +70,20 @@ class Nest:
                 line = f.readline()
                 self.nest_utilization = line.split(':')[1].strip()
 
+            if "Qty	Width	Length	Patterns" in line:
+                head = line.split()
+                f.readline(1)
+                f.readline(1)
+                line = f.readline()
+                i = 0
+                while line != "\n":
+                    lp = line.split()
+                    i += 1
+                    self.material_set[str(i)] = {head[0]: int(lp[0]), head[1]: float(lp[1]), head[2]: float(lp[2]),
+                                                 head[3]: int(lp[3])}
+                    line = f.readline()
+
             if '*** PART SUMMARY ***' in line:
-                # print('@' * 50 + '\n' + '\t' * 5 + 'Part list\n' + '@' * 50)
                 f.readline()  # Просто пропускает одну строку бесполезных данных
                 line = f.readline()  # начиная с этой строки и дальше данные проверяются и записываются
                 while line != '\n':
@@ -73,12 +91,6 @@ class Nest:
 
                     self.parts[S[0]] = {'x': float(S[1]), "y": float(S[2]), "qty": int(S[3])}
                     line = f.readline()
-                # for i in self.parts:
-                #     print(i, '\t\t',
-                #           str(self.parts[i]['x']).ljust(5), '\t\t',
-                #           str(self.parts[i]['y']).ljust(6), '\t',
-                #           self.parts[i]['qty']
-                #           )
 
             if '*** Layout Number' in line:
 
@@ -106,24 +118,11 @@ class Nest:
                         # print([ls[0]], [ls[4], ls[5]])
                         line = f.readline()
 
-                # print(self.layouts.get(layout_number))
-                # print(self.layouts)
-
-                # if "PartNo." in line:
-                #     f.readline()
-                #     # while line != '\n':
-                #     #     self.layouts = {layout_number: {"Part": line.split()[0]}}
-                #
-                # line = f.readline()
-                # print(f'{self.layouts}'.rjust(2, '0')+":")
-
         f.close()
         return self
 
 
 nest = Nest()
 nest.parse_striker_report
-
-# print('parts: ', nest.total_parts())
-# print('*******JSON*******', end='\n')
+print("TOTAL SHEETS: ", nest.total_sheets())
 print(json.dumps(nest.__dict__, indent=3))

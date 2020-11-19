@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <h1>Equipment</h1>
+
+    {# SEARCH FIELD #}
+    <form action="" method="get">
+        {% csrf_token %}
+        <fieldset>
+            <input type="search" name="search" placeholder=""> <input type="submit" value="Search">
+        </fieldset>
+    </form>
+
+    <hr>
+    {# CATEGORY ADD FIELD #}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ eq_cat_form.as_p }}
+        <input type="submit" name="add_cat" id="add_cat" value="Add">
+    </form>
+
+    <hr>
+    {# TOOL ADD FIELDS #}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ add_equipment.as_table }}
+        </table>
+        <p><input type="submit" name="add_tool" id="add_tool_submit" value="Submit"></p>
+    </form>
+
+    {% if equip %}
+        <ul>
+            {% for one in equipment %}
+                <li>{{ one }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <hr>
+        <p>No equipment yet</p>
+    {% endif %}
+
+{% endblock %}

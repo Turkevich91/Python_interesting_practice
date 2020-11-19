@@ -1,4 +1,5 @@
 # from django.contrib.auth.decorators import login_required
+from . import forms
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
@@ -44,7 +45,8 @@ def logout_request(request):
 def production(request):
     active_tasks = Project.objects.filter(release__task__status="In progress")
     # print(len(Release.objects.filter(project__id=1)))  # Works!
-    return render(request, 'production.html', {'active_projects': set(active_tasks)})
+    form = forms.TaskForm
+    return render(request, 'production.html', {'active_projects': set(active_tasks), 'form': form})
 
 
 @gzip_page

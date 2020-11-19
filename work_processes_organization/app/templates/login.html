@@ -13,7 +13,14 @@
                 {#                <button name="logout" value="True" type="submit" class="btn btn-primary">Log out</button>#}
                 {#            </form>#}
             </p>
+        {% else %}
+            <p><b>Registration</b> is closed, for security reason, only MillerClapperton staff may have the access. <br>
+                If you are one of MillerClapperton's, and you still don't have it or you want to recover/change your password, please
+                contact with
+                <a href="mailto:vturkevych@millerclapperton.com">Vitalii Turkevych</a>
+                to create/change it.</p>
         {% endif %}
+
         <div class="form-group">
             <label for="InputLogin">Login</label>
             <input type="text" class="form-control" id="InputLogin" name="username">

@@ -4,18 +4,15 @@
 
 {% block content %}
 
-<div>Menu:</div>
-<a href="{% url "table" %}">
-    <div>test-table</div>
-</a>
-<a href="{% url "material" %}">
-    <div>material</div>
-</a>
-<a href="{% url "machine_equipment" %}">
-    <div>machine_equipment</div>
-</a>
-<a href="{% url "personal_equipment" %}">
-    <div>machine eqp; tools and parts<br></div>
-</a>
+    <div>Menu:</div>
+    <a href="{% url "table" %}">
+        <div>test-table</div>
+    </a>
+    <a href="{% url "material" %}">
+        <div>material</div>
+    </a>
+    <a href={% url "equipment" %}>
+        <div>equipment</div>
+    </a>
 
 {% endblock %}

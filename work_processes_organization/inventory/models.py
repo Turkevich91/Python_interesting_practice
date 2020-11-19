@@ -86,7 +86,7 @@ class Material(models.Model):
         ]
 
     def __str__(self):
-        return f"{str(self.material_type.name)} { '%.0f' % self.material_size.size_x}x" \
+        return f"{str(self.material_type.name)} {'%.0f' % self.material_size.size_x}x" \
                f"{'%.0f' % self.material_size.size_y} {self.material_thickness}"
 
 
@@ -127,3 +127,20 @@ class Pallet(models.Model):
 
     def __str__(self):
         return f'PO:{self.purchase_order} {self.material} {self.material_amount}pcs'
+
+
+class EquipmentCategory(models.Model):
+    name = models.CharField("category", max_length=40)
+
+    class Meta:
+        verbose_name = "Equipment Category"
+
+    def __str__(self):
+        return self.name
+
+
+class Equipment(models.Model):
+    category = models.ForeignKey(EquipmentCategory, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField("Name", max_length=40)
+    quantity = models.PositiveSmallIntegerField()
+    condition = models.CharField("Condition", max_length=1000, blank=True, null=True)

@@ -1,4 +1,4 @@
-import json
+# import json
 import re
 
 
@@ -15,8 +15,8 @@ class Nest:
         self.total_nest_scrap = float()
         self.nest_utilization = float()
 
-        self.parts = dict()
         self.material_set = dict()
+        self.parts = dict()
         self.layouts = dict()
 
     def total_parts(self):
@@ -36,7 +36,11 @@ class Nest:
             return self.kit_name
 
     @property
-    def parse_striker_report(self):
+    def parse_striker_report(self, path=STRIKER_REPORT_PATH):
+        """
+        Recommend to convert obj to json or other structure
+        :return: Nest.obj
+        """
         try:
             f = open(Nest.STRIKER_REPORT_PATH, "r")
         except FileNotFoundError:
@@ -96,12 +100,10 @@ class Nest:
 
                 layout_number = int(re.findall(r'(\d+)', line)[0])
                 line = f.readline()
-                # print(layout_number)
                 self.layouts[layout_number] = {}
 
                 while line != '\n':
                     a = line.strip().split(':')
-                    # print(a)
                     self.layouts[layout_number][a[0].strip()] = a[1]
 
                     line = f.readline()
@@ -120,9 +122,9 @@ class Nest:
 
         f.close()
         return self
-
-
-nest = Nest()
-nest.parse_striker_report
-print("TOTAL SHEETS: ", nest.total_sheets())
-print(json.dumps(nest.__dict__, indent=3))
+#
+#
+# nest = Nest()
+# nest.parse_striker_report
+# print("TOTAL SHEETS: ", nest.total_sheets())
+# print(json.dumps(nest.__dict__, indent=3))
